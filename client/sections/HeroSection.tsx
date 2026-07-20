@@ -58,14 +58,10 @@ export function HeroSection() {
               className="flex flex-wrap gap-3.5 items-center pt-1"
             >
               <Link
-                href="/workspace/assistant"
+                href="/login"
                 className="inline-flex items-center gap-2 h-11 px-6 rounded-sm text-xs font-semibold bg-text-primary text-bg-primary hover:opacity-90 transition-all duration-200 shadow-md group"
               >
-                <Bot size={16} />
-                <span>Launch Workforce Copilot</span>
-                <kbd className="hidden sm:inline-flex items-center px-1.5 py-0.2 text-[9px] font-mono rounded bg-bg-primary text-text-primary border border-border-subtle ml-1">
-                  Alt+C
-                </kbd>
+                <span>Sign In to Workspace</span>
                 <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
               </Link>
 

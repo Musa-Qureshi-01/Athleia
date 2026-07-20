@@ -132,19 +132,6 @@ export function Navbar() {
             <div className="flex items-center gap-2.5 shrink-0">
               <ThemeToggle />
 
-              {/* Workforce Copilot Quick Action */}
-              <Link
-                href="/workspace/assistant"
-                className="hidden sm:inline-flex items-center gap-1.5 h-8 px-3 rounded-sm text-xs font-medium bg-text-primary text-bg-primary hover:opacity-90 transition-opacity shadow-sm"
-                title="Launch Workforce Copilot (Shortcut: Alt+C)"
-              >
-                <Bot size={14} />
-                <span>Workforce Copilot</span>
-                <kbd className="hidden md:inline-flex items-center px-1 py-0.1 text-[9px] font-mono rounded bg-bg-primary text-text-primary border border-border-subtle opacity-80">
-                  Alt+C
-                </kbd>
-              </Link>
-
               {/* Sign in */}
               <Link
                 href="/login"

@@ -3,8 +3,7 @@
 export const NAV_LINKS = [
   { label: "Platform Services", href: "#platform" },
   { label: "Architecture", href: "#architecture" },
-  { label: "Workforce Copilot", href: "/workspace/assistant" },
-  { label: "Compliance & Maintenance", href: "#capabilities" },
+  { label: "Capabilities", href: "#capabilities" },
   { label: "Security & RBAC", href: "#security" },
   { label: "Contact", href: "/contact" },
 ];
