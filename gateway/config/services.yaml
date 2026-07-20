@@ -138,4 +138,20 @@ services:
       path: /health
       interval_seconds: 30
 
+  assistant:
+    path_prefix: /api/v1/assistant
+    instances:
+      - url: http://localhost:8010
+    load_balancer: round_robin
+    policy:
+      timeout_seconds: 60
+      retries: 1
+      circuit_breaker:
+        failure_threshold: 3
+        cooldown_seconds: 30
+    health_check:
+      path: /health
+      interval_seconds: 30
+
+
 
