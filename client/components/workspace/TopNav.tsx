@@ -10,6 +10,8 @@ import {
   LogOut,
   ChevronDown,
   Shield,
+  Bot,
+  Sparkles,
 } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { cn } from "@/lib/utils";
@@ -23,6 +25,18 @@ export function TopNav({ onOpenSearch }: TopNavProps) {
   const [profileOpen, setProfileOpen] = useState(false);
 
   const profileRef = useRef<HTMLDivElement>(null);
+
+  // Global keyboard shortcut listener for Alt+C (Workforce Copilot)
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.altKey && (e.key === "c" || e.key === "C" || e.key === "a" || e.key === "A")) {
+        e.preventDefault();
+        router.push("/workspace/assistant");
+      }
+    }
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [router]);
 
   // Close dropdowns on click outside
   useEffect(() => {
@@ -67,6 +81,19 @@ export function TopNav({ onOpenSearch }: TopNavProps) {
           <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "var(--status-verified)" }} />
           <span className="text-mono text-[11px]">API Gateway Connected</span>
         </div>
+
+        {/* Workforce Copilot Quick Launch Button */}
+        <button
+          onClick={() => router.push("/workspace/assistant")}
+          className="flex items-center gap-2 px-3 py-1.5 rounded-sm bg-text-primary text-bg-primary text-xs font-medium hover:opacity-90 transition-opacity shadow-sm"
+          title="Open Athleia Workforce Copilot (Shortcut: Alt+C)"
+        >
+          <Bot size={15} />
+          <span className="hidden sm:inline">Workforce Copilot</span>
+          <kbd className="hidden md:inline-flex items-center px-1.5 py-0.2 text-[9px] font-mono rounded bg-bg-primary text-text-primary border border-border-subtle opacity-80">
+            Alt+C
+          </kbd>
+        </button>
 
         {/* Theme Toggle */}
         <ThemeToggle />

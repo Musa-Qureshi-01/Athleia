@@ -24,17 +24,10 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const NAV_ITEMS = [
   {
     name: "Dashboard",
     href: "/workspace",
     icon: LayoutDashboard,
-  },
-  {
-    name: "Workforce Copilot",
-    href: "/workspace/assistant",
-    icon: Bot,
-    badge: "AI",
   },
   {
     name: "Documents",
@@ -65,6 +58,12 @@ const NAV_ITEMS = [
     name: "Compliance",
     href: "/workspace/compliance",
     icon: ShieldCheck,
+  },
+  {
+    name: "Workforce Copilot",
+    href: "/workspace/assistant",
+    icon: Bot,
+    badge: "Alt+C",
   },
   {
     name: "Settings",
@@ -199,7 +198,14 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
                 )}
               />
               {!collapsed && (
-                <span className="truncate whitespace-nowrap">{item.name}</span>
+                <div className="flex items-center justify-between w-full min-w-0">
+                  <span className="truncate whitespace-nowrap">{item.name}</span>
+                  {item.badge && (
+                    <span className="ml-auto px-1.5 py-0.2 text-[9px] font-mono rounded bg-bg-secondary text-text-tertiary border border-border-subtle group-hover:border-border-strong group-hover:text-text-secondary">
+                      {item.badge}
+                    </span>
+                  )}
+                </div>
               )}
               {isActive && (
                 <span
