@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+const NAV_ITEMS = [
   {
     name: "Dashboard",
     href: "/workspace",
