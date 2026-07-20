@@ -4,239 +4,238 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Navbar } from "@/components/layouts/HeaderNav";
 import { Footer } from "@/components/layouts/Footer";
-
-const INQUIRY_TYPES = [
-  "Enterprise deployment",
-  "Technical architecture review",
-  "Pilot program",
-  "Partnership",
-  "Security & compliance questions",
-  "Other",
-];
-
-function Field({
-  label,
-  id,
-  children,
-  hint,
-}: {
-  label: string;
-  id: string;
-  children: React.ReactNode;
-  hint?: string;
-}) {
-  return (
-    <div className="flex flex-col gap-2">
-      <label htmlFor={id} className="text-body text-text-primary font-medium text-sm">
-        {label}
-      </label>
-      {children}
-      {hint && <span className="text-mono text-text-tertiary">{hint}</span>}
-    </div>
-  );
-}
-
-const inputClass =
-  "w-full h-10 px-3 rounded-sm text-sm text-text-primary bg-bg-primary border border-border-strong focus:outline-none focus:border-accent transition-colors duration-150 placeholder:text-text-tertiary";
+import { FormalDropdown, DropdownOption } from "@/components/ui/FormalDropdown";
+import { Mail, ShieldCheck, Clock, Building2, MapPin, CheckCircle2, Send, PhoneCall } from "lucide-react";
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [inquiryType, setInquiryType] = useState("enterprise");
+  const [supportTier, setSupportTier] = useState("standard");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
   };
 
+  const INQUIRY_OPTIONS: DropdownOption[] = [
+    { value: "enterprise", label: "Enterprise Microservice Deployment", description: "Deploy Athleia on-premise or within customer VPC" },
+    { value: "copilot", label: "Workforce Copilot Integration", description: "LangGraph agent & SOP knowledge integration" },
+    { value: "compliance", label: "ISO 45001 & OSHA Compliance Audit", description: "Autonomous governance and risk scoring scans" },
+    { value: "maintenance", label: "Predictive Maintenance Telemetry", description: "Vibration sensor and MTBF ledger setup" },
+    { value: "security", label: "Security & RBAC Architecture Review", description: "Argon2id, JWT, and Neon Postgres data security" },
+  ];
+
+  const TIER_OPTIONS: DropdownOption[] = [
+    { value: "standard", label: "Standard Business Support", description: "Email response within 1 business day" },
+    { value: "priority", label: "Priority Plant Operational", description: "Dedicated engineer & 4-hour SLA" },
+    { value: "emergency", label: "24/7 Critical Plant Support", description: "15-minute emergency response guarantee" },
+  ];
+
   return (
     <>
       <Navbar />
-      <main className="min-h-screen pt-14" style={{ backgroundColor: "var(--bg-primary)" }}>
-        <div className="container-editorial py-10 lg:py-14">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20">
+      <main className="min-h-screen pt-16 bg-bg-primary text-text-primary">
+        <div className="container-editorial py-12 lg:py-16">
+          
+          {/* Header Title Banner */}
+          <div className="mb-12 space-y-3 max-w-2xl">
+            <span className="text-xs font-mono uppercase tracking-wider text-text-tertiary">
+              Engineering Support &amp; Deployment
+            </span>
+            <h1 className="text-heading-1 text-text-primary">
+              Connect directly with our Enterprise Architecture Team.
+            </h1>
+            <p className="text-body-lg text-text-secondary leading-relaxed">
+              We skip standard sales scripts. Speak directly with platform engineers to evaluate your document corpus, security requirements, and VPC deployment architecture.
+            </p>
+          </div>
 
-            {/* Left — Context */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+
+            {/* Left Context Cards (5 cols) */}
             <motion.div
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
-              className="lg:col-span-4 flex flex-col gap-8"
+              className="lg:col-span-5 flex flex-col gap-6"
             >
-              <div className="flex flex-col gap-4">
-                <span className="text-label text-text-tertiary">Contact</span>
-                <h1 className="text-heading-1 text-text-primary">
-                  Talk to our engineering team.
-                </h1>
-                <p className="text-body-lg text-text-secondary leading-relaxed">
-                  We don&apos;t do sales calls. We do technical conversations. Tell us about your
-                  document corpus, your query types, and your infrastructure — and we&apos;ll figure
-                  out together whether Athleia is the right fit.
+              {/* Emergency Plant SLA Card */}
+              <div className="p-5 rounded-sm border border-border-subtle bg-bg-secondary space-y-3">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-status-verified animate-pulse" />
+                  <span className="text-xs font-mono font-semibold text-text-primary uppercase tracking-wider">
+                    Response SLA Guarantee
+                  </span>
+                </div>
+                <p className="text-xs text-text-secondary leading-relaxed">
+                  Plant operational inquiries receive technical responses within 1 business day. Production emergencies receive 15-minute response SLA.
                 </p>
+                <div className="pt-3 border-t border-border-subtle flex items-center justify-between text-[11px] font-mono text-text-tertiary">
+                  <span>SLA Status: ACTIVE</span>
+                  <span className="text-status-verified font-bold">100% On-Time</span>
+                </div>
               </div>
 
-              {/* Contact details */}
-              <div
-                className="flex flex-col gap-5 pt-8 border-t border-border-subtle"
-              >
-                {[
-                  { label: "General enquiries", value: "hello@athleia.ai" },
-                  { label: "Enterprise & deployment", value: "enterprise@athleia.ai" },
-                  { label: "Security & compliance", value: "security@athleia.ai" },
-                ].map((item) => (
-                  <div key={item.label} className="flex flex-col gap-1">
-                    <span className="text-mono text-text-tertiary">{item.label}</span>
-                    <a
-                      href={`mailto:${item.value}`}
-                      className="text-body text-text-primary hover:text-accent transition-colors duration-150"
-                    >
-                      {item.value}
+              {/* Direct Email Channels */}
+              <div className="p-5 rounded-sm border border-border-subtle bg-bg-secondary space-y-4">
+                <span className="text-xs font-mono uppercase tracking-wider text-text-tertiary font-semibold block">
+                  Direct Email Contacts
+                </span>
+
+                <div className="space-y-3 text-xs">
+                  <div className="flex flex-col gap-0.5">
+                    <span className="text-text-tertiary font-mono">Enterprise &amp; Deployment</span>
+                    <a href="mailto:enterprise@athleia.ai" className="text-text-primary font-medium hover:text-accent transition-colors">
+                      enterprise@athleia.ai
                     </a>
                   </div>
-                ))}
+                  <div className="flex flex-col gap-0.5">
+                    <span className="text-text-tertiary font-mono">Security &amp; Compliance Audits</span>
+                    <a href="mailto:security@athleia.ai" className="text-text-primary font-medium hover:text-accent transition-colors">
+                      security@athleia.ai
+                    </a>
+                  </div>
+                  <div className="flex flex-col gap-0.5">
+                    <span className="text-text-tertiary font-mono">Workforce Copilot Support</span>
+                    <a href="mailto:copilot@athleia.ai" className="text-text-primary font-medium hover:text-accent transition-colors">
+                      copilot@athleia.ai
+                    </a>
+                  </div>
+                </div>
               </div>
 
-              {/* Response time */}
-              <div
-                className="p-4 rounded-sm border border-border-subtle"
-                style={{ backgroundColor: "var(--bg-secondary)" }}
-              >
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "var(--status-verified)" }} />
-                  <span className="text-mono text-text-tertiary">Typical response time</span>
+              {/* Global Engineering Offices */}
+              <div className="p-5 rounded-sm border border-border-subtle bg-bg-secondary space-y-3">
+                <span className="text-xs font-mono uppercase tracking-wider text-text-tertiary font-semibold block">
+                  Engineering Hubs
+                </span>
+                <div className="space-y-2 text-xs">
+                  <div className="flex items-center gap-2">
+                    <MapPin size={13} className="text-accent shrink-0" />
+                    <span className="text-text-primary font-medium">Stockholm, Sweden</span>
+                    <span className="text-text-tertiary text-[10px] font-mono ml-auto">HQ &amp; Core Engine</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <MapPin size={13} className="text-accent shrink-0" />
+                    <span className="text-text-primary font-medium">Houston, Texas</span>
+                    <span className="text-text-tertiary text-[10px] font-mono ml-auto">Industrial Ops</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <MapPin size={13} className="text-accent shrink-0" />
+                    <span className="text-text-primary font-medium">London, UK</span>
+                    <span className="text-text-tertiary text-[10px] font-mono ml-auto">EMEA Security</span>
+                  </div>
                 </div>
-                <span className="text-body font-medium text-text-primary">Within one business day</span>
               </div>
             </motion.div>
 
-            {/* Right — Form */}
+            {/* Right Contact Form (7 cols) */}
             <motion.div
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-              className="lg:col-span-7 lg:col-start-6"
+              className="lg:col-span-7"
             >
               {submitted ? (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, ease: "easeOut" }}
-                  className="flex flex-col gap-4 py-16"
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="w-2 h-2 rounded-full" style={{ backgroundColor: "var(--status-verified)" }} />
-                    <span className="text-mono text-text-tertiary">Message received</span>
+                <div className="p-8 rounded-sm border border-border-subtle bg-bg-secondary flex flex-col gap-4">
+                  <div className="flex items-center gap-2 text-status-verified font-mono text-xs">
+                    <CheckCircle2 size={16} />
+                    <span>Inquiry Registered</span>
                   </div>
-                  <h2 className="text-heading-1 text-text-primary">
-                    We&apos;ll be in touch.
+                  <h2 className="text-heading-2 text-text-primary">
+                    Thank you. Our engineering team has received your message.
                   </h2>
-                  <p className="text-body-lg text-text-secondary max-w-md leading-relaxed">
-                    Someone from our engineering team will read your message and reply within one
-                    business day. If it&apos;s urgent, email{" "}
-                    <a href="mailto:enterprise@athleia.ai" className="text-text-primary hover:text-accent transition-colors">
-                      enterprise@athleia.ai
-                    </a>{" "}
-                    directly.
+                  <p className="text-xs text-text-secondary leading-relaxed">
+                    A senior platform engineer will review your technical query and respond within your selected SLA window. If your plant requires immediate escalation, please email enterprise@athleia.ai directly.
                   </p>
-                </motion.div>
+                </div>
               ) : (
                 <form
                   onSubmit={handleSubmit}
-                  className="flex flex-col gap-6 p-8 border border-border-subtle rounded-sm"
-                  style={{ backgroundColor: "var(--bg-secondary)" }}
+                  className="p-8 rounded-sm border border-border-subtle bg-bg-secondary space-y-5"
                 >
-                  {/* Row: Name + Company */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <Field label="Full name" id="name">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-xs font-medium text-text-primary">Full Name</label>
                       <input
-                        id="name"
-                        name="name"
                         type="text"
                         required
                         placeholder="Jane Smith"
-                        className={inputClass}
-                        style={{ backgroundColor: "var(--bg-primary)" }}
+                        className="bg-bg-primary border border-border-subtle rounded-sm px-3 py-2 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none focus:border-accent"
                       />
-                    </Field>
-                    <Field label="Company" id="company">
+                    </div>
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-xs font-medium text-text-primary">Company / Industrial Facility</label>
                       <input
-                        id="company"
-                        name="company"
                         type="text"
                         required
-                        placeholder="Acme Corp"
-                        className={inputClass}
-                        style={{ backgroundColor: "var(--bg-primary)" }}
+                        placeholder="Acme Industrial Corp"
+                        className="bg-bg-primary border border-border-subtle rounded-sm px-3 py-2 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none focus:border-accent"
                       />
-                    </Field>
+                    </div>
                   </div>
 
-                  {/* Row: Email + Role */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <Field label="Work email" id="email">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-xs font-medium text-text-primary">Work Email</label>
                       <input
-                        id="email"
-                        name="email"
                         type="email"
                         required
-                        placeholder="jane@acme.com"
-                        className={inputClass}
-                        style={{ backgroundColor: "var(--bg-primary)" }}
+                        placeholder="jane.smith@acme.com"
+                        className="bg-bg-primary border border-border-subtle rounded-sm px-3 py-2 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none focus:border-accent"
                       />
-                    </Field>
-                    <Field label="Role" id="role">
+                    </div>
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-xs font-medium text-text-primary">Job Title &amp; Role</label>
                       <input
-                        id="role"
-                        name="role"
                         type="text"
-                        placeholder="Lead Process Engineer"
-                        className={inputClass}
-                        style={{ backgroundColor: "var(--bg-primary)" }}
+                        placeholder="Lead Operations Engineer"
+                        className="bg-bg-primary border border-border-subtle rounded-sm px-3 py-2 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none focus:border-accent"
                       />
-                    </Field>
+                    </div>
                   </div>
 
-                  {/* Inquiry type */}
-                  <Field label="Inquiry type" id="inquiry">
-                    <select
-                      id="inquiry"
-                      name="inquiry"
-                      className={inputClass}
-                      style={{ backgroundColor: "var(--bg-primary)" }}
-                      defaultValue=""
-                    >
-                      <option value="" disabled>Select one</option>
-                      {INQUIRY_TYPES.map((t) => (
-                        <option key={t} value={t}>{t}</option>
-                      ))}
-                    </select>
-                  </Field>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <FormalDropdown
+                        label="Inquiry Category"
+                        options={INQUIRY_OPTIONS}
+                        value={inquiryType}
+                        onChange={setInquiryType}
+                        className="w-full"
+                      />
+                    </div>
+                    <div>
+                      <FormalDropdown
+                        label="Support SLA Requirement"
+                        options={TIER_OPTIONS}
+                        value={supportTier}
+                        onChange={setSupportTier}
+                        className="w-full"
+                      />
+                    </div>
+                  </div>
 
-                  {/* Message */}
-                  <Field
-                    label="Message"
-                    id="message"
-                    hint="Tell us about your document types, query volume, and current infrastructure."
-                  >
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-xs font-medium text-text-primary">Technical Message</label>
                     <textarea
-                      id="message"
-                      name="message"
                       required
-                      rows={5}
-                      placeholder="We have roughly 800 P&ID PDFs and maintenance SOPs across three facilities..."
-                      className="w-full px-3 py-2.5 rounded-sm text-sm text-text-primary bg-bg-primary border border-border-strong focus:outline-none focus:border-accent transition-colors duration-150 placeholder:text-text-tertiary resize-none"
-                      style={{ backgroundColor: "var(--bg-primary)" }}
+                      rows={4}
+                      placeholder="Describe your document volume (e.g., 500 P&ID drawings and SOP manuals), deployment environment (AWS VPC, Azure, or air-gapped), and desired copilot integration..."
+                      className="bg-bg-primary border border-border-subtle rounded-sm px-3 py-2 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none focus:border-accent resize-none"
                     />
-                  </Field>
+                  </div>
 
-                  {/* Submit */}
-                  <div className="flex items-center justify-between pt-2 border-t border-border-subtle">
-                    <span className="text-mono text-text-tertiary">
-                      No sales pitch. Just a technical conversation.
+                  <div className="pt-2 border-t border-border-subtle flex items-center justify-between">
+                    <span className="text-[11px] font-mono text-text-tertiary">
+                      Direct engineering review • Zero sales fluff
                     </span>
                     <button
                       type="submit"
-                      className="inline-flex items-center h-9 px-6 rounded-sm text-sm font-medium bg-text-primary text-bg-primary hover:opacity-85 transition-opacity duration-150 shrink-0"
+                      className="px-5 py-2.5 bg-text-primary text-bg-primary rounded-sm text-xs font-medium hover:opacity-90 transition-opacity flex items-center gap-1.5 shadow-sm"
                     >
-                      Send message
+                      <Send size={13} />
+                      <span>Send Technical Inquiry</span>
                     </button>
                   </div>
                 </form>

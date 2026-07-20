@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Menu } from "lucide-react";
+import { X, Menu, Bot, ArrowRight } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { NAV_LINKS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
@@ -55,7 +55,7 @@ export function Navbar() {
       <header
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-          scrolled ? "border-b border-border-subtle" : "border-b border-transparent"
+          scrolled ? "border-b border-border-subtle shadow-xs" : "border-b border-transparent"
         )}
         style={{
           backgroundColor: scrolled ? "var(--nav-bg)" : "transparent",
@@ -63,16 +63,15 @@ export function Navbar() {
         }}
       >
         <div className="container-editorial">
-          <div className="flex h-[56px] items-center justify-between gap-8">
+          <div className="flex h-[56px] items-center justify-between gap-6">
 
-            {/* ── Logo ── */}
+            {/* Logo */}
             <Link
               href="/"
               className="flex items-center gap-2.5 shrink-0 group"
               aria-label="Athleia home"
             >
-              {/* Brand icon */}
-              <div className="w-6 h-6 shrink-0 transition-opacity duration-200 group-hover:opacity-80 rounded-[4px] overflow-hidden">
+              <div className="w-6 h-6 shrink-0 rounded-[4px] overflow-hidden">
                 <Image
                   src="/icon.png"
                   alt="Athleia"
@@ -83,23 +82,33 @@ export function Navbar() {
                 />
               </div>
               <span
-                className="text-sm font-medium tracking-[0.06em] text-text-primary transition-opacity duration-200 group-hover:opacity-70"
+                className="text-xs font-semibold tracking-[0.08em] text-text-primary transition-opacity duration-200 group-hover:opacity-80"
                 style={{ fontFamily: "var(--font-mono)" }}
               >
-                ATHLEIA
+                ATHLEIA.AI
               </span>
             </Link>
 
-            {/* ── Desktop nav links ── */}
+            {/* Desktop Navigation Links */}
             <nav className="hidden lg:flex items-center gap-1" role="navigation">
               {NAV_LINKS.map((link) => {
                 const isActive = activeSection === link.href.replace("#", "");
-                return (
+                const isExternalPage = link.href.startsWith("/");
+
+                return isExternalPage ? (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    className="px-3 py-1.5 text-xs font-medium text-text-secondary hover:text-text-primary rounded-sm transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
                   <a
                     key={link.label}
                     href={link.href}
                     className={cn(
-                      "relative px-3 py-1.5 text-sm rounded-sm transition-colors duration-150",
+                      "relative px-3 py-1.5 text-xs font-medium rounded-sm transition-colors duration-150",
                       isActive
                         ? "text-text-primary"
                         : "text-text-secondary hover:text-text-primary"
@@ -119,15 +128,22 @@ export function Navbar() {
               })}
             </nav>
 
-            {/* ── Right group ── */}
-            <div className="flex items-center gap-2 shrink-0">
+            {/* Right Action Buttons */}
+            <div className="flex items-center gap-2.5 shrink-0">
               <ThemeToggle />
 
-              {/* Divider */}
-              <div
-                className="hidden lg:block w-px h-4 mx-1"
-                style={{ backgroundColor: "var(--border-strong)" }}
-              />
+              {/* Workforce Copilot Quick Action */}
+              <Link
+                href="/workspace/assistant"
+                className="hidden sm:inline-flex items-center gap-1.5 h-8 px-3 rounded-sm text-xs font-medium bg-text-primary text-bg-primary hover:opacity-90 transition-opacity shadow-sm"
+                title="Launch Workforce Copilot (Shortcut: Alt+C)"
+              >
+                <Bot size={14} />
+                <span>Workforce Copilot</span>
+                <kbd className="hidden md:inline-flex items-center px-1 py-0.1 text-[9px] font-mono rounded bg-bg-primary text-text-primary border border-border-subtle opacity-80">
+                  Alt+C
+                </kbd>
+              </Link>
 
               {/* Sign in */}
               <Link
@@ -137,15 +153,10 @@ export function Navbar() {
                 Sign in
               </Link>
 
-              {/* CTA */}
+              {/* Request Demo */}
               <Link
                 href="/contact"
-                className={cn(
-                  "hidden lg:inline-flex items-center gap-2 h-8 px-4 rounded-sm",
-                  "text-xs font-medium tracking-wide",
-                  "border border-border-strong text-text-primary",
-                  "hover:bg-bg-secondary transition-colors duration-150"
-                )}
+                className="hidden lg:inline-flex items-center gap-1.5 h-8 px-3.5 rounded-sm text-xs font-medium border border-border-strong text-text-primary bg-bg-primary hover:bg-bg-secondary transition-colors duration-150"
               >
                 Request demo
               </Link>
@@ -155,84 +166,69 @@ export function Navbar() {
                 onClick={() => setMobileOpen((v) => !v)}
                 aria-label="Toggle menu"
                 aria-expanded={mobileOpen}
-                className={cn(
-                  "lg:hidden w-8 h-8 flex items-center justify-center rounded-sm",
-                  "text-text-secondary hover:text-text-primary transition-colors duration-150"
-                )}
+                className="lg:hidden w-8 h-8 flex items-center justify-center rounded-sm text-text-secondary hover:text-text-primary transition-colors"
               >
-                {mobileOpen
-                  ? <X size={16} strokeWidth={1.75} />
-                  : <Menu size={16} strokeWidth={1.75} />}
+                {mobileOpen ? <X size={16} /> : <Menu size={16} />}
               </button>
             </div>
           </div>
         </div>
       </header>
 
-      {/* ── Mobile menu ── */}
+      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {mobileOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-40 lg:hidden"
-              style={{ backgroundColor: "rgba(0,0,0,0.3)" }}
+              className="fixed inset-0 z-40 lg:hidden bg-black/40 backdrop-blur-xs"
               onClick={() => setMobileOpen(false)}
             />
-
-            {/* Panel */}
             <motion.div
               initial={{ opacity: 0, y: -6 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-              className="fixed top-[56px] left-0 right-0 z-40 lg:hidden border-b border-border-subtle"
-              style={{
-                backgroundColor: "var(--bg-primary)",
-                backdropFilter: "blur(16px)",
-              }}
+              className="fixed top-[56px] left-0 right-0 z-40 lg:hidden border-b border-border-subtle bg-bg-primary"
             >
               <div className="container-editorial py-5 flex flex-col gap-1">
-                {NAV_LINKS.map((link) => {
-                  const isActive = activeSection === link.href.replace("#", "");
-                  return (
-                    <a
-                      key={link.label}
-                      href={link.href}
-                      onClick={() => setMobileOpen(false)}
-                      className={cn(
-                        "px-3 py-2.5 rounded-sm text-sm transition-colors duration-150",
-                        isActive
-                          ? "text-text-primary font-medium"
-                          : "text-text-secondary hover:text-text-primary"
-                      )}
-                      style={isActive ? { backgroundColor: "var(--bg-tertiary)" } : {}}
-                    >
-                      {link.label}
-                    </a>
-                  );
-                })}
+                {NAV_LINKS.map((link) => (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="px-3 py-2 rounded-sm text-xs font-medium text-text-secondary hover:text-text-primary hover:bg-bg-secondary"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
 
-                {/* Mobile actions */}
-                <div className="pt-4 mt-2 border-t border-border-subtle flex items-center gap-3">
+                <div className="pt-4 mt-2 border-t border-border-subtle flex flex-col gap-2">
                   <Link
-                    href="/login"
+                    href="/workspace/assistant"
                     onClick={() => setMobileOpen(false)}
-                    className="inline-flex items-center h-9 px-4 rounded-sm text-sm text-text-secondary hover:text-text-primary transition-colors border border-border-subtle"
+                    className="flex items-center justify-center gap-2 h-9 px-4 rounded-sm text-xs font-medium bg-text-primary text-bg-primary"
                   >
-                    Sign in
+                    <Bot size={14} />
+                    <span>Launch Workforce Copilot (Alt+C)</span>
                   </Link>
-                  <Link
-                    href="/contact"
-                    onClick={() => setMobileOpen(false)}
-                    className="inline-flex items-center h-9 px-5 rounded-sm text-sm font-medium border border-border-strong text-text-primary hover:bg-bg-secondary transition-colors"
-                  >
-                    Request demo
-                  </Link>
+                  <div className="flex items-center gap-2">
+                    <Link
+                      href="/login"
+                      onClick={() => setMobileOpen(false)}
+                      className="flex-1 text-center py-2 rounded-sm text-xs text-text-secondary border border-border-subtle"
+                    >
+                      Sign in
+                    </Link>
+                    <Link
+                      href="/contact"
+                      onClick={() => setMobileOpen(false)}
+                      className="flex-1 text-center py-2 rounded-sm text-xs font-medium border border-border-strong text-text-primary"
+                    >
+                      Request demo
+                    </Link>
+                  </div>
                 </div>
               </div>
             </motion.div>
