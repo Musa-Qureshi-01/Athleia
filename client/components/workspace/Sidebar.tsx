@@ -19,6 +19,8 @@ import {
   ShieldCheck,
   Wrench,
   Crown,
+  Bot,
+  Sparkles,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -27,6 +29,12 @@ const NAV_ITEMS = [
     name: "Dashboard",
     href: "/workspace",
     icon: LayoutDashboard,
+  },
+  {
+    name: "Workforce Copilot",
+    href: "/workspace/assistant",
+    icon: Bot,
+    badge: "AI",
   },
   {
     name: "Documents",

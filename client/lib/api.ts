@@ -841,6 +841,120 @@ export async function fetchGatewayHealth(): Promise<Record<string, unknown>> {
 }
 
 // --------------------------------------------------
+// ATHLEIA WORKFORCE COPILOT / ASSISTANT SERVICE API
+// --------------------------------------------------
+const ASSISTANT_DIRECT = "http://localhost:8010";
+
+export async function sendAssistantChatMessage(payload: {
+  conversation_id?: string;
+  message: string;
+  model?: string;
+  mode?: string;
+  explanation_style?: string;
+}): Promise<any> {
+
+  const token = typeof window !== "undefined" ? localStorage.getItem("athleia_token") : null;
+  const headers: Record<string, string> = { "Content-Type": "application/json" };
+  if (token) headers["Authorization"] = `Bearer ${token}`;
+
+  try {
+    const res = await fetchWithTimeout(`${GATEWAY_URL}/api/v1/assistant/chat`, {
+      method: "POST",
+      headers,
+      body: JSON.stringify(payload),
+    });
+    if (res.ok) return await res.json();
+  } catch {
+    // Gateway offline, fallback direct
+  }
+
+  const res = await fetchWithTimeout(`${ASSISTANT_DIRECT}/api/v1/assistant/chat`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(payload),
+  });
+  if (!res.ok) throw new Error("Failed to communicate with Assistant Service.");
+  return await res.json();
+}
+
+export async function fetchAssistantConversations(): Promise<any[]> {
+  const token = typeof window !== "undefined" ? localStorage.getItem("athleia_token") : null;
+  const headers: Record<string, string> = {};
+  if (token) headers["Authorization"] = `Bearer ${token}`;
+
+  try {
+    const res = await fetchWithTimeout(`${GATEWAY_URL}/api/v1/assistant/conversations`, { headers });
+    if (res.ok) { const json = await res.json(); return json.conversations || []; }
+  } catch {
+    // Fallback
+  }
+
+  try {
+    const res = await fetchWithTimeout(`${ASSISTANT_DIRECT}/api/v1/assistant/conversations`, { headers });
+    if (res.ok) { const json = await res.json(); return json.conversations || []; }
+  } catch {
+    // Offline
+  }
+  return [];
+}
+
+export async function fetchAssistantConversationDetail(conversationId: string): Promise<any> {
+  const token = typeof window !== "undefined" ? localStorage.getItem("athleia_token") : null;
+  const headers: Record<string, string> = {};
+  if (token) headers["Authorization"] = `Bearer ${token}`;
+
+  try {
+    const res = await fetchWithTimeout(`${GATEWAY_URL}/api/v1/assistant/conversations/${conversationId}`, { headers });
+    if (res.ok) return await res.json();
+  } catch {
+    // Fallback
+  }
+
+  const res = await fetchWithTimeout(`${ASSISTANT_DIRECT}/api/v1/assistant/conversations/${conversationId}`, { headers });
+  if (!res.ok) throw new Error("Failed to load conversation details.");
+  return await res.json();
+}
+
+export async function fetchAssistantModels(): Promise<any[]> {
+  try {
+    const res = await fetchWithTimeout(`${GATEWAY_URL}/api/v1/assistant/models`);
+    if (res.ok) { const j = await res.json(); return j.available_models || []; }
+  } catch {
+    // Fallback
+  }
+  try {
+    const res = await fetchWithTimeout(`${ASSISTANT_DIRECT}/api/v1/assistant/models`);
+    if (res.ok) { const j = await res.json(); return j.available_models || []; }
+  } catch {
+    // Offline
+  }
+  return [];
+}
+
+export async function submitAssistantFeedback(messageId: string, rating: number, comment?: string): Promise<any> {
+  const token = typeof window !== "undefined" ? localStorage.getItem("athleia_token") : null;
+  const headers: Record<string, string> = { "Content-Type": "application/json" };
+  if (token) headers["Authorization"] = `Bearer ${token}`;
+
+  try {
+    const res = await fetchWithTimeout(`${GATEWAY_URL}/api/v1/assistant/feedback`, {
+      method: "POST",
+      headers,
+      body: JSON.stringify({ message_id: messageId, rating, comment })
+    });
+    if (res.ok) return await res.json();
+  } catch {}
+
+  const res = await fetchWithTimeout(`${ASSISTANT_DIRECT}/api/v1/assistant/feedback`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ message_id: messageId, rating, comment })
+  });
+  return await res.json();
+}
+
+
+// --------------------------------------------------
 // AUTHENTICATION & USER ADMINISTRATION API
 // --------------------------------------------------
 const AUTH_DIRECT = "http://localhost:8008";
