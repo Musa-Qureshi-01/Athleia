@@ -21,6 +21,7 @@ import {
   Activity,
   Maximize2,
   Terminal,
+  Search,
 } from "lucide-react";
 import {
   sendAssistantChatMessage,
@@ -228,7 +229,7 @@ export default function WorkforceCopilotPage() {
         <div className="p-3 border-b border-border-subtle">
           <button
             onClick={handleNewChat}
-            className="w-full flex items-center justify-center gap-2 py-2 px-3 bg-accent text-white rounded-sm text-xs font-medium hover:bg-accent/90 transition-colors shadow-xs"
+            className="w-full flex items-center justify-center gap-2 py-2 px-3 bg-text-primary text-bg-primary rounded-sm text-xs font-medium hover:opacity-90 transition-opacity shadow-sm"
           >
             <Plus size={14} />
             <span>New Copilot Session</span>
@@ -492,11 +493,11 @@ export default function WorkforceCopilotPage() {
             <button
               type="submit"
               disabled={loading || !inputMessage.trim()}
-              className="px-4 py-2.5 bg-accent text-white rounded-sm text-xs font-medium hover:bg-accent/90 disabled:opacity-50 transition-colors flex items-center gap-1.5 shrink-0 shadow-xs"
+              className="px-4 py-2.5 bg-text-primary text-bg-primary rounded-sm text-xs font-medium hover:opacity-90 disabled:opacity-50 transition-opacity flex items-center gap-1.5 shrink-0 shadow-sm"
             >
               {loading ? (
                 <>
-                  <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  <div className="w-3.5 h-3.5 border-2 border-bg-primary border-t-transparent rounded-full animate-spin" />
                   <span>Thinking...</span>
                 </>
               ) : (
