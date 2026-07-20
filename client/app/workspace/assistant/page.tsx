@@ -46,10 +46,11 @@ interface Citation {
 interface ToolAudit {
   tool_name: string;
   input_params: Record<string, unknown>;
-  output_summary: str;
+  output_summary: string;
   success: boolean;
-  latency_seconds: float;
+  latency_seconds: number;
 }
+
 
 interface Message {
   message_id?: string;
