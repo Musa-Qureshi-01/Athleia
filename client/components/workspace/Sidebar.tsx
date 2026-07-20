@@ -21,6 +21,7 @@ import {
   Crown,
   Bot,
   Sparkles,
+  LogOut,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -281,7 +282,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
         <div
           className={cn(
             "flex items-center gap-2 rounded-sm p-1.5 text-mono text-xs",
-            collapsed ? "justify-center" : "justify-between"
+            collapsed ? "flex-col justify-center" : "justify-between"
           )}
         >
           <div className="flex items-center gap-2 overflow-hidden">
@@ -295,21 +296,24 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
               </span>
             )}
           </div>
-          {!collapsed && (
-            <Link
-              href="/login"
-              onClick={() => {
-                if (typeof window !== "undefined") {
-                  localStorage.removeItem("athleia_token");
-                  localStorage.removeItem("athleia_user");
-                }
-              }}
-              className="text-[10px] font-mono text-status-error hover:underline"
-              title="Sign out"
-            >
-              Sign out
-            </Link>
-          )}
+
+          <Link
+            href="/login"
+            onClick={() => {
+              if (typeof window !== "undefined") {
+                localStorage.removeItem("athleia_token");
+                localStorage.removeItem("athleia_user");
+              }
+            }}
+            className={cn(
+              "flex items-center gap-1.5 px-2 py-1 rounded-sm border border-status-error/30 bg-status-error/5 text-status-error text-[11px] font-mono font-medium hover:bg-status-error/15 hover:border-status-error/60 transition-all shadow-2xs shrink-0",
+              collapsed && "p-1.5"
+            )}
+            title="Sign out of Athleia Platform"
+          >
+            <LogOut size={12} className="shrink-0" />
+            {!collapsed && <span>Sign out</span>}
+          </Link>
         </div>
       </div>
     </motion.aside>
