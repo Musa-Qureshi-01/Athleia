@@ -1,0 +1,39 @@
+# ── Notification Service .gitignore ─────────────────────────────
+
+# Secrets
+.env
+.env.local
+.env.production
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyc
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# Local SQLite DB (notification uses Neon in prod)
+*.db
+*.sqlite
+*.sqlite3
+notification_service.db
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db

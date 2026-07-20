@@ -1,0 +1,286 @@
+@import "tailwindcss";
+
+/* ============================================================
+   ATHLEIA.AI — ENTERPRISE DESIGN SYSTEM
+   Color Tokens, Typography, Spacing, Motion
+   ============================================================ */
+
+/* ----------------------------------------------------------
+   LIGHT THEME (Default) — Clean Technical Slate
+   ---------------------------------------------------------- */
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #f1f5f9;
+  --bg-inverse: #0f172a;
+
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-tertiary: #94a3b8;
+  --text-inverse: #f8fafc;
+
+  --border-subtle: #e2e8f0;
+  --border-strong: #cbd5e1;
+
+  --accent: #1e3a8a;
+  --accent-hover: #1e40af;
+  --accent-muted: #e0e7ff;
+  --accent-text: #1e3a8a;
+
+  --status-verified: #059669;
+  --status-warning: #d97706;
+  --status-error: #dc2626;
+
+  --nav-bg: rgba(255, 255, 255, 0.9);
+  --nav-border: rgba(226, 232, 240, 0.8);
+}
+
+/* ----------------------------------------------------------
+   DARK THEME — Architectural Industrial Dark
+   ---------------------------------------------------------- */
+[data-theme="dark"] {
+  --bg-primary: #090a0f;
+  --bg-secondary: #10121a;
+  --bg-tertiary: #171a26;
+  --bg-inverse: #f8fafc;
+
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-tertiary: #64748b;
+  --text-inverse: #0f172a;
+
+  --border-subtle: #1e2333;
+  --border-strong: #2d344b;
+
+  --accent: #2563eb;
+  --accent-hover: #3b82f6;
+  --accent-muted: #1e293b;
+  --accent-text: #93c5fd;
+
+  --status-verified: #10b981;
+  --status-warning: #f59e0b;
+  --status-error: #f87171;
+
+  --nav-bg: rgba(9, 10, 15, 0.92);
+  --nav-border: rgba(30, 35, 51, 0.8);
+}
+
+/* ----------------------------------------------------------
+   TAILWIND V4 THEME EXTENSION
+   ---------------------------------------------------------- */
+@theme inline {
+  /* Typography */
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+
+  /* Background Colors */
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-tertiary: var(--bg-tertiary);
+  --color-bg-inverse: var(--bg-inverse);
+
+  /* Text Colors */
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-text-inverse: var(--text-inverse);
+
+  /* Border Colors */
+  --color-border-subtle: var(--border-subtle);
+  --color-border-strong: var(--border-strong);
+
+  /* Accent Colors */
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-muted: var(--accent-muted);
+  --color-accent-text: var(--accent-text);
+
+  /* Status Colors */
+  --color-status-verified: var(--status-verified);
+  --color-status-warning: var(--status-warning);
+  --color-status-error: var(--status-error);
+}
+
+/* ----------------------------------------------------------
+   BASE STYLES
+   ---------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  line-height: 1.5;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* ----------------------------------------------------------
+   TYPOGRAPHY UTILITIES
+   ---------------------------------------------------------- */
+
+/* Display / Hero Headlines */
+.text-display {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+  font-weight: 500;
+}
+
+/* Section Headings */
+.text-heading-1 {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: clamp(1.875rem, 3.5vw, 2.75rem);
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  font-weight: 500;
+}
+
+/* Feature Headings */
+.text-heading-2 {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  font-weight: 500;
+}
+
+/* Body Large — Editorial */
+.text-body-lg {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: clamp(1rem, 1.5vw, 1.0625rem);
+  line-height: 1.65;
+  letter-spacing: 0;
+  font-weight: 400;
+}
+
+/* Body Base */
+.text-body {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  font-weight: 400;
+}
+
+/* Mono — Technical metadata, tags, citations */
+.text-mono {
+  font-family: var(--font-mono), "Courier New", monospace;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+}
+
+/* Label — Small uppercase tag */
+.text-label {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.6875rem;
+  line-height: 1.4;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* ----------------------------------------------------------
+   LAYOUT UTILITIES
+   ---------------------------------------------------------- */
+.container-editorial {
+  max-width: 1340px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .container-editorial {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-editorial {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+}
+
+.section-spacing {
+  padding-top: 7rem;
+  padding-bottom: 7rem;
+}
+
+@media (min-width: 1024px) {
+  .section-spacing {
+    padding-top: 9rem;
+    padding-bottom: 9rem;
+  }
+}
+
+/* ----------------------------------------------------------
+   BORDER UTILITIES
+   ---------------------------------------------------------- */
+.border-subtle {
+  border-color: var(--border-subtle);
+}
+
+.border-strong {
+  border-color: var(--border-strong);
+}
+
+.divide-subtle > * + * {
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* ----------------------------------------------------------
+   SCROLLBAR STYLING
+   ---------------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 3px;
+}
+
+/* ----------------------------------------------------------
+   SELECTION
+   ---------------------------------------------------------- */
+::selection {
+  background: var(--accent-muted);
+  color: var(--accent-text);
+}
+
+/* ----------------------------------------------------------
+   FOCUS VISIBLE
+   ---------------------------------------------------------- */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ----------------------------------------------------------
+   GRADIENT UTILITIES
+   ---------------------------------------------------------- */
+.gradient-fade-bottom {
+  mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+}
+
+.gradient-fade-top {
+  mask-image: linear-gradient(to top, black 60%, transparent 100%);
+}

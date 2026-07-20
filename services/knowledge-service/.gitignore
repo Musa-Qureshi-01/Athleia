@@ -1,0 +1,40 @@
+# ── Knowledge Service .gitignore ─────────────────────────────────
+
+# Secrets
+.env
+.env.local
+.env.production
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyc
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+
+# Database & vector store local files
+*.db
+*.sqlite
+*.sqlite3
+chroma_db/
+vector_store/
+embeddings_cache/
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db

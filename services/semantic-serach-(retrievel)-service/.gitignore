@@ -1,0 +1,50 @@
+# ── Semantic Search / Retrieval Service .gitignore ───────────────
+
+# Secrets
+.env
+.env.local
+.env.production
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyc
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+
+# Database & vector indices
+*.db
+*.sqlite
+*.sqlite3
+chroma_db/
+vector_store/
+faiss_index/
+*.index
+embeddings_cache/
+
+# LLM / embedding model weights
+model_cache/
+*.bin
+*.safetensors
+*.gguf
+*.pt
+*.pth
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db

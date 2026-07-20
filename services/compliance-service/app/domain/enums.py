@@ -1,0 +1,39 @@
+"""Domain Enumerations for Compliance Intelligence Service.
+"""
+
+from enum import Enum
+
+
+class ComplianceSeverity(str, Enum):
+    CRITICAL = "CRITICAL"
+    HIGH = "HIGH"
+    MEDIUM = "MEDIUM"
+    LOW = "LOW"
+    INFORMATIONAL = "INFORMATIONAL"
+
+
+class FindingStatus(str, Enum):
+    OPEN = "OPEN"
+    UNDER_REVIEW = "UNDER_REVIEW"
+    RESOLVED = "RESOLVED"
+    DISMISSED = "DISMISSED"
+    EXEMPTED = "EXEMPTED"
+
+
+class RuleCategory(str, Enum):
+    METADATA = "METADATA"
+    EXPIRY = "EXPIRY"
+    APPROVAL = "APPROVAL"
+    MANDATORY_SECTIONS = "MANDATORY_SECTIONS"
+    SAFETY_OSHA = "SAFETY_OSHA"
+    ISO_QUALITY = "ISO_QUALITY"
+    NIST_SECURITY = "NIST_SECURITY"
+    IEC_ELECTRICAL = "IEC_ELECTRICAL"
+
+
+class ScanTriggerType(str, Enum):
+    DOCUMENT_UPLOADED = "DOCUMENT_UPLOADED"
+    DOCUMENT_UPDATED = "DOCUMENT_UPDATED"
+    KNOWLEDGE_UPDATED = "KNOWLEDGE_UPDATED"
+    MANUAL_SCAN = "MANUAL_SCAN"
+    SCHEDULED_SCAN = "SCHEDULED_SCAN"

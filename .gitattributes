@@ -1,0 +1,17 @@
+# Athleia.ai — Git line endings config
+# Ensures consistent LF on all platforms
+
+* text=auto eol=lf
+
+# Explicitly binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary
+*.svg text
+*.db binary
+*.sqlite binary
+*.whl binary
+*.pyd binary
