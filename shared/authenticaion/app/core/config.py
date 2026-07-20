@@ -30,11 +30,12 @@ class Settings(BaseSettings):
     LOCKOUT_DURATION_MINUTES: int = 15
 
     # SMTP Configuration for Email Verification
-    SMTP_HOST: str = os.getenv("SMTP_HOST", "smtp.athleia.ai")
+    SMTP_HOST: str = os.getenv("SMTP_HOST", "")
     SMTP_PORT: int = int(os.getenv("SMTP_PORT", "587"))
-    SMTP_USER: str = os.getenv("SMTP_USER", "no-reply@athleia.ai")
-    SMTP_PASSWORD: str = os.getenv("SMTP_PASSWORD", "secure_smtp_password")
+    SMTP_USER: str = os.getenv("SMTP_USER", "")
+    SMTP_PASSWORD: str = os.getenv("SMTP_PASSWORD", "")
     EMAILS_FROM_NAME: str = os.getenv("EMAILS_FROM_NAME", "Athleia Security")
+    EMAILS_FROM_ADDRESS: str = os.getenv("EMAILS_FROM_ADDRESS", "no-reply@athleia.ai")
 
     # Bootstrap Super Admin Credentials
     SUPERADMIN_EMAIL: str = os.getenv("SUPERADMIN_EMAIL", "admin@athleia.ai")
