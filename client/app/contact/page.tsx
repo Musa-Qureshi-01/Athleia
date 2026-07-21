@@ -21,32 +21,42 @@ export default function ContactPage() {
     setSubmitting(true);
     setErrorMsg(null);
 
-    const formData = new FormData(e.currentTarget);
-    formData.set("inquiry_category", inquiryType);
-    formData.set("support_sla", supportTier);
+    const formElement = e.currentTarget;
+    const formData = new FormData(formElement);
+
+    const payload = {
+      name: formData.get("name"),
+      company: formData.get("company"),
+      email: formData.get("email"),
+      role: formData.get("role") || "Not Specified",
+      inquiry_category: inquiryType,
+      support_sla: supportTier,
+      message: formData.get("message"),
+    };
 
     try {
       const response = await fetch(FORMSPREE_ENDPOINT, {
         method: "POST",
-        body: formData,
         headers: {
+          "Content-Type": "application/json",
           Accept: "application/json",
         },
+        body: JSON.stringify(payload),
       });
 
       if (response.ok) {
         setSubmitted(true);
       } else {
         const data = await response.json();
-        if (data && data.errors) {
-          setErrorMsg(data.errors.map((err: any) => err.message).join(", "));
+        if (data && data.errors && Array.isArray(data.errors)) {
+          setErrorMsg(data.errors.map((err: any) => err.message || `${err.field} issue`).join(", "));
         } else {
-          setErrorMsg("Failed to submit form. Please check details and try again.");
+          setErrorMsg("Formspree rejected submission. Please ensure a valid work email address is entered.");
         }
       }
     } catch (err) {
       console.error("Formspree submission error", err);
-      setErrorMsg("Network error sending form. Please try emailing enterprise@athleia.ai directly.");
+      setErrorMsg("Network error sending form. Please email musaqureshi0000@gmail.com directly.");
     } finally {
       setSubmitting(false);
     }
