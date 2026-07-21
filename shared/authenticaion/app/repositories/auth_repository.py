@@ -58,7 +58,12 @@ class DBAuditLog(Base):
 class AuthRepository:
     def __init__(self, db_url: str = None):
         self.db_url = db_url or settings.DATABASE_URL
-        self.engine = create_async_engine(self.db_url, echo=False)
+        self.engine = create_async_engine(
+            self.db_url,
+            echo=False,
+            pool_pre_ping=True,
+            pool_recycle=300,
+        )
         self.async_session = async_sessionmaker(self.engine, expire_on_commit=False)
 
     async def init_db(self):

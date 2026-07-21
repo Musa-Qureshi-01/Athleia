@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Eye, EyeOff, ShieldAlert, CheckCircle2, UserPlus, LogIn, KeyRound, Sparkles } from "lucide-react";
+import { Eye, EyeOff, ShieldAlert, CheckCircle2, UserPlus, LogIn, KeyRound, Sparkles, ArrowLeft } from "lucide-react";
 import { loginUser, registerUser, verifyOTP, resendOTP } from "@/lib/api";
 
 const inputClass =
@@ -181,27 +181,36 @@ export default function LoginPage() {
       className="min-h-screen flex flex-col"
       style={{ backgroundColor: "var(--bg-secondary)" }}
     >
-      {/* Minimal top bar */}
+      {/* Minimal top bar with Back to Home button */}
       <header className="border-b border-border-subtle" style={{ backgroundColor: "var(--bg-primary)" }}>
         <div className="container-editorial h-14 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-6 h-6 shrink-0 rounded-[4px] overflow-hidden">
-              <Image
-                src="/favicon.svg"
-                alt="Athleia Logo"
-                width={24}
-                height={24}
-                className="w-6 h-6 object-contain"
-                priority
-              />
-            </div>
-            <span
-              className="text-sm font-medium tracking-[0.06em] text-text-primary"
-              style={{ fontFamily: "var(--font-mono)" }}
+          <div className="flex items-center gap-3">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm text-xs font-semibold text-text-secondary hover:text-text-primary hover:bg-bg-secondary transition-colors"
             >
-              ATHLEIA
-            </span>
-          </Link>
+              <ArrowLeft size={14} />
+              <span>Back to Home</span>
+            </Link>
+            <div className="h-4 w-px bg-border-subtle" />
+            <Link href="/" className="flex items-center gap-2.5 group">
+              <div className="w-6.5 h-6.5 shrink-0 rounded-[4px] overflow-hidden bg-accent/10 border border-accent/30 flex items-center justify-center p-0.5">
+                <Image
+                  src="/icon.png"
+                  alt="Athleia Logo"
+                  width={24}
+                  height={24}
+                  className="w-full h-full object-cover"
+                  priority
+                />
+              </div>
+              <span
+                className="text-sm font-bold tracking-[0.08em] text-text-primary font-mono"
+              >
+                ATHLEIA.AI
+              </span>
+            </Link>
+          </div>
           <div className="flex items-center gap-2">
             <button
               onClick={() => setActiveTab("login")}

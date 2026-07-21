@@ -50,7 +50,7 @@ export function PlatformOverviewSection() {
           <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-text-tertiary font-semibold block">
             PLATFORM CAPABILITIES
           </span>
-          <h2 className="text-display text-text-primary leading-tight font-semibold">
+          <h2 className="text-heading-1 text-text-primary leading-tight font-semibold">
             Unified Enterprise AI Suite for Industrial Operations.
           </h2>
           <p className="text-body-lg text-text-secondary leading-relaxed max-w-2xl">
