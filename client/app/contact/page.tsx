@@ -14,38 +14,8 @@ import {
   Send,
   AlertCircle,
   Loader2,
-  Briefcase,
-  Headphones,
-  Handshake,
-  ChevronDown,
-  ArrowRight,
+  ShieldCheck,
 } from "lucide-react";
-import Link from "next/link";
-import { cn } from "@/lib/utils";
-
-const CONTACT_CARDS = [
-  {
-    icon: Briefcase,
-    title: "Enterprise Sales",
-    description: "Explore platform licensing, private customer VPCs, or custom air-gapped deployments.",
-    email: "musaqureshi0000@gmail.com",
-    actionText: "Email Sales Team",
-  },
-  {
-    icon: Headphones,
-    title: "Technical Support",
-    description: "Dedicated operational support and technical guidance for enterprise customers.",
-    email: "musaqureshi0000@gmail.com",
-    actionText: "Contact Support",
-  },
-  {
-    icon: Handshake,
-    title: "Strategic Partnerships",
-    description: "Collaborate with Athleia on system integration, OEM hardware, and consulting.",
-    email: "musaqureshi0000@gmail.com",
-    actionText: "Partner with Us",
-  },
-];
 
 const INDUSTRY_OPTIONS: DropdownOption[] = [
   { value: "manufacturing", label: "Heavy Manufacturing & Automotive" },
@@ -63,28 +33,12 @@ const COMPANY_SIZE_OPTIONS: DropdownOption[] = [
   { value: "2500+", label: "2,500+ Enterprise Employees" },
 ];
 
-const FAQ_ITEMS = [
-  {
-    q: "How quickly can our organization schedule a platform demo?",
-    a: "Our team typically schedules live executive and architecture walkthroughs within 24 business hours of receiving your request.",
-  },
-  {
-    q: "Can Athleia be deployed inside our private cloud or on-premise hardware?",
-    a: "Yes. Athleia supports full deployment within your AWS VPC, Microsoft Azure subscription, or 100% offline air-gapped local plant servers.",
-  },
-  {
-    q: "How is our company's proprietary document data protected?",
-    a: "Athleia enforces strict data perimeter isolation, customer-managed KMS key encryption, and zero external LLM training on customer corpora.",
-  },
-];
-
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [industry, setIndustry] = useState("manufacturing");
   const [companySize, setCompanySize] = useState("501-2500");
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   const FORMSPREE_ENDPOINT = "https://formspree.io/f/xbdnkgjr";
 
@@ -140,63 +94,27 @@ export default function ContactPage() {
       <main className="min-h-screen pt-28 pb-16 bg-bg-primary text-text-primary">
         <div className="container-editorial">
 
-          {/* 1. Welcoming Business-Focused Hero */}
-          <div className="max-w-3xl mb-12 space-y-3">
+          {/* Concise Hero Header */}
+          <div className="max-w-2xl mb-8 space-y-2">
             <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-text-tertiary font-semibold block">
-              GET IN TOUCH
+              CONTACT ATHLEIA
             </span>
             <h1 className="text-display text-text-primary leading-tight">
-              Let&apos;s Build Your Enterprise Industrial Intelligence Strategy.
+              Contact Our Enterprise Team
             </h1>
-            <p className="text-body-lg text-text-secondary leading-relaxed max-w-2xl">
-              Speak directly with our solutions team to explore deployment options, custom enterprise integrations, or schedule a personalized platform demo.
+            <p className="text-body-lg text-text-secondary leading-relaxed">
+              Speak directly with our solutions team to explore deployment options or request a platform demo.
             </p>
           </div>
 
-          {/* 2. 3 Clean Contact Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-            {CONTACT_CARDS.map((card, idx) => {
-              const Icon = card.icon;
-              return (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 14 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: idx * 0.1 }}
-                  className="p-6 rounded-sm border border-border-subtle bg-bg-secondary flex flex-col justify-between gap-6 hover:border-border-strong transition-colors"
-                >
-                  <div className="space-y-3">
-                    <div className="w-10 h-10 rounded-sm bg-accent/10 border border-accent/20 flex items-center justify-center text-accent">
-                      <Icon size={20} />
-                    </div>
-                    <h2 className="text-heading-2 text-text-primary font-semibold">
-                      {card.title}
-                    </h2>
-                    <p className="text-xs text-text-secondary leading-relaxed">
-                      {card.description}
-                    </p>
-                  </div>
-
-                  <a
-                    href={`mailto:${card.email}`}
-                    className="text-xs font-semibold text-accent hover:text-accent-hover inline-flex items-center gap-1.5 transition-colors font-mono"
-                  >
-                    <span>{card.email}</span>
-                    <ArrowRight size={13} />
-                  </a>
-                </motion.div>
-              );
-            })}
-          </div>
-
-          {/* 3. Main Contact Form & Office Info Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 mb-20">
+          {/* Main Contact Form & Office Info Grid (Single Compact View) */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
 
             {/* Left Contact Form (7 cols) */}
             <motion.div
-              initial={{ opacity: 0, y: 14 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={{ duration: 0.4 }}
               className="lg:col-span-7"
             >
               {submitted ? (
@@ -206,26 +124,17 @@ export default function ContactPage() {
                     <span>Inquiry Submitted Successfully</span>
                   </div>
                   <h2 className="text-heading-2 text-text-primary">
-                    Thank you. Our executive team has received your message.
+                    Thank you. Our team has received your message.
                   </h2>
                   <p className="text-xs text-text-secondary leading-relaxed">
-                    A solutions representative will review your inquiry and reach out within 1 business day. If you need immediate assistance, please email us directly at musaqureshi0000@gmail.com.
+                    A representative will review your inquiry and respond within 1 business day. If you need immediate assistance, email us at musaqureshi0000@gmail.com.
                   </p>
                 </div>
               ) : (
                 <form
                   onSubmit={handleSubmit}
-                  className="p-8 rounded-sm border border-border-subtle bg-bg-secondary space-y-6 shadow-xs"
+                  className="p-7 rounded-sm border border-border-subtle bg-bg-secondary space-y-5 shadow-xs"
                 >
-                  <div className="space-y-1">
-                    <h2 className="text-heading-2 text-text-primary font-semibold">
-                      Send Us a Message
-                    </h2>
-                    <p className="text-xs text-text-secondary">
-                      Fill out the form below and our enterprise team will respond promptly.
-                    </p>
-                  </div>
-
                   {errorMsg && (
                     <div className="p-3.5 rounded-sm bg-status-error/10 border border-status-error/30 text-status-error text-xs flex items-center gap-2">
                       <AlertCircle size={15} className="shrink-0" />
@@ -241,7 +150,7 @@ export default function ContactPage() {
                         name="name"
                         required
                         placeholder="Jane Smith"
-                        className="bg-bg-primary border border-border-subtle rounded-sm px-3.5 py-2.5 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none focus:border-accent"
+                        className="bg-bg-primary border border-border-subtle rounded-sm px-3.5 py-2 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none focus:border-accent"
                       />
                     </div>
                     <div className="flex flex-col gap-1.5">
@@ -251,7 +160,7 @@ export default function ContactPage() {
                         name="email"
                         required
                         placeholder="jane.smith@company.com"
-                        className="bg-bg-primary border border-border-subtle rounded-sm px-3.5 py-2.5 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none focus:border-accent"
+                        className="bg-bg-primary border border-border-subtle rounded-sm px-3.5 py-2 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none focus:border-accent"
                       />
                     </div>
                   </div>
@@ -264,7 +173,7 @@ export default function ContactPage() {
                         name="company"
                         required
                         placeholder="Acme Industrial Corp"
-                        className="bg-bg-primary border border-border-subtle rounded-sm px-3.5 py-2.5 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none focus:border-accent"
+                        className="bg-bg-primary border border-border-subtle rounded-sm px-3.5 py-2 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none focus:border-accent"
                       />
                     </div>
                     <div className="flex flex-col gap-1.5">
@@ -273,7 +182,7 @@ export default function ContactPage() {
                         type="tel"
                         name="phone"
                         placeholder="+91 98765 43210"
-                        className="bg-bg-primary border border-border-subtle rounded-sm px-3.5 py-2.5 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none focus:border-accent font-mono"
+                        className="bg-bg-primary border border-border-subtle rounded-sm px-3.5 py-2 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none focus:border-accent font-mono"
                       />
                     </div>
                   </div>
@@ -300,19 +209,19 @@ export default function ContactPage() {
                   </div>
 
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-medium text-text-primary">How can we help your organization? *</label>
+                    <label className="text-xs font-medium text-text-primary">Message *</label>
                     <textarea
                       name="message"
                       required
                       rows={4}
-                      placeholder="Tell us about your requirements, platform evaluation timeline, or specific deployment preferences..."
-                      className="bg-bg-primary border border-border-subtle rounded-sm px-3.5 py-2.5 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none focus:border-accent resize-none"
+                      placeholder="Tell us about your requirements or desired platform evaluation..."
+                      className="bg-bg-primary border border-border-subtle rounded-sm px-3.5 py-2 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none focus:border-accent resize-none"
                     />
                   </div>
 
                   <div className="pt-2 border-t border-border-subtle flex items-center justify-between">
                     <span className="text-[11px] font-mono text-text-tertiary">
-                      Direct executive response • Privacy guaranteed
+                      Direct response • Confidential
                     </span>
                     <button
                       type="submit"
@@ -336,19 +245,20 @@ export default function ContactPage() {
               )}
             </motion.div>
 
-            {/* Right Office Information (5 cols) */}
+            {/* Right Office Information & Contact Details (5 cols) */}
             <motion.div
-              initial={{ opacity: 0, y: 14 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="lg:col-span-5 flex flex-col gap-6"
+              transition={{ duration: 0.4, delay: 0.1 }}
+              className="lg:col-span-5 flex flex-col gap-5"
             >
-              {/* Headquarters Card */}
+              {/* Headquarters Details */}
               <div className="p-6 rounded-sm border border-border-subtle bg-bg-secondary space-y-4">
                 <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-text-tertiary font-semibold block">
-                  CORPORATE HEADQUARTERS
+                  CORPORATE OFFICE
                 </span>
-                <div className="space-y-3 text-xs text-text-secondary">
+
+                <div className="space-y-3.5 text-xs text-text-secondary">
                   <div className="flex items-start gap-3">
                     <MapPin size={16} className="text-accent shrink-0 mt-0.5" />
                     <div className="flex flex-col gap-0.5">
@@ -388,85 +298,21 @@ export default function ContactPage() {
                     <span>Saturday – Sunday</span>
                     <span className="font-mono text-text-tertiary">Closed</span>
                   </div>
-                  <div className="pt-2 border-t border-border-subtle/70 text-[11px] text-text-tertiary">
-                    24/7 emergency support available for Enterprise SLA contracts.
-                  </div>
                 </div>
               </div>
 
-              {/* Data Security Pledge */}
-              <div className="p-6 rounded-sm border border-border-subtle bg-bg-secondary space-y-2">
-                <span className="text-xs font-semibold text-text-primary block">
-                  Enterprise Security Guarantee
-                </span>
+              {/* Security Guarantee */}
+              <div className="p-5 rounded-sm border border-border-subtle bg-bg-secondary space-y-2">
+                <div className="flex items-center gap-2 text-xs font-semibold text-text-primary">
+                  <ShieldCheck size={15} className="text-status-verified" />
+                  <span>Enterprise Data Pledge</span>
+                </div>
                 <p className="text-xs text-text-secondary leading-relaxed">
-                  Your contact details and technical specifications are protected under strict NDA guidelines. We never share or sell enterprise inquiry data.
+                  Your inquiry data is protected under strict corporate NDA guidelines. We never share or sell company details.
                 </p>
               </div>
             </motion.div>
 
-          </div>
-
-          {/* 4. Enterprise FAQ Section */}
-          <div className="max-w-3xl mx-auto pt-12 border-t border-border-subtle mb-16 space-y-6">
-            <div className="space-y-2 text-center">
-              <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-text-tertiary font-semibold block">
-                FREQUENTLY ASKED QUESTIONS
-              </span>
-              <h2 className="text-heading-1 text-text-primary">
-                Common Contact &amp; Evaluation Inquiries
-              </h2>
-            </div>
-
-            <div className="space-y-3">
-              {FAQ_ITEMS.map((item, idx) => {
-                const isOpen = openFaq === idx;
-                return (
-                  <div
-                    key={idx}
-                    className="border border-border-subtle rounded-sm bg-bg-secondary overflow-hidden transition-colors"
-                  >
-                    <button
-                      onClick={() => setOpenFaq(isOpen ? null : idx)}
-                      className="w-full p-4.5 text-left text-xs font-semibold text-text-primary flex items-center justify-between gap-4"
-                    >
-                      <span>{item.q}</span>
-                      <ChevronDown
-                        size={16}
-                        className={cn("text-text-tertiary transition-transform duration-200 shrink-0", isOpen && "rotate-180 text-accent")}
-                      />
-                    </button>
-                    {isOpen && (
-                      <div className="px-4.5 pb-4 text-xs text-text-secondary leading-relaxed border-t border-border-subtle/50 pt-3 bg-bg-primary/50">
-                        {item.a}
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* 5. Final Enterprise Demo CTA */}
-          <div className="p-8 lg:p-10 rounded-sm border border-border-subtle bg-bg-secondary flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-            <div className="space-y-2 max-w-xl">
-              <span className="text-[11px] font-mono uppercase tracking-wider text-text-tertiary font-semibold block">
-                SCHEDULE A DEMO
-              </span>
-              <h3 className="text-heading-2 text-text-primary">
-                Ready to See Athleia in Action?
-              </h3>
-              <p className="text-xs text-text-secondary leading-relaxed">
-                Schedule a 30-minute personalized walkthrough with our platform engineers to analyze your document corpora and deployment goals.
-              </p>
-            </div>
-
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center h-11 px-6 rounded-sm text-xs font-semibold bg-text-primary text-bg-primary hover:opacity-90 transition-opacity shrink-0 shadow-xs"
-            >
-              <span>Book Enterprise Demo</span>
-            </Link>
           </div>
 
         </div>
