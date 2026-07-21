@@ -18,7 +18,6 @@ export const ENTERPRISE_NAV_LINKS = [
   { label: "Products", href: "/#products" },
   { label: "Solutions", href: "/#solutions" },
   { label: "Pricing", href: "/pricing" },
-  { label: "Demo", href: "/demo" },
   { label: "Contact", href: "/contact" },
 ];
 

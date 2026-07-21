@@ -119,10 +119,10 @@ export function Footer() {
               Products
             </span>
             <ul className="space-y-2 text-xs">
-              <li><Link href="/demo" className="text-text-secondary hover:text-text-primary transition-colors">Workforce Copilot</Link></li>
-              <li><Link href="/demo" className="text-text-secondary hover:text-text-primary transition-colors">Compliance Intelligence</Link></li>
-              <li><Link href="/demo" className="text-text-secondary hover:text-text-primary transition-colors">Maintenance Telemetry</Link></li>
-              <li><Link href="/demo" className="text-text-secondary hover:text-text-primary transition-colors">CAD &amp; PDF Ingestion</Link></li>
+              <li><Link href="/products/workforce-copilot" className="text-text-secondary hover:text-text-primary transition-colors">Workforce Copilot</Link></li>
+              <li><Link href="/products/compliance-intelligence" className="text-text-secondary hover:text-text-primary transition-colors">Compliance Intelligence</Link></li>
+              <li><Link href="/products/maintenance-intelligence" className="text-text-secondary hover:text-text-primary transition-colors">Maintenance Telemetry</Link></li>
+              <li><Link href="/products/ingestion-pipeline" className="text-text-secondary hover:text-text-primary transition-colors">CAD &amp; PDF Ingestion</Link></li>
               <li><Link href="/pricing" className="text-text-secondary hover:text-text-primary transition-colors">Hybrid Search Engine</Link></li>
             </ul>
           </div>
@@ -149,7 +149,7 @@ export function Footer() {
             <ul className="space-y-2 text-xs">
               <li><Link href="/contact" className="text-text-secondary hover:text-text-primary transition-colors">Contact Sales</Link></li>
               <li><Link href="/pricing" className="text-text-secondary hover:text-text-primary transition-colors">Enterprise Pricing</Link></li>
-              <li><Link href="/demo" className="text-text-secondary hover:text-text-primary transition-colors">Request Product Demo</Link></li>
+              <li><Link href="/contact" className="text-text-secondary hover:text-text-primary transition-colors">Request Product Demo</Link></li>
               <li><Link href="/login" className="text-text-secondary hover:text-text-primary transition-colors">Customer Portal</Link></li>
             </ul>
           </div>

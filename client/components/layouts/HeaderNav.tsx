@@ -35,7 +35,7 @@ export function Navbar() {
         )}
       >
         <div className="container-editorial">
-          <div className="flex h-[60px] items-center justify-between gap-6">
+          <div className="flex h-[72px] items-center justify-between gap-6">
 
             {/* Corporate Brand Logo */}
             <Link
@@ -43,28 +43,28 @@ export function Navbar() {
               className="flex items-center gap-3 shrink-0 group"
               aria-label="Athleia.ai Enterprise Home"
             >
-              <div className="w-7 h-7 rounded-[4px] overflow-hidden bg-accent/10 border border-accent/30 flex items-center justify-center p-0.5 group-hover:border-accent transition-colors">
+              <div className="w-8.5 h-8.5 rounded-[5px] overflow-hidden bg-accent/10 border border-accent/30 flex items-center justify-center p-0.5 group-hover:border-accent transition-colors">
                 <Image
                   src="/icon.png"
                   alt="Athleia.ai"
-                  width={28}
-                  height={28}
+                  width={34}
+                  height={34}
                   className="w-full h-full object-cover"
                   priority
                 />
               </div>
               <div className="flex flex-col">
-                <span className="text-xs font-bold tracking-[0.1em] text-text-primary group-hover:opacity-85 transition-opacity font-mono">
+                <span className="text-sm font-bold tracking-[0.1em] text-text-primary group-hover:opacity-85 transition-opacity font-mono">
                   ATHLEIA.AI
                 </span>
-                <span className="text-[9px] font-mono text-text-tertiary tracking-tight -mt-0.5">
+                <span className="text-[10px] font-mono text-text-tertiary tracking-tight -mt-0.5">
                   ENTERPRISE PLATFORM
                 </span>
               </div>
             </Link>
 
             {/* Clean Enterprise Nav Links */}
-            <nav className="hidden lg:flex items-center gap-1" role="navigation">
+            <nav className="hidden lg:flex items-center gap-1.5" role="navigation">
               {ENTERPRISE_NAV_LINKS.map((link) => {
                 const isActive = pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href));
 
@@ -73,16 +73,16 @@ export function Navbar() {
                     key={link.label}
                     href={link.href}
                     className={cn(
-                      "relative px-3.5 py-1.5 text-xs font-medium rounded-sm transition-colors duration-150",
+                      "relative px-4 py-2 text-xs font-semibold rounded-sm transition-colors duration-150",
                       isActive
-                        ? "text-text-primary font-semibold"
+                        ? "text-text-primary"
                         : "text-text-secondary hover:text-text-primary hover:bg-bg-secondary"
                     )}
                   >
                     {isActive && (
                       <motion.span
                         layoutId="active-nav-bg"
-                        className="absolute inset-0 rounded-sm bg-bg-tertiary/70"
+                        className="absolute inset-0 rounded-sm bg-bg-tertiary/75"
                         transition={{ duration: 0.2, ease: "easeOut" }}
                       />
                     )}
@@ -99,7 +99,7 @@ export function Navbar() {
               {/* Sign In */}
               <Link
                 href="/login"
-                className="hidden lg:inline-flex items-center h-8.5 px-3.5 rounded-sm text-xs font-medium text-text-secondary hover:text-text-primary transition-colors"
+                className="hidden lg:inline-flex items-center h-9.5 px-4 rounded-sm text-xs font-semibold text-text-secondary hover:text-text-primary transition-colors"
               >
                 Sign in
               </Link>
@@ -107,19 +107,19 @@ export function Navbar() {
               {/* Book Demo Primary CTA */}
               <Link
                 href="/contact"
-                className="hidden sm:inline-flex items-center gap-1.5 h-8.5 px-4 rounded-sm text-xs font-semibold bg-text-primary text-bg-primary hover:opacity-90 transition-opacity shadow-xs group"
+                className="hidden sm:inline-flex items-center gap-1.5 h-9.5 px-5 rounded-sm text-xs font-semibold bg-text-primary text-bg-primary hover:opacity-90 transition-opacity shadow-xs group"
               >
                 <span>Book Demo</span>
-                <ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform" />
+                <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
               </Link>
 
               {/* Mobile Hamburger */}
               <button
                 onClick={() => setMobileOpen((v) => !v)}
                 aria-label="Toggle Navigation Menu"
-                className="lg:hidden w-8.5 h-8.5 flex items-center justify-center rounded-sm text-text-secondary hover:text-text-primary border border-border-subtle"
+                className="lg:hidden w-9.5 h-9.5 flex items-center justify-center rounded-sm text-text-secondary hover:text-text-primary border border-border-subtle"
               >
-                {mobileOpen ? <X size={17} /> : <Menu size={17} />}
+                {mobileOpen ? <X size={18} /> : <Menu size={18} />}
               </button>
             </div>
           </div>
