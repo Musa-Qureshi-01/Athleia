@@ -13,7 +13,7 @@ export function PlatformOverviewSection() {
 
   const activeService: ProductService = PRODUCT_SERVICES[selectedIndex];
 
-  // Auto-switch services every 5 seconds with progress bar
+  // Auto-switch services every 5 seconds with smooth progress bar
   useEffect(() => {
     setProgress(0);
     const interval = setInterval(() => {
@@ -46,23 +46,23 @@ export function PlatformOverviewSection() {
       <div className="container-editorial">
 
         {/* Section Header */}
-        <div className="mb-14 max-w-2xl">
-          <span className="text-label text-text-tertiary block mb-3 uppercase tracking-wider font-mono">
-            Platform Capabilities
+        <div className="mb-14 max-w-3xl space-y-3">
+          <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-text-tertiary font-semibold block">
+            PLATFORM CAPABILITIES
           </span>
-          <h2 className="text-heading-1 text-text-primary mb-4">
-            Unified Enterprise AI Suite for Plant Intelligence.
+          <h2 className="text-display text-text-primary leading-tight font-semibold">
+            Unified Enterprise AI Suite for Industrial Operations.
           </h2>
-          <p className="text-body-lg text-text-secondary leading-relaxed">
-            Select a service below to explore how Athleia transforms legacy paper SOPs, CAD schematics, safety regulations, and equipment sensors into actionable intelligence.
+          <p className="text-body-lg text-text-secondary leading-relaxed max-w-2xl">
+            Select a core service below to explore how Athleia transforms paper engineering manuals, CAD schematics, safety standards, and sensor streams into verified intelligence.
           </p>
         </div>
 
         {/* Dual-Column Interactive Platform Overview */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
 
-          {/* Left Column — Interactive Services List (5 cols) */}
-          <div className="lg:col-span-5 flex flex-col gap-2">
+          {/* Left Column — Interactive Services List with Subtitles (5 cols) */}
+          <div className="lg:col-span-5 flex flex-col gap-3">
             {PRODUCT_SERVICES.map((service, index) => {
               const isSelected = selectedIndex === index;
               const IconComp = getIcon(service.iconName);
@@ -75,13 +75,13 @@ export function PlatformOverviewSection() {
                     setProgress(0);
                   }}
                   className={cn(
-                    "w-full text-left p-4 rounded-sm border transition-all duration-200 flex flex-col gap-2 relative overflow-hidden",
+                    "w-full text-left p-4 lg:p-5 rounded-md border transition-all duration-300 flex flex-col gap-2 relative overflow-hidden group",
                     isSelected
-                      ? "bg-bg-primary border-border-strong shadow-sm"
-                      : "bg-bg-primary/40 border-border-subtle hover:bg-bg-primary/80 hover:border-border-subtle text-text-secondary"
+                      ? "bg-bg-primary border-border-strong shadow-md ring-1 ring-accent/20"
+                      : "bg-bg-primary/50 border-border-subtle hover:bg-bg-primary hover:border-border-strong text-text-secondary"
                   )}
                 >
-                  {/* Progress Line for selected item */}
+                  {/* Progress Indicator for Active Selection */}
                   {isSelected && (
                     <div
                       className="absolute top-0 left-0 bottom-0 w-1 bg-accent transition-all duration-100"
@@ -89,22 +89,27 @@ export function PlatformOverviewSection() {
                     />
                   )}
 
-                  <div className="flex items-center justify-between pl-2">
-                    <div className="flex items-center gap-3">
+                  <div className="flex items-start justify-between gap-3 pl-2">
+                    <div className="flex items-start gap-3.5">
                       <div
                         className={cn(
-                          "w-7 h-7 rounded-sm flex items-center justify-center shrink-0 transition-colors",
-                          isSelected ? "bg-accent/15 text-accent" : "bg-bg-tertiary text-text-tertiary"
+                          "w-9 h-9 rounded-sm flex items-center justify-center shrink-0 transition-colors mt-0.5",
+                          isSelected ? "bg-accent/15 text-accent" : "bg-bg-tertiary text-text-tertiary group-hover:text-text-primary"
                         )}
                       >
-                        <IconComp size={15} />
+                        <IconComp size={18} />
                       </div>
-                      <span className={cn("text-xs font-semibold", isSelected ? "text-text-primary font-bold" : "text-text-secondary")}>
-                        {service.name}
-                      </span>
+                      <div className="flex flex-col">
+                        <span className={cn("text-sm font-semibold transition-colors", isSelected ? "text-text-primary font-bold" : "text-text-primary/90")}>
+                          {service.name}
+                        </span>
+                        <span className="text-xs text-text-secondary line-clamp-1 mt-0.5 leading-normal">
+                          {service.tagline}
+                        </span>
+                      </div>
                     </div>
 
-                    <span className="text-[10px] font-mono text-text-tertiary">
+                    <span className="text-[11px] font-mono text-text-tertiary shrink-0">
                       0{index + 1}
                     </span>
                   </div>
@@ -118,69 +123,80 @@ export function PlatformOverviewSection() {
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeService.id}
-                initial={{ opacity: 0, x: 12 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -12 }}
-                transition={{ duration: 0.35, ease: "easeOut" }}
-                className="p-8 rounded-sm border border-border-strong bg-bg-primary shadow-xl flex flex-col justify-between gap-8 min-h-[440px]"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                className="p-8 lg:p-10 rounded-md border border-border-subtle bg-bg-primary shadow-xl flex flex-col justify-between gap-8 min-h-[480px]"
               >
-                <div className="space-y-5">
-                  <div className="flex items-center justify-between border-b border-border-subtle pb-4">
-                    <span className="px-2.5 py-1 rounded text-[10px] font-mono font-semibold bg-accent/10 text-accent uppercase tracking-wider border border-accent/20">
+                <div className="space-y-6">
+                  {/* Category Badge & Index */}
+                  <div className="flex items-center justify-between border-b border-border-subtle/80 pb-4">
+                    <span className="px-3 py-1 rounded-sm text-[11px] font-mono font-semibold bg-accent/10 text-accent uppercase tracking-wider border border-accent/20">
                       {activeService.category}
                     </span>
                     <span className="text-xs font-mono text-text-tertiary">
-                      Category 0{selectedIndex + 1}
+                      SERVICE 0{selectedIndex + 1} / 0{PRODUCT_SERVICES.length}
                     </span>
                   </div>
 
-                  <div>
-                    <h3 className="text-heading-2 text-text-primary mb-2">
+                  {/* Title & Description */}
+                  <div className="space-y-2">
+                    <h3 className="text-heading-1 text-text-primary font-semibold">
                       {activeService.name}
                     </h3>
-                    <p className="text-xs font-mono text-text-tertiary mb-4">
+                    <p className="text-xs font-mono text-text-tertiary">
                       {activeService.tagline}
                     </p>
-                    <p className="text-xs text-text-secondary leading-relaxed mb-4">
+                    <p className="text-sm text-text-secondary leading-relaxed pt-2">
                       {activeService.description}
                     </p>
                   </div>
 
-                  {/* Features Bullet List */}
-                  <div className="space-y-2 pt-2">
-                    <span className="text-[11px] font-mono uppercase tracking-wider text-text-tertiary font-semibold block mb-2">
-                      Core Enterprise Capabilities
+                  {/* Feature Grid */}
+                  <div className="space-y-3 pt-2">
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-text-tertiary font-semibold block">
+                      CORE PLATFORM CAPABILITIES
                     </span>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-text-primary">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                       {activeService.features.map((feat, fIdx) => (
-                        <div key={fIdx} className="flex items-start gap-2 bg-bg-secondary p-2.5 rounded-sm border border-border-subtle">
-                          <CheckCircle2 size={13} className="text-accent shrink-0 mt-0.5" />
-                          <span className="text-[11px] text-text-secondary leading-tight">{feat}</span>
+                        <div key={fIdx} className="flex items-start gap-2.5 bg-bg-secondary p-3 rounded-sm border border-border-subtle">
+                          <CheckCircle2 size={14} className="text-accent shrink-0 mt-0.5" />
+                          <span className="text-xs text-text-secondary leading-normal">{feat}</span>
                         </div>
                       ))}
                     </div>
                   </div>
                 </div>
 
-                {/* Business Impact Footer */}
-                <div className="pt-6 border-t border-border-subtle flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                {/* Business Impact Footer & Action Buttons */}
+                <div className="pt-6 border-t border-border-subtle flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                   <div className="flex items-center gap-6">
                     {activeService.metrics.map((m, mIdx) => (
                       <div key={mIdx} className="flex flex-col">
-                        <span className="text-sm font-bold font-mono text-text-primary">{m.value}</span>
-                        <span className="text-[10px] text-text-tertiary">{m.label}</span>
+                        <span className="text-base font-bold font-mono text-text-primary">{m.value}</span>
+                        <span className="text-[11px] text-text-tertiary">{m.label}</span>
                       </div>
                     ))}
                   </div>
 
-                  <Link
-                    href={`/products/${activeService.slug}`}
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-sm bg-text-primary text-bg-primary text-xs font-medium hover:opacity-90 transition-opacity shrink-0"
-                  >
-                    <span>View Product Details</span>
-                    <ArrowRight size={13} />
-                  </Link>
+                  <div className="flex items-center gap-3">
+                    <Link
+                      href={`/products/${activeService.slug}`}
+                      className="inline-flex items-center gap-1.5 h-10 px-5 rounded-sm bg-text-primary text-bg-primary text-xs font-semibold hover:opacity-90 transition-opacity shrink-0 shadow-xs"
+                    >
+                      <span>Explore Product Spec</span>
+                      <ArrowRight size={14} />
+                    </Link>
+                    <Link
+                      href="/contact"
+                      className="inline-flex items-center h-10 px-4 rounded-sm border border-border-strong bg-transparent text-text-primary text-xs font-medium hover:bg-bg-secondary transition-colors"
+                    >
+                      Book Demo
+                    </Link>
+                  </div>
                 </div>
+
               </motion.div>
             </AnimatePresence>
           </div>
