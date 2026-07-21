@@ -56,14 +56,14 @@ export function DemoCTASection() {
           >
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center h-11 px-6 rounded-sm text-xs font-semibold bg-text-primary text-bg-primary hover:opacity-90 transition-opacity shadow-xs"
+              className="inline-flex items-center justify-center h-11.5 px-6 rounded-sm text-sm font-semibold bg-text-primary text-bg-primary hover:opacity-90 transition-opacity shadow-xs"
             >
               <span>Request Enterprise Demo</span>
             </Link>
 
             <Link
               href="/pricing"
-              className="inline-flex items-center justify-center gap-2 h-11 px-6 rounded-sm text-xs font-medium text-text-primary border border-border-strong bg-transparent hover:bg-bg-secondary transition-colors"
+              className="inline-flex items-center justify-center gap-2 h-11.5 px-6 rounded-sm text-sm font-semibold text-text-primary border border-border-strong bg-transparent hover:bg-bg-secondary transition-colors"
             >
               <span>View Architecture Spec</span>
               <ArrowRight size={14} />

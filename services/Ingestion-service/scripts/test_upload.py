@@ -25,13 +25,13 @@ def test_upload(file_path: str, server_url: str = "http://127.0.0.1:8000"):
         resp = httpx.post(upload_url, files=files, timeout=30.0)
         
         if resp.status_code not in [200, 202]:
-            print(f"❌ Upload Failed ({resp.status_code}):")
-            print(json.dumps(resp.json(), indent=2))
-            return
+            print(f"[FAIL] Upload Failed ({resp.status_code}):")
+            print(resp.text)
+            return None
 
         payload = resp.json()
         doc_id = payload["data"]["document_id"]
-        print(f"✅ Upload Accepted!")
+        print(f"[SUCCESS] Upload Accepted!")
         print(f"   Document ID: {doc_id}")
         print(f"   Task ID: {payload['data']['task_id']}")
         print(f"   Processing State: {payload['data']['processing_state']}")

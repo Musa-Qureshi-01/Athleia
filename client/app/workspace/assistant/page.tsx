@@ -175,11 +175,12 @@ export default function WorkforceCopilotPage() {
       }
     } catch (err) {
       console.error("Error sending message", err);
+      const errMsg = err instanceof Error ? err.message : "Unable to reach Athleia Assistant Service. Please ensure Port 8010 is active.";
       setMessages((prev) => [
         ...prev,
         {
           role: "assistant",
-          content: "⚠️ Unable to reach Athleia Assistant Service. Please ensure the service on Port 8010 is active.",
+          content: errMsg,
         },
       ]);
     } finally {

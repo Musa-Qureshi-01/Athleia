@@ -183,14 +183,14 @@ export function PlatformOverviewSection() {
                   <div className="flex items-center gap-3">
                     <Link
                       href={`/products/${activeService.slug}`}
-                      className="inline-flex items-center gap-1.5 h-10 px-5 rounded-sm bg-text-primary text-bg-primary text-xs font-semibold hover:opacity-90 transition-opacity shrink-0 shadow-xs"
+                      className="inline-flex items-center gap-1.5 h-10.5 px-5 rounded-sm bg-text-primary text-bg-primary text-sm font-semibold hover:opacity-90 transition-opacity shrink-0 shadow-xs"
                     >
                       <span>Explore Product Spec</span>
                       <ArrowRight size={14} />
                     </Link>
                     <Link
                       href="/contact"
-                      className="inline-flex items-center h-10 px-4 rounded-sm border border-border-strong bg-transparent text-text-primary text-xs font-medium hover:bg-bg-secondary transition-colors"
+                      className="inline-flex items-center h-10.5 px-4 rounded-sm border border-border-strong bg-transparent text-text-primary text-sm font-semibold hover:bg-bg-secondary transition-colors"
                     >
                       Book Demo
                     </Link>

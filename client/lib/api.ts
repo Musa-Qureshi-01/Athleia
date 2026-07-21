@@ -864,7 +864,11 @@ export async function sendAssistantChatMessage(payload: {
       body: JSON.stringify(payload),
     });
     if (res.ok) return await res.json();
-  } catch {
+    if (res.status === 401) {
+      throw new Error("Authentication token expired. Please sign out and log back in.");
+    }
+  } catch (err) {
+    if (err instanceof Error && err.message.includes("Authentication")) throw err;
     // Gateway offline, fallback direct
   }
 
@@ -873,7 +877,13 @@ export async function sendAssistantChatMessage(payload: {
     headers,
     body: JSON.stringify(payload),
   });
-  if (!res.ok) throw new Error("Failed to communicate with Assistant Service.");
+  if (res.status === 401) {
+    throw new Error("Authentication token expired. Please sign out and log back in.");
+  }
+  if (!res.ok) {
+    const errData = await res.json().catch(() => ({}));
+    throw new Error(errData.detail || "Failed to communicate with Assistant Service.");
+  }
   return await res.json();
 }
 

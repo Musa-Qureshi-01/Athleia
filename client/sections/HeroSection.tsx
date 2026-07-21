@@ -24,7 +24,7 @@ export function HeroSection() {
   }, []);
 
   return (
-    <section className="relative min-h-[85vh] flex items-center pt-28 lg:pt-36 pb-24 lg:pb-32 border-b border-border-subtle overflow-hidden bg-bg-primary">
+    <section className="relative pt-24 lg:pt-28 pb-12 lg:pb-16 border-b border-border-subtle overflow-hidden bg-bg-primary">
       {/* Background Subtle Mesh Grid */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-accent/5 via-transparent to-transparent pointer-events-none" />
 
@@ -76,7 +76,7 @@ export function HeroSection() {
             >
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 h-11.5 px-6 rounded-sm text-xs font-semibold bg-text-primary text-bg-primary hover:opacity-90 transition-all duration-200 shadow-md group"
+                className="inline-flex items-center gap-2 h-11.5 px-6 rounded-sm text-sm font-semibold bg-text-primary text-bg-primary hover:opacity-90 transition-all duration-200 shadow-md group"
               >
                 <span>Book a Product Demo</span>
                 <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
@@ -84,7 +84,7 @@ export function HeroSection() {
 
               <a
                 href="#overview"
-                className="inline-flex items-center gap-2 h-11.5 px-6 rounded-sm text-xs font-medium text-text-primary border border-border-strong bg-bg-primary hover:bg-bg-secondary transition-colors duration-200 shadow-2xs"
+                className="inline-flex items-center gap-2 h-11.5 px-6 rounded-sm text-sm font-semibold text-text-primary border border-border-strong bg-bg-primary hover:bg-bg-secondary transition-colors duration-200 shadow-2xs"
               >
                 <span>Explore Platform</span>
               </a>

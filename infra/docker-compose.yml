@@ -1,0 +1,166 @@
+version: '3.8'
+
+services:
+  # Central API Gateway (Port 8000)
+  gateway:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.python-service
+      args:
+        SERVICE_PATH: gateway
+        PORT: 8000
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=production
+      - DEBUG=False
+    depends_on:
+      - auth-service
+      - assistant-service
+    networks:
+      - athleia-net
+
+  # Auth Service (Port 8008)
+  auth-service:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.python-service
+      args:
+        SERVICE_PATH: shared/authenticaion
+        PORT: 8008
+    ports:
+      - "8008:8008"
+    environment:
+      - AUTH_DATABASE_URL=${DATABASE_URL}
+      - SECRET_KEY=${SECRET_KEY}
+    networks:
+      - athleia-net
+
+  # Notification Service (Port 8009)
+  notification-service:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.python-service
+      args:
+        SERVICE_PATH: shared/notification-service
+        PORT: 8009
+    ports:
+      - "8009:8009"
+    environment:
+      - NOTIFICATION_DATABASE_URL=${DATABASE_URL}
+    networks:
+      - athleia-net
+
+  # Assistant Service (Port 8010)
+  assistant-service:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.python-service
+      args:
+        SERVICE_PATH: services/assistant-service
+        PORT: 8010
+    ports:
+      - "8010:8010"
+    environment:
+      - ASSISTANT_DATABASE_URL=${DATABASE_URL}
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    networks:
+      - athleia-net
+
+  # Retrieval Service (Port 8001)
+  retrieval-service:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.python-service
+      args:
+        SERVICE_PATH: services/semantic-serach-(retrievel)-service
+        PORT: 8001
+    ports:
+      - "8001:8001"
+    networks:
+      - athleia-net
+
+  # Reasoning Service (Port 8002)
+  reasoning-service:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.python-service
+      args:
+        SERVICE_PATH: services/reasoning-service
+        PORT: 8002
+    ports:
+      - "8002:8002"
+    networks:
+      - athleia-net
+
+  # Ingestion Service (Port 8003)
+  ingestion-service:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.python-service
+      args:
+        SERVICE_PATH: services/Ingestion-service
+        PORT: 8003
+    ports:
+      - "8003:8003"
+    networks:
+      - athleia-net
+
+  # Knowledge Service (Port 8005)
+  knowledge-service:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.python-service
+      args:
+        SERVICE_PATH: services/knowledge-service
+        PORT: 8005
+    ports:
+      - "8005:8005"
+    networks:
+      - athleia-net
+
+  # Compliance Service (Port 8006)
+  compliance-service:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.python-service
+      args:
+        SERVICE_PATH: services/compliance-service
+        PORT: 8006
+    ports:
+      - "8006:8006"
+    networks:
+      - athleia-net
+
+  # Maintenance Service (Port 8007)
+  maintenance-service:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.python-service
+      args:
+        SERVICE_PATH: services/maintenance-service
+        PORT: 8007
+    ports:
+      - "8007:8007"
+    networks:
+      - athleia-net
+
+  # Next.js Client Frontend (Port 3000)
+  client:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.client
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_GATEWAY_URL=${NEXT_PUBLIC_GATEWAY_URL:-http://localhost:8000}
+    depends_on:
+      - gateway
+    networks:
+      - athleia-net
+
+networks:
+  athleia-net:
+    driver: bridge

@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Navbar } from "@/components/layouts/HeaderNav";
 import { Footer } from "@/components/layouts/Footer";
 import { FormalDropdown, DropdownOption } from "@/components/ui/FormalDropdown";
+import { cn } from "@/lib/utils";
 import {
   Mail,
   Phone,
@@ -15,6 +16,7 @@ import {
   AlertCircle,
   Loader2,
   ShieldCheck,
+  ChevronDown,
 } from "lucide-react";
 
 const INDUSTRY_OPTIONS: DropdownOption[] = [
@@ -33,12 +35,32 @@ const COMPANY_SIZE_OPTIONS: DropdownOption[] = [
   { value: "2500+", label: "2,500+ Enterprise Employees" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    q: "How quickly can our organization schedule a platform demo?",
+    a: "Our technical team typically schedules live architecture walkthroughs within 24 business hours of receiving your request.",
+  },
+  {
+    q: "Can Athleia be deployed inside our private cloud or on-premise hardware?",
+    a: "Yes. Athleia supports full deployment within your AWS VPC, Microsoft Azure subscription, or 100% offline air-gapped local plant servers.",
+  },
+  {
+    q: "How is our company's proprietary document data protected?",
+    a: "Athleia enforces strict data perimeter isolation, customer-managed KMS key encryption, and zero external LLM training on customer corpora.",
+  },
+  {
+    q: "What support options are available for plant emergency operations?",
+    a: "We provide 24/7 critical plant emergency support with a 15-minute response SLA for Enterprise tier customers.",
+  },
+];
+
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [industry, setIndustry] = useState("manufacturing");
   const [companySize, setCompanySize] = useState("501-2500");
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   const FORMSPREE_ENDPOINT = "https://formspree.io/f/xbdnkgjr";
 
