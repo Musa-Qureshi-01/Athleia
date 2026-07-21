@@ -42,21 +42,18 @@ export function HeroSection() {
               transition={{ ...TRANSITION_BASE, delay: 0 }}
               className="flex items-center gap-2.5 flex-wrap"
             >
-              <span className="text-label text-text-primary border border-border-strong bg-bg-secondary px-3.5 py-1.5 rounded-sm inline-flex items-center gap-2 shadow-2xs">
+              <span className="text-label text-text-primary border border-border-strong bg-bg-secondary px-3.5 py-1.5 rounded-sm inline-flex items-center gap-2 shadow-2xs font-mono">
                 <span className="w-2 h-2 rounded-full bg-status-verified animate-pulse" />
-                <span className="font-medium">Enterprise Industrial Intelligence Platform</span>
-              </span>
-              <span className="text-[11px] font-mono text-text-tertiary">
-                ISO 27001 &amp; SOC 2 Certified
+                <span className="font-semibold uppercase tracking-wider">Enterprise Industrial Knowledge Intelligence Platform</span>
               </span>
             </motion.div>
 
             {/* GSAP Animated Headline */}
             <h1
               ref={headlineRef}
-              className="text-display text-text-primary max-w-2xl leading-[1.12] tracking-tight"
+              className="text-display text-text-primary max-w-3xl leading-[1.08] tracking-tight font-semibold"
             >
-              The Enterprise AI Intelligence Layer for Industrial Operations.
+              Transform Industrial Knowledge into Actionable Intelligence.
             </h1>
 
             {/* Subheading */}
@@ -65,8 +62,8 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ ...TRANSITION_BASE, delay: 0.2 }}
             >
-              <p className="text-body-lg text-text-secondary max-w-xl leading-relaxed">
-                Athleia transforms complex engineering document corpora, P&amp;ID drawings, ISO safety standards, and operational sensor telemetry into verified, zero-fabrication decision intelligence.
+              <p className="text-body-lg text-text-secondary max-w-2xl leading-relaxed">
+                Athleia unifies engineering documents, SOPs, maintenance records, compliance standards, and organizational knowledge into a secure AI platform that enables intelligent search, grounded reasoning, compliance insights, predictive maintenance, and enterprise-wide knowledge discovery.
               </p>
             </motion.div>
 
