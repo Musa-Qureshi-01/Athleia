@@ -5,16 +5,51 @@ import { motion } from "framer-motion";
 import { Navbar } from "@/components/layouts/HeaderNav";
 import { Footer } from "@/components/layouts/Footer";
 import { FormalDropdown, DropdownOption } from "@/components/ui/FormalDropdown";
-import { Mail, ShieldCheck, Clock, Building2, MapPin, CheckCircle2, Send, PhoneCall } from "lucide-react";
+import { Mail, ShieldCheck, Clock, Building2, MapPin, CheckCircle2, Send, PhoneCall, AlertCircle, Loader2 } from "lucide-react";
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [inquiryType, setInquiryType] = useState("enterprise");
   const [supportTier, setSupportTier] = useState("standard");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const FORMSPREE_ENDPOINT = "https://formspree.io/f/xbdnkgjr";
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSubmitting(true);
+    setErrorMsg(null);
+
+    const formData = new FormData(e.currentTarget);
+    formData.set("inquiry_category", inquiryType);
+    formData.set("support_sla", supportTier);
+
+    try {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        body: formData,
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+      } else {
+        const data = await response.json();
+        if (data && data.errors) {
+          setErrorMsg(data.errors.map((err: any) => err.message).join(", "));
+        } else {
+          setErrorMsg("Failed to submit form. Please check details and try again.");
+        }
+      }
+    } catch (err) {
+      console.error("Formspree submission error", err);
+      setErrorMsg("Network error sending form. Please try emailing enterprise@athleia.ai directly.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const INQUIRY_OPTIONS: DropdownOption[] = [
@@ -109,27 +144,27 @@ export default function ContactPage() {
                 <span className="text-xs font-mono uppercase tracking-wider text-text-tertiary font-semibold block">
                   Engineering Hubs
                 </span>
-                <div className="space-y-2 text-xs">
+                <div className="space-y-2.5 text-xs">
                   <div className="flex items-center gap-2">
                     <MapPin size={13} className="text-accent shrink-0" />
-                    <span className="text-text-primary font-medium">Stockholm, Sweden</span>
-                    <span className="text-text-tertiary text-[10px] font-mono ml-auto">HQ &amp; Core Engine</span>
+                    <span className="text-text-primary font-medium">DLF Cyber City, Gurugram</span>
+                    <span className="text-text-tertiary text-[10px] font-mono ml-auto">HQ</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <MapPin size={13} className="text-accent shrink-0" />
-                    <span className="text-text-primary font-medium">Houston, Texas</span>
-                    <span className="text-text-tertiary text-[10px] font-mono ml-auto">Industrial Ops</span>
+                    <span className="text-text-primary font-medium">Embassy Tech Village, Bengaluru</span>
+                    <span className="text-text-tertiary text-[10px] font-mono ml-auto">Tech Hub</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <MapPin size={13} className="text-accent shrink-0" />
-                    <span className="text-text-primary font-medium">London, UK</span>
-                    <span className="text-text-tertiary text-[10px] font-mono ml-auto">EMEA Security</span>
+                    <span className="text-text-primary font-medium">Maker Maxity, BKC Mumbai</span>
+                    <span className="text-text-tertiary text-[10px] font-mono ml-auto">West India</span>
                   </div>
                 </div>
               </div>
             </motion.div>
 
-            {/* Right Contact Form (7 cols) */}
+            {/* Right Formspree Contact Form (7 cols) */}
             <motion.div
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
@@ -140,25 +175,35 @@ export default function ContactPage() {
                 <div className="p-8 rounded-sm border border-border-subtle bg-bg-secondary flex flex-col gap-4">
                   <div className="flex items-center gap-2 text-status-verified font-mono text-xs">
                     <CheckCircle2 size={16} />
-                    <span>Inquiry Registered</span>
+                    <span>Inquiry Registered via Formspree</span>
                   </div>
                   <h2 className="text-heading-2 text-text-primary">
-                    Thank you. Our engineering team has received your message.
+                    Thank you. Our engineering team has received your inquiry.
                   </h2>
                   <p className="text-xs text-text-secondary leading-relaxed">
-                    A senior platform engineer will review your technical query and respond within your selected SLA window. If your plant requires immediate escalation, please email enterprise@athleia.ai directly.
+                    Your message has been logged via Formspree endpoint (xbdnkgjr). A senior platform engineer will review your technical query and respond within your selected SLA window. If your plant requires immediate escalation, please email enterprise@athleia.ai directly.
                   </p>
                 </div>
               ) : (
                 <form
                   onSubmit={handleSubmit}
+                  action={FORMSPREE_ENDPOINT}
+                  method="POST"
                   className="p-8 rounded-sm border border-border-subtle bg-bg-secondary space-y-5"
                 >
+                  {errorMsg && (
+                    <div className="p-3 rounded-sm bg-status-error/10 border border-status-error/30 text-status-error text-xs flex items-center gap-2">
+                      <AlertCircle size={14} className="shrink-0" />
+                      <span>{errorMsg}</span>
+                    </div>
+                  )}
+
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="flex flex-col gap-1.5">
                       <label className="text-xs font-medium text-text-primary">Full Name</label>
                       <input
                         type="text"
+                        name="name"
                         required
                         placeholder="Jane Smith"
                         className="bg-bg-primary border border-border-subtle rounded-sm px-3 py-2 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none focus:border-accent"
@@ -168,6 +213,7 @@ export default function ContactPage() {
                       <label className="text-xs font-medium text-text-primary">Company / Industrial Facility</label>
                       <input
                         type="text"
+                        name="company"
                         required
                         placeholder="Acme Industrial Corp"
                         className="bg-bg-primary border border-border-subtle rounded-sm px-3 py-2 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none focus:border-accent"
@@ -180,6 +226,7 @@ export default function ContactPage() {
                       <label className="text-xs font-medium text-text-primary">Work Email</label>
                       <input
                         type="email"
+                        name="email"
                         required
                         placeholder="jane.smith@acme.com"
                         className="bg-bg-primary border border-border-subtle rounded-sm px-3 py-2 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none focus:border-accent"
@@ -189,6 +236,7 @@ export default function ContactPage() {
                       <label className="text-xs font-medium text-text-primary">Job Title &amp; Role</label>
                       <input
                         type="text"
+                        name="role"
                         placeholder="Lead Operations Engineer"
                         className="bg-bg-primary border border-border-subtle rounded-sm px-3 py-2 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none focus:border-accent"
                       />
@@ -219,6 +267,7 @@ export default function ContactPage() {
                   <div className="flex flex-col gap-1.5">
                     <label className="text-xs font-medium text-text-primary">Technical Message</label>
                     <textarea
+                      name="message"
                       required
                       rows={4}
                       placeholder="Describe your document volume (e.g., 500 P&ID drawings and SOP manuals), deployment environment (AWS VPC, Azure, or air-gapped), and desired copilot integration..."
@@ -228,14 +277,24 @@ export default function ContactPage() {
 
                   <div className="pt-2 border-t border-border-subtle flex items-center justify-between">
                     <span className="text-[11px] font-mono text-text-tertiary">
-                      Direct engineering review • Zero sales fluff
+                      Formspree Endpoint: xbdnkgjr
                     </span>
                     <button
                       type="submit"
-                      className="px-5 py-2.5 bg-text-primary text-bg-primary rounded-sm text-xs font-medium hover:opacity-90 transition-opacity flex items-center gap-1.5 shadow-sm"
+                      disabled={submitting}
+                      className="px-5 py-2.5 bg-text-primary text-bg-primary rounded-sm text-xs font-medium hover:opacity-90 disabled:opacity-50 transition-opacity flex items-center gap-1.5 shadow-sm"
                     >
-                      <Send size={13} />
-                      <span>Send Technical Inquiry</span>
+                      {submitting ? (
+                        <>
+                          <Loader2 size={13} className="animate-spin" />
+                          <span>Submitting...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Send size={13} />
+                          <span>Send Technical Inquiry</span>
+                        </>
+                      )}
                     </button>
                   </div>
                 </form>
