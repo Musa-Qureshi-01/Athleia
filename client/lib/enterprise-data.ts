@@ -26,30 +26,17 @@ export const CORPORATE_INFO = {
   brandName: "Athleia.ai",
   tagline: "Enterprise Industrial Knowledge Intelligence Platform",
   headquarters: {
-    title: "Corporate Headquarters (Gurugram)",
-    address: "DLF Cyber City, Building 10, Tower B, 12th Floor",
-    city: "Gurugram, Haryana 122002",
+    title: "Corporate Headquarters",
+    address: "Bhopal, Madhya Pradesh 462001",
+    city: "Bhopal, MP 462001",
     country: "India",
   },
-  techHub: {
-    title: "Global Technology & Innovation Center (Bengaluru)",
-    address: "Outer Ring Road, Embassy Tech Village, Block B",
-    city: "Bengaluru, Karnataka 560103",
-    country: "India",
-  },
-  mumbaiOffice: {
-    title: "Western India Operations (Mumbai)",
-    address: "Bandra Kurla Complex (BKC), Maker Maxity, 5th Floor",
-    city: "Mumbai, Maharashtra 400051",
-    country: "India",
-  },
-  phone: "+91 (124) 490-8800",
-  tollFree: "1800-267-8890 (India Toll-Free)",
+  phone: "+91 6263473208",
   email: {
-    general: "contact@athleia.ai",
-    enterprise: "enterprise@athleia.ai",
-    support: "support@athleia.ai",
-    security: "security@athleia.ai",
+    general: "musaqureshi0000@gmail.com",
+    enterprise: "musaqureshi0000@gmail.com",
+    support: "musaqureshi0000@gmail.com",
+    security: "musaqureshi0000@gmail.com",
   },
 };
 

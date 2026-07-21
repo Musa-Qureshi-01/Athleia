@@ -87,28 +87,24 @@ export function Footer() {
               {CORPORATE_INFO.tagline}. Transforming engineering manuals, P&amp;ID drawings, and operational telemetry into actionable decision intelligence.
             </p>
 
-            {/* Indian Corporate Offices */}
+            {/* Indian Corporate Office */}
             <div className="space-y-2.5 pt-2 text-xs text-text-secondary border-t border-border-subtle">
               <div className="flex items-start gap-2">
                 <MapPin size={14} className="text-accent shrink-0 mt-0.5" />
                 <div className="flex flex-col">
-                  <span className="font-semibold text-text-primary">{CORPORATE_INFO.headquarters.title}</span>
-                  <span className="text-[11px] text-text-tertiary">{CORPORATE_INFO.headquarters.address}, {CORPORATE_INFO.headquarters.city}</span>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-2">
-                <MapPin size={14} className="text-accent shrink-0 mt-0.5" />
-                <div className="flex flex-col">
-                  <span className="font-semibold text-text-primary">{CORPORATE_INFO.techHub.title}</span>
-                  <span className="text-[11px] text-text-tertiary">{CORPORATE_INFO.techHub.address}, {CORPORATE_INFO.techHub.city}</span>
+                  <span className="font-semibold text-text-primary">Corporate Headquarters</span>
+                  <span className="text-[11px] text-text-tertiary">Bhopal, Madhya Pradesh 462001, India</span>
                 </div>
               </div>
 
               <div className="flex items-center gap-2 pt-1">
                 <Phone size={13} className="text-accent shrink-0" />
-                <span className="text-text-primary font-mono text-[11px]">{CORPORATE_INFO.phone}</span>
-                <span className="text-text-tertiary text-[10px] ml-auto font-mono">{CORPORATE_INFO.tollFree}</span>
+                <a href="tel:+916263473208" className="text-text-primary font-mono text-[11px] hover:text-accent transition-colors">+91 6263473208</a>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <Mail size={13} className="text-accent shrink-0" />
+                <a href="mailto:musaqureshi0000@gmail.com" className="text-text-primary font-mono text-[11px] hover:text-accent transition-colors">musaqureshi0000@gmail.com</a>
               </div>
             </div>
           </div>
@@ -160,8 +156,8 @@ export function Footer() {
               Support &amp; Security
             </span>
             <ul className="space-y-2 text-xs">
-              <li><a href="mailto:enterprise@athleia.ai" className="text-text-secondary hover:text-text-primary transition-colors">enterprise@athleia.ai</a></li>
-              <li><a href="mailto:security@athleia.ai" className="text-text-secondary hover:text-text-primary transition-colors">security@athleia.ai</a></li>
+              <li><a href="mailto:musaqureshi0000@gmail.com" className="text-text-secondary hover:text-text-primary transition-colors">musaqureshi0000@gmail.com</a></li>
+              <li><a href="tel:+916263473208" className="text-text-secondary hover:text-text-primary transition-colors">+91 6263473208</a></li>
               <li><span className="text-text-tertiary">Response SLA: &lt;4 Hours</span></li>
               <li><span className="text-status-verified font-medium">100% Data Protection</span></li>
             </ul>

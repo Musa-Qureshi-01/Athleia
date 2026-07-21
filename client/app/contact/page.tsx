@@ -111,54 +111,37 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              {/* Direct Email Channels */}
+              {/* Direct Contact Info */}
               <div className="p-5 rounded-sm border border-border-subtle bg-bg-secondary space-y-4">
                 <span className="text-xs font-mono uppercase tracking-wider text-text-tertiary font-semibold block">
-                  Direct Email Contacts
+                  Direct Contact Information
                 </span>
 
                 <div className="space-y-3 text-xs">
                   <div className="flex flex-col gap-0.5">
-                    <span className="text-text-tertiary font-mono">Enterprise &amp; Deployment</span>
-                    <a href="mailto:enterprise@athleia.ai" className="text-text-primary font-medium hover:text-accent transition-colors">
-                      enterprise@athleia.ai
+                    <span className="text-text-tertiary font-mono">Email Address</span>
+                    <a href="mailto:musaqureshi0000@gmail.com" className="text-text-primary font-medium hover:text-accent transition-colors font-mono">
+                      musaqureshi0000@gmail.com
                     </a>
                   </div>
                   <div className="flex flex-col gap-0.5">
-                    <span className="text-text-tertiary font-mono">Security &amp; Compliance Audits</span>
-                    <a href="mailto:security@athleia.ai" className="text-text-primary font-medium hover:text-accent transition-colors">
-                      security@athleia.ai
-                    </a>
-                  </div>
-                  <div className="flex flex-col gap-0.5">
-                    <span className="text-text-tertiary font-mono">Workforce Copilot Support</span>
-                    <a href="mailto:copilot@athleia.ai" className="text-text-primary font-medium hover:text-accent transition-colors">
-                      copilot@athleia.ai
+                    <span className="text-text-tertiary font-mono">Mobile Number</span>
+                    <a href="tel:+916263473208" className="text-text-primary font-medium hover:text-accent transition-colors font-mono">
+                      +91 6263473208
                     </a>
                   </div>
                 </div>
               </div>
 
-              {/* Global Engineering Offices */}
+              {/* Corporate Location */}
               <div className="p-5 rounded-sm border border-border-subtle bg-bg-secondary space-y-3">
                 <span className="text-xs font-mono uppercase tracking-wider text-text-tertiary font-semibold block">
-                  Engineering Hubs
+                  Corporate Location
                 </span>
                 <div className="space-y-2.5 text-xs">
                   <div className="flex items-center gap-2">
-                    <MapPin size={13} className="text-accent shrink-0" />
-                    <span className="text-text-primary font-medium">DLF Cyber City, Gurugram</span>
-                    <span className="text-text-tertiary text-[10px] font-mono ml-auto">HQ</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <MapPin size={13} className="text-accent shrink-0" />
-                    <span className="text-text-primary font-medium">Embassy Tech Village, Bengaluru</span>
-                    <span className="text-text-tertiary text-[10px] font-mono ml-auto">Tech Hub</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <MapPin size={13} className="text-accent shrink-0" />
-                    <span className="text-text-primary font-medium">Maker Maxity, BKC Mumbai</span>
-                    <span className="text-text-tertiary text-[10px] font-mono ml-auto">West India</span>
+                    <MapPin size={14} className="text-accent shrink-0" />
+                    <span className="text-text-primary font-medium">Bhopal, Madhya Pradesh 462001, India</span>
                   </div>
                 </div>
               </div>

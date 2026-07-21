@@ -54,7 +54,7 @@ export function Navbar() {
                 />
               </div>
               <div className="flex flex-col">
-                <span className="text-sm font-bold tracking-[0.1em] text-text-primary group-hover:opacity-85 transition-opacity font-mono">
+                <span className="text-base font-bold tracking-[0.08em] text-text-primary group-hover:opacity-85 transition-opacity font-mono">
                   ATHLEIA.AI
                 </span>
                 <span className="text-[10px] font-mono text-text-tertiary tracking-tight -mt-0.5">
@@ -64,7 +64,7 @@ export function Navbar() {
             </Link>
 
             {/* Clean Enterprise Nav Links */}
-            <nav className="hidden lg:flex items-center gap-1.5" role="navigation">
+            <nav className="hidden lg:flex items-center gap-2" role="navigation">
               {ENTERPRISE_NAV_LINKS.map((link) => {
                 const isActive = pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href));
 
@@ -73,7 +73,7 @@ export function Navbar() {
                     key={link.label}
                     href={link.href}
                     className={cn(
-                      "relative px-4 py-2 text-xs font-semibold rounded-sm transition-colors duration-150",
+                      "relative px-4 py-2 text-sm font-semibold rounded-sm transition-colors duration-150",
                       isActive
                         ? "text-text-primary"
                         : "text-text-secondary hover:text-text-primary hover:bg-bg-secondary"
@@ -99,7 +99,7 @@ export function Navbar() {
               {/* Sign In */}
               <Link
                 href="/login"
-                className="hidden lg:inline-flex items-center h-9.5 px-4 rounded-sm text-xs font-semibold text-text-secondary hover:text-text-primary transition-colors"
+                className="hidden lg:inline-flex items-center h-10 px-4 rounded-sm text-sm font-semibold text-text-secondary hover:text-text-primary transition-colors"
               >
                 Sign in
               </Link>
@@ -107,10 +107,10 @@ export function Navbar() {
               {/* Book Demo Primary CTA */}
               <Link
                 href="/contact"
-                className="hidden sm:inline-flex items-center gap-1.5 h-9.5 px-5 rounded-sm text-xs font-semibold bg-text-primary text-bg-primary hover:opacity-90 transition-opacity shadow-xs group"
+                className="hidden sm:inline-flex items-center gap-1.5 h-10 px-5 rounded-sm text-sm font-semibold bg-text-primary text-bg-primary hover:opacity-90 transition-opacity shadow-xs group"
               >
                 <span>Book Demo</span>
-                <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
+                <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
               </Link>
 
               {/* Mobile Hamburger */}
