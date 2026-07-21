@@ -24,7 +24,7 @@ export function HeroSection() {
   }, []);
 
   return (
-    <section className="relative min-h-[92vh] flex items-center pt-20 pb-16 border-b border-border-subtle overflow-hidden bg-bg-primary">
+    <section className="relative min-h-[85vh] flex items-center pt-28 lg:pt-36 pb-24 lg:pb-32 border-b border-border-subtle overflow-hidden bg-bg-primary">
       {/* Background Subtle Mesh Grid */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-accent/5 via-transparent to-transparent pointer-events-none" />
 
