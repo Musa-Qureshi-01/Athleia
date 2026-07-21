@@ -2,34 +2,47 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Bot, ShieldCheck, CheckCircle2 } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export function DemoCTASection() {
   return (
-    <section className="section-spacing border-b border-border-subtle bg-bg-primary relative overflow-hidden">
-      {/* Background Accent Glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-accent/10 via-transparent to-transparent pointer-events-none" />
-
-      <div className="container-editorial relative z-10">
-        <div className="p-10 lg:p-16 rounded-sm border border-border-strong bg-bg-secondary shadow-2xl relative overflow-hidden text-center max-w-4xl mx-auto space-y-8">
+    <section className="section-spacing border-b border-border-subtle bg-bg-primary">
+      <div className="container-editorial">
+        <div className="max-w-3xl space-y-8">
           
+          {/* Top Monospace Label */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+          >
+            <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-text-tertiary font-semibold block">
+              SCHEDULE A TECHNICAL REVIEW
+            </span>
+          </motion.div>
+
+          {/* Large Left-Aligned Headline */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="space-y-4"
+            transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <span className="px-3.5 py-1.5 rounded-sm text-xs font-mono font-semibold bg-accent/10 text-accent border border-accent/20 uppercase tracking-wider inline-block">
-              Request Enterprise Architecture Briefing
-            </span>
-
-            <h2 className="text-display text-text-primary leading-tight max-w-2xl mx-auto">
-              Ready to Accelerate Industrial Decision Intelligence?
+            <h2 className="text-display text-text-primary leading-[1.12] tracking-tight max-w-2xl">
+              Ready to Deploy Industrial Intelligence at Enterprise Scale?
             </h2>
+          </motion.div>
 
-            <p className="text-body-lg text-text-secondary max-w-xl mx-auto leading-relaxed">
-              Schedule a 30-minute technical architecture review with our enterprise engineering team. We will analyze your document volume, VPC requirements, and ROI potential.
+          {/* Description Paragraph */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <p className="text-body-lg text-text-secondary leading-relaxed max-w-2xl">
+              Our engineering team will walk you through a deployment architecture review, demonstrate live P&amp;ID reasoning against your document corpus, and design a VPC-isolated deployment plan tailored to your infrastructure.
             </p>
           </motion.div>
 
@@ -38,40 +51,48 @@ export function DemoCTASection() {
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.15 }}
-            className="flex flex-wrap items-center justify-center gap-4 pt-2"
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="flex flex-wrap items-center gap-4 pt-2"
           >
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 h-12 px-7 rounded-sm text-xs font-semibold bg-text-primary text-bg-primary hover:opacity-90 transition-opacity shadow-md group"
+              className="inline-flex items-center justify-center h-11 px-6 rounded-sm text-xs font-semibold bg-text-primary text-bg-primary hover:opacity-90 transition-opacity shadow-xs"
             >
-              <span>Schedule Architecture Demo</span>
-              <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
+              <span>Request Enterprise Demo</span>
             </Link>
 
             <Link
               href="/pricing"
-              className="inline-flex items-center gap-2 h-12 px-7 rounded-sm text-xs font-medium text-text-primary border border-border-strong bg-bg-primary hover:bg-bg-secondary transition-colors shadow-2xs"
+              className="inline-flex items-center justify-center gap-2 h-11 px-6 rounded-sm text-xs font-medium text-text-primary border border-border-strong bg-transparent hover:bg-bg-secondary transition-colors"
             >
-              <span>View Enterprise Pricing</span>
+              <span>View Architecture Spec</span>
+              <ArrowRight size={14} />
             </Link>
           </motion.div>
 
-          {/* Guarantee Badges */}
-          <div className="pt-6 border-t border-border-subtle flex flex-wrap items-center justify-center gap-6 text-xs font-mono text-text-tertiary">
-            <div className="flex items-center gap-1.5">
-              <CheckCircle2 size={14} className="text-status-verified" />
-              <span>Direct Technical Engineers</span>
+          {/* Horizontal Divider Line & 3 Metadata Columns */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="pt-8 border-t border-border-subtle grid grid-cols-1 sm:grid-cols-3 gap-6 text-xs max-w-2xl"
+          >
+            <div className="flex flex-col gap-1">
+              <span className="text-[11px] font-mono text-text-tertiary">Response time</span>
+              <span className="font-semibold text-text-primary text-xs font-mono">&lt; 24 hours</span>
             </div>
-            <div className="flex items-center gap-1.5">
-              <ShieldCheck size={14} className="text-accent" />
-              <span>ISO 27001 &amp; SOC 2 Compliant</span>
+
+            <div className="flex flex-col gap-1">
+              <span className="text-[11px] font-mono text-text-tertiary">Demo format</span>
+              <span className="font-semibold text-text-primary text-xs">Live technical walkthrough</span>
             </div>
-            <div className="flex items-center gap-1.5">
-              <CheckCircle2 size={14} className="text-status-verified" />
-              <span>Zero Sales Pressure</span>
+
+            <div className="flex flex-col gap-1">
+              <span className="text-[11px] font-mono text-text-tertiary">Deployment timeline</span>
+              <span className="font-semibold text-text-primary text-xs">2–4 weeks to production</span>
             </div>
-          </div>
+          </motion.div>
 
         </div>
       </div>
