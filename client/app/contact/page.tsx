@@ -315,6 +315,46 @@ export default function ContactPage() {
 
           </div>
 
+          {/* Enterprise FAQ Accordion Section */}
+          <div className="pt-16 mt-16 border-t border-border-subtle max-w-3xl space-y-6">
+            <div className="space-y-2">
+              <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-text-tertiary font-semibold block">
+                FREQUENTLY ASKED QUESTIONS
+              </span>
+              <h2 className="text-heading-1 text-text-primary font-semibold">
+                Common Contact &amp; Evaluation Questions
+              </h2>
+            </div>
+
+            <div className="space-y-3">
+              {FAQ_ITEMS.map((item, idx) => {
+                const isOpen = openFaq === idx;
+                return (
+                  <div
+                    key={idx}
+                    className="border border-border-subtle rounded-sm bg-bg-secondary overflow-hidden transition-colors"
+                  >
+                    <button
+                      onClick={() => setOpenFaq(isOpen ? null : idx)}
+                      className="w-full p-4.5 text-left text-xs font-semibold text-text-primary flex items-center justify-between gap-4"
+                    >
+                      <span>{item.q}</span>
+                      <ChevronDown
+                        size={16}
+                        className={cn("text-text-tertiary transition-transform duration-200 shrink-0", isOpen && "rotate-180 text-accent")}
+                      />
+                    </button>
+                    {isOpen && (
+                      <div className="px-4.5 pb-4 text-xs text-text-secondary leading-relaxed border-t border-border-subtle/50 pt-3 bg-bg-primary/50">
+                        {item.a}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
         </div>
       </main>
       <Footer />
