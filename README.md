@@ -41,58 +41,58 @@ Athleia.ai delivers an end-to-end suite of enterprise AI services tailored for i
 ## High-Level System Architecture
 
 ```mermaid
-graph TD
-    classDef client fill:#0f172a,stroke:#3b82f6,stroke-width:2px,color:#fff;
-    classDef gateway fill:#1e293b,stroke:#6366f1,stroke-width:2px,color:#fff;
-    classDef core fill:#0f2744,stroke:#0284c7,stroke-width:2px,color:#fff;
-    classDef data fill:#172554,stroke:#10b981,stroke-width:2px,color:#fff;
-
-    subgraph L1 ["1. Access & User Interfaces"]
-        UI1["Enterprise Web Platform"] :::client
-        UI2["Workforce AI Copilot"] :::client
-        UI3["Plant Operations Dashboard"] :::client
+flowchart TD
+    subgraph L1 [1. Access & User Interfaces]
+        UI1[Enterprise Web Platform]
+        UI2[Workforce AI Copilot]
+        UI3[Plant Operations Dashboard]
     end
 
-    subgraph L2 ["2. Security & Access Control"]
-        GW["Central Control Gateway"] :::gateway
-        AUTH["Identity & Access Management"] :::gateway
-        NOTIF["Real-Time Alert Engine"] :::gateway
+    subgraph L2 [2. Security & Access Control]
+        GW[Central Control Gateway]
+        AUTH[Identity & Access Management]
+        NOTIF[Real-Time Alert Engine]
     end
 
-    subgraph L3 ["3. Core Intelligence Services"]
-        E1["Workforce AI Assistant"] :::core
-        E2["Grounded Reasoning Engine"] :::core
-        E3["Semantic Knowledge Search"] :::core
-        E4["CAD & Document Intelligence"] :::core
-        E5["Knowledge Graph Engine"] :::core
+    subgraph L3 [3. Core Intelligence Services]
+        E1[Workforce AI Assistant]
+        E2[Grounded Reasoning Engine]
+        E3[Semantic Knowledge Search]
+        E4[CAD & Document Intelligence]
+        E5[Knowledge Graph Engine]
     end
 
-    subgraph L4 ["4. Enterprise Data Perimeter"]
-        DB[("Encrypted Operational Database")] :::data
-        STORE[("Enterprise Document Vault")] :::data
-        VPC["Private Cloud / Air-Gapped Network"] :::data
+    subgraph L4 [4. Enterprise Data Perimeter]
+        DB[(Encrypted Operational Database)]
+        STORE[(Enterprise Document Vault)]
+        VPC[Private Cloud / Air-Gapped Network]
     end
 
-    %% Flow Connections
-    UI1 & UI2 & UI3 -->|"Secure User Interactions"| GW
-    GW <-->|"Role & Access Verification"| AUTH
-    GW -->|"System Notifications"| NOTIF
+    UI1 --> GW
+    UI2 --> GW
+    UI3 --> GW
+    GW --> AUTH
+    AUTH --> GW
+    GW --> NOTIF
 
-    GW -->|"Operational Queries"| E1
-    GW -->|"Document Uploads"| E4
+    GW --> E1
+    GW --> E4
     
-    E1 -->|"Context & Retrieval"| E3
-    E1 -->|"Fact Verification"| E2
-    E2 <-->|"Relationships & SOPs"| E5
-    E4 -->|"Structured Knowledge Index"| E3
+    E1 --> E3
+    E1 --> E2
+    E2 --> E5
+    E5 --> E2
+    E4 --> E3
     
-    AUTH & NOTIF & E1 & E2 & E3 & E4 & E5 <-->|"Encrypted Data Sync"| DB
-    E3 & E4 <-->|"Document Storage"| STORE
-    
-    style L1 fill:#090a0f,stroke:#1e293b,color:#94a3b8
-    style L2 fill:#090a0f,stroke:#1e293b,color:#94a3b8
-    style L3 fill:#090a0f,stroke:#1e293b,color:#94a3b8
-    style L4 fill:#090a0f,stroke:#1e293b,color:#94a3b8
+    E1 --> DB
+    E2 --> DB
+    E3 --> DB
+    E4 --> DB
+    E5 --> DB
+    AUTH --> DB
+    NOTIF --> DB
+    E3 --> STORE
+    E4 --> STORE
 ```
 
 ---
