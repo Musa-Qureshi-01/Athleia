@@ -4,6 +4,7 @@
 
 # ── Secrets & credentials (NEVER commit these) ──────────────────
 .env
+*.env
 .env.local
 .env.production
 .env.staging

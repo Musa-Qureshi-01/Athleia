@@ -1,6 +1,18 @@
 # Athleia.ai — Master Microservice Launcher
 $root = $PSScriptRoot
-$DB_URL = "postgresql+asyncpg://neondb_owner:npg_tCklp0iEmwa2@ep-delicate-mode-av0i2f4x-pooler.c-11.us-east-1.aws.neon.tech/neondb?ssl=require"
+
+# Load environment variables from local .env if present
+if (Test-Path "$root\.env") {
+    Get-Content "$root\.env" | ForEach-Object {
+        if ($_ -match "^\s*([^#=]+)\s*=\s*(.*)\s*$") {
+            $name = $matches[1].Trim()
+            $value = $matches[2].Trim()
+            [System.Environment]::SetEnvironmentVariable($name, $value, [System.EnvironmentVariableTarget]::Process)
+        }
+    }
+}
+
+$DB_URL = if ($env:DATABASE_URL) { $env:DATABASE_URL } else { "postgresql+asyncpg://username:password@ep-instance.aws.neon.tech/neondb?ssl=require" }
 
 Write-Host "Launching Athleia.ai Microservice Architecture..." -ForegroundColor Cyan
 

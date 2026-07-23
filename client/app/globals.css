@@ -110,7 +110,7 @@
 }
 
 html {
-  font-size: 16px;
+  font-size: 15.25px;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -131,7 +131,7 @@ body {
 /* Hero Title: 64px Desktop, 48px Tablet, 36px Mobile */
 .text-display {
   font-family: var(--font-sans), system-ui, sans-serif;
-  font-size: clamp(2.25rem, 5vw, 4rem);
+  font-size: clamp(2.15rem, 4.8vw, 3.8rem);
   line-height: 1.08;
   letter-spacing: -0.025em;
   font-weight: 600;
@@ -140,7 +140,7 @@ body {
 /* Section Title: 48px Desktop, 40px Tablet, 32px Mobile */
 .text-heading-1 {
   font-family: var(--font-sans), system-ui, sans-serif;
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(1.9rem, 3.8vw, 2.85rem);
   line-height: 1.15;
   letter-spacing: -0.02em;
   font-weight: 600;
@@ -149,7 +149,7 @@ body {
 /* Card Title: 24px - 28px */
 .text-heading-2 {
   font-family: var(--font-sans), system-ui, sans-serif;
-  font-size: clamp(1.5rem, 2.5vw, 1.75rem);
+  font-size: clamp(1.4rem, 2.4vw, 1.65rem);
   line-height: 1.25;
   letter-spacing: -0.015em;
   font-weight: 600;
@@ -158,7 +158,7 @@ body {
 /* Hero Description: 20px */
 .text-body-lg {
   font-family: var(--font-sans), system-ui, sans-serif;
-  font-size: clamp(1.125rem, 2vw, 1.25rem);
+  font-size: clamp(1.05rem, 1.9vw, 1.18rem);
   line-height: 1.6;
   font-weight: 400;
   color: var(--text-secondary);
@@ -167,7 +167,7 @@ body {
 /* Body Text: 16px - 18px */
 .text-body {
   font-family: var(--font-sans), system-ui, sans-serif;
-  font-size: clamp(1rem, 1.5vw, 1.125rem);
+  font-size: clamp(0.95rem, 1.4vw, 1.05rem);
   line-height: 1.6;
   font-weight: 400;
   color: var(--text-secondary);
@@ -176,7 +176,7 @@ body {
 /* Mono — Technical metadata, tags, citations */
 .text-mono {
   font-family: var(--font-mono), "Courier New", monospace;
-  font-size: 0.8125rem;
+  font-size: 0.78rem;
   line-height: 1.4;
   letter-spacing: 0.02em;
 }
@@ -184,7 +184,7 @@ body {
 /* Eyebrow Label: 13px Uppercase Monospace */
 .text-label, .text-eyebrow {
   font-family: var(--font-mono), monospace;
-  font-size: 0.8125rem;
+  font-size: 0.78rem;
   line-height: 1.4;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -195,7 +195,7 @@ body {
    LAYOUT UTILITIES
    ---------------------------------------------------------- */
 .container-editorial {
-  max-width: 1440px;
+  max-width: 1380px;
   margin-left: auto;
   margin-right: auto;
   padding-left: 1.25rem;
@@ -211,27 +211,27 @@ body {
 
 @media (min-width: 1024px) {
   .container-editorial {
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
+    padding-left: 2.25rem;
+    padding-right: 2.25rem;
   }
 }
 
 /* Standard Hero Layout Block */
 .hero-header-block {
-  max-width: 840px;
-  margin-bottom: 3.5rem;
+  max-width: 820px;
+  margin-bottom: 3.25rem;
 }
 
 /* Section Vertical Spacing */
 .section-spacing {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+  padding-top: 4.5rem;
+  padding-bottom: 4.5rem;
 }
 
 @media (min-width: 1024px) {
   .section-spacing {
-    padding-top: 7rem;
-    padding-bottom: 7rem;
+    padding-top: 6.25rem;
+    padding-bottom: 6.25rem;
   }
 }
 

@@ -463,13 +463,25 @@ export interface ComplianceFindingItem {
 
 async function fetchWithTimeout(url: string, options: RequestInit = {}, timeoutMs = 2500): Promise<Response> {
   const controller = new AbortController();
-  const id = setTimeout(() => controller.abort(), timeoutMs);
+  const id = setTimeout(() => {
+    try {
+      controller.abort();
+    } catch {
+      // Ignored
+    }
+  }, timeoutMs);
   try {
     const res = await fetch(url, { ...options, signal: controller.signal });
     clearTimeout(id);
     return res;
   } catch (err) {
     clearTimeout(id);
+    if (err instanceof Error && err.name === "AbortError") {
+      return new Response(JSON.stringify({ status: "timeout", message: "Request timed out" }), {
+        status: 408,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
     throw err;
   }
 }
@@ -1083,25 +1095,47 @@ export async function resendOTP(email: string): Promise<Record<string, unknown>>
 }
 
 export async function fetchUserProfile(token: string): Promise<UserProfileData> {
-  const url = `${GATEWAY_URL}/api/v1/auth/me`;
-  const res = await fetch(url, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  if (!res.ok) {
-    throw new Error("Failed to fetch user profile.");
+  try {
+    const res = await fetch(`${GATEWAY_URL}/api/v1/auth/me`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (res.ok) return await res.json();
+  } catch {
+    // Gateway fallback
   }
-  return await res.json();
+
+  try {
+    const resDirect = await fetch(`${AUTH_DIRECT}/api/v1/auth/me`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (resDirect.ok) return await resDirect.json();
+  } catch {
+    // Direct fallback
+  }
+
+  throw new Error("Failed to fetch user profile.");
 }
 
 export async function fetchUserList(token: string): Promise<{ count: number; users: UserProfileData[] }> {
-  const url = `${GATEWAY_URL}/api/v1/users`;
-  const res = await fetch(url, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  if (!res.ok) {
-    throw new Error("Failed to fetch user directory.");
+  try {
+    const res = await fetch(`${GATEWAY_URL}/api/v1/users`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (res.ok) return await res.json();
+  } catch {
+    // Gateway fallback
   }
-  return await res.json();
+
+  try {
+    const resDirect = await fetch(`${AUTH_DIRECT}/api/v1/users`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (resDirect.ok) return await resDirect.json();
+  } catch {
+    // Direct fallback
+  }
+
+  return { count: 0, users: [] };
 }
 
 export async function updateUserRole(
