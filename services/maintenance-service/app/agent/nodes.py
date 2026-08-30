@@ -66,7 +66,7 @@ async def llm_reasoning_node(state: MaintenanceAgentState) -> Dict[str, Any]:
     logger.info(f"[Node: llm_reasoning_node] Invoking LLM for root cause synthesis & explainable recommendations")
     
     prompt = f"""
-    You are Athleia.ai's Principal Predictive Maintenance Engineer.
+    You are Axios.ai's Principal Predictive Maintenance Engineer.
     
     Target Equipment: {state['asset_name']} ({state['equipment_id']})
     Current Risk Score: {state['risk_score']} / 100.0

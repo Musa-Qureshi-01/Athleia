@@ -1,4 +1,4 @@
-"""Tool Orchestrator and 4-Tier Knowledge Priority Dispatcher for Athleia Reasoning Service.
+"""Tool Orchestrator and 4-Tier Knowledge Priority Dispatcher for Axios Reasoning Service.
 """
 
 from typing import Any, Callable, Dict, List, Optional

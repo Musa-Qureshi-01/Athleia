@@ -1,4 +1,4 @@
-"""Reasoning REST API Endpoint for Athleia Reasoning Service.
+"""Reasoning REST API Endpoint for Axios Reasoning Service.
 """
 
 import time

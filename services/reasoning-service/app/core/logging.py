@@ -1,4 +1,4 @@
-"""Structured JSON Telemetry & Logging for Athleia Reasoning Service.
+"""Structured JSON Telemetry & Logging for Axios Reasoning Service.
 """
 
 import logging

@@ -22,7 +22,7 @@ class SystemPromptEngine:
 
         selected_style_inst = style_instructions.get(explanation_style, style_instructions["adaptive"])
 
-        base_prompt = f"""You are the **Athleia Assistant** — an Enterprise Workforce Copilot for Athleia.ai.
+        base_prompt = f"""You are the **Axios Assistant** — an Enterprise Workforce Copilot for Axios.ai.
 You are helping **{user_name}** (Role: **{role}**{f', Department: {department}' if department else ''}).
 
 ### Core Operating Principles:

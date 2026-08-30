@@ -11,7 +11,7 @@ import httpx
 
 def test_upload(file_path: str, server_url: str = "http://127.0.0.1:8000"):
     print(f"\n=======================================================")
-    print(f" Uploading File to Athleia Document Intelligence")
+    print(f" Uploading File to Axios Document Intelligence")
     print(f" File: {file_path}")
     print(f"=======================================================\n")
 

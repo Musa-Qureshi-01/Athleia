@@ -22,7 +22,7 @@ class PackageValidator:
         if not package.package_urn or not package.package_urn.strip():
             errors.append("Package URN is required.")
         elif not cls.URN_REGEX.match(package.package_urn):
-            errors.append(f"Invalid Package URN format '{package.package_urn}'. Must match URN syntax (e.g. 'urn:athleia:pkg:cooling-water').")
+            errors.append(f"Invalid Package URN format '{package.package_urn}'. Must match URN syntax (e.g. 'urn:axios:pkg:cooling-water').")
 
         # 2. Package Title & Version
         if not package.title or not package.title.strip():

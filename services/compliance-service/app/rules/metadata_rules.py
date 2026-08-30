@@ -17,7 +17,7 @@ class MissingMetadataRule(BaseRule):
             name="Missing Mandatory Metadata Check",
             description="Verifies that documents contain mandatory metadata attributes including authors, domain, and SemVer version.",
             category=RuleCategory.METADATA,
-            policy_reference="Athleia Corporate Governance Standard §3.1 (Metadata Standards)",
+            policy_reference="Axios Corporate Governance Standard §3.1 (Metadata Standards)",
             default_severity=ComplianceSeverity.MEDIUM,
             is_deterministic=True,
         )

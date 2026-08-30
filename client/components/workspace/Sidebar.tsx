@@ -22,6 +22,7 @@ import {
   Bot,
   Sparkles,
   LogOut,
+  Lock,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -35,11 +36,13 @@ const NAV_ITEMS = [
     name: "Documents",
     href: "/workspace/documents",
     icon: FileText,
+    desktopOnly: true,
   },
   {
     name: "Search",
     href: "/workspace/search",
     icon: Search,
+    desktopOnly: true,
   },
   {
     name: "Intelligence",
@@ -50,16 +53,19 @@ const NAV_ITEMS = [
     name: "Maintenance",
     href: "/workspace/maintenance",
     icon: Wrench,
+    desktopOnly: true,
   },
   {
     name: "Knowledge",
     href: "/workspace/knowledge",
     icon: BookOpen,
+    desktopOnly: true,
   },
   {
     name: "Compliance",
     href: "/workspace/compliance",
     icon: ShieldCheck,
+    desktopOnly: true,
   },
   {
     name: "Workforce Copilot",
@@ -87,7 +93,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
 
   // Read role from localStorage (client-side only)
   const userRole = typeof window !== "undefined"
-    ? (() => { try { return JSON.parse(localStorage.getItem("athleia_user") || "{}").role || ""; } catch { return ""; } })()
+    ? (() => { try { return JSON.parse(localStorage.getItem("axios_user") || "{}").role || ""; } catch { return ""; } })()
     : "";
   const isSuperAdmin = userRole === "SUPER_ADMIN";
 
@@ -105,7 +111,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
           <div className="w-6 h-6 shrink-0 rounded-[4px] overflow-hidden">
             <Image
               src="/favicon.svg"
-              alt="Athleia Logo"
+              alt="Axios Logo"
               width={24}
               height={24}
               className="w-6 h-6 object-contain"
@@ -119,7 +125,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
               className="text-sm font-medium tracking-[0.06em] text-text-primary whitespace-nowrap"
               style={{ fontFamily: "var(--font-mono)" }}
             >
-              ATHLEIA
+              AXIOS
             </motion.span>
           )}
         </Link>
@@ -183,7 +189,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
             <Link
               key={item.name}
               href={item.href}
-              title={collapsed ? item.name : undefined}
+              title={collapsed ? `${item.name}${item.desktopOnly ? " (Desktop Only)" : ""}` : undefined}
               className={cn(
                 "relative flex items-center gap-3 px-2.5 py-2 rounded-sm text-sm transition-colors duration-150 group",
                 isActive
@@ -191,22 +197,33 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
                   : "text-text-secondary hover:text-text-primary hover:bg-bg-tertiary"
               )}
             >
-              <Icon
-                size={16}
-                strokeWidth={1.75}
-                className={cn(
-                  "shrink-0 transition-colors duration-150",
-                  isActive ? "text-accent" : "text-text-tertiary group-hover:text-text-primary"
+              <div className="relative shrink-0 flex items-center justify-center">
+                <Icon
+                  size={16}
+                  strokeWidth={1.75}
+                  className={cn(
+                    "shrink-0 transition-colors duration-150",
+                    isActive ? "text-accent" : "text-text-tertiary group-hover:text-text-primary"
+                  )}
+                />
+                {item.desktopOnly && collapsed && (
+                  <Lock size={9} className="absolute -bottom-1 -right-1 text-amber-400 bg-bg-secondary rounded-full p-0.5 md:hidden" />
                 )}
-              />
+              </div>
+
               {!collapsed && (
-                <div className="flex items-center justify-between w-full min-w-0">
+                <div className="flex items-center justify-between w-full min-w-0 gap-1.5">
                   <span className="truncate whitespace-nowrap">{item.name}</span>
-                  {item.badge && (
+                  {item.desktopOnly ? (
+                    <span className="ml-auto px-1.5 py-0.5 text-[9px] font-mono rounded bg-amber-500/10 text-amber-400 border border-amber-500/25 flex items-center gap-1 shrink-0 md:hidden">
+                      <Lock size={9} />
+                      <span className="hidden sm:inline">Desktop</span>
+                    </span>
+                  ) : item.badge ? (
                     <span className="ml-auto px-1.5 py-0.2 text-[9px] font-mono rounded bg-bg-secondary text-text-tertiary border border-border-subtle group-hover:border-border-strong group-hover:text-text-secondary">
                       {item.badge}
                     </span>
-                  )}
+                  ) : null}
                 </div>
               )}
               {isActive && (
@@ -260,20 +277,20 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
             <div className="flex flex-col min-w-0">
               <div className="flex items-center gap-1.5">
                 <span className="text-xs font-semibold text-text-primary truncate">
-                  {typeof window !== "undefined" && localStorage.getItem("athleia_user")
-                    ? JSON.parse(localStorage.getItem("athleia_user")!).full_name
-                    : "Athleia User"}
+                  {typeof window !== "undefined" && localStorage.getItem("axios_user")
+                    ? JSON.parse(localStorage.getItem("axios_user")!).full_name
+                    : "Axios User"}
                 </span>
                 <span className="text-[9px] font-mono px-1 rounded bg-status-verified/10 text-status-verified font-bold border border-status-verified/20">
-                  {typeof window !== "undefined" && localStorage.getItem("athleia_user")
-                    ? JSON.parse(localStorage.getItem("athleia_user")!).role
+                  {typeof window !== "undefined" && localStorage.getItem("axios_user")
+                    ? JSON.parse(localStorage.getItem("axios_user")!).role
                     : "SUPER_ADMIN"}
                 </span>
               </div>
               <span className="text-[10px] font-mono text-text-tertiary truncate">
-                {typeof window !== "undefined" && localStorage.getItem("athleia_user")
-                  ? JSON.parse(localStorage.getItem("athleia_user")!).email
-                  : "admin@athleia.ai"}
+                {typeof window !== "undefined" && localStorage.getItem("axios_user")
+                  ? JSON.parse(localStorage.getItem("axios_user")!).email
+                  : "admin@axios.ai"}
               </span>
             </div>
           </div>
@@ -301,15 +318,15 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
             href="/login"
             onClick={() => {
               if (typeof window !== "undefined") {
-                localStorage.removeItem("athleia_token");
-                localStorage.removeItem("athleia_user");
+                localStorage.removeItem("axios_token");
+                localStorage.removeItem("axios_user");
               }
             }}
             className={cn(
               "flex items-center gap-1.5 px-2 py-1 rounded-sm border border-status-error/30 bg-status-error/5 text-status-error text-[11px] font-mono font-medium hover:bg-status-error/15 hover:border-status-error/60 transition-all shadow-2xs shrink-0",
               collapsed && "p-1.5"
             )}
-            title="Sign out of Athleia Platform"
+            title="Sign out of Axios Platform"
           >
             <LogOut size={12} className="shrink-0" />
             {!collapsed && <span>Sign out</span>}

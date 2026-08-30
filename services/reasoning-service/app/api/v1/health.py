@@ -1,4 +1,4 @@
-"""Health & Monitoring Endpoint for Athleia Reasoning Service.
+"""Health & Monitoring Endpoint for Axios Reasoning Service.
 """
 
 from fastapi import APIRouter, Depends, Request

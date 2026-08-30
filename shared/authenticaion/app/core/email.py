@@ -40,12 +40,12 @@ async def send_verification_email(recipient_email: str, otp_code: str) -> bool:
     If real SMTP is configured, sends via SMTP.
     In dev mode or when SMTP is unconfigured, logs and returns True.
     """
-    subject = "Athleia.ai — Verification Code"
+    subject = "Axios.ai — Verification Code"
     body_text = f"Your 6-digit verification code is: {otp_code}\n\nThis code expires in {settings.OTP_EXPIRE_MINUTES} minutes."
     body_html = f"""
     <div style="font-family: Arial, sans-serif; padding: 20px; color: #111;">
-      <h2>Athleia.ai Account Verification</h2>
-      <p>Welcome to Athleia! Use the code below to complete your verification:</p>
+      <h2>Axios.ai Account Verification</h2>
+      <p>Welcome to Axios! Use the code below to complete your verification:</p>
       <div style="font-size: 28px; font-weight: bold; letter-spacing: 4px; color: #6366f1; padding: 10px 0;">
         {otp_code}
       </div>
@@ -63,11 +63,11 @@ async def send_password_reset_email(recipient_email: str, otp_code: str) -> bool
     """
     Sends a password-reset 6-digit OTP to any email address.
     """
-    subject = "Athleia.ai — Password Reset Code"
+    subject = "Axios.ai — Password Reset Code"
     body_text = f"Your password reset code is: {otp_code}\n\nThis code expires in {settings.OTP_EXPIRE_MINUTES} minutes."
     body_html = f"""
     <div style="font-family: Arial, sans-serif; padding: 20px; color: #111;">
-      <h2>Athleia.ai Password Reset</h2>
+      <h2>Axios.ai Password Reset</h2>
       <p>We received a request to reset your password. Your reset code is:</p>
       <div style="font-size: 28px; font-weight: bold; letter-spacing: 4px; color: #ef4444; padding: 10px 0;">
         {otp_code}

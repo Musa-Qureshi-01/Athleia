@@ -1,4 +1,4 @@
-"""API v1 Router Aggregator for Athleia Retrieval Service.
+"""API v1 Router Aggregator for Axios Retrieval Service.
 """
 
 from fastapi import APIRouter

@@ -1,4 +1,4 @@
-"""API v1 Router Aggregator for Athleia Reasoning Service.
+"""API v1 Router Aggregator for Axios Reasoning Service.
 """
 
 from fastapi import APIRouter

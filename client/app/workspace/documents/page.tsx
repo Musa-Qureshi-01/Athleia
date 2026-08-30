@@ -24,6 +24,7 @@ import {
 } from "@/lib/corpus-store";
 import { uploadIngestionDocument } from "@/lib/api";
 import { DocumentViewerModal } from "@/components/workspace/DocumentViewerModal";
+import { DesktopOnlyBanner } from "@/components/ui/DesktopOnlyBanner";
 
 export default function DocumentsPage() {
   const [dragActive, setDragActive] = useState(false);
@@ -100,7 +101,13 @@ export default function DocumentsPage() {
   const selectedDoc = documents.find((d) => d.id === selectedDocId);
 
   return (
-    <div className="p-8 max-w-7xl mx-auto flex flex-col gap-8">
+    <div className="p-4 sm:p-8 max-w-7xl mx-auto flex flex-col gap-6 sm:gap-8">
+      {/* Desktop Only Banner for Mobile */}
+      <DesktopOnlyBanner
+        serviceName="Document Corpus & Ingestion Pipeline"
+        description="Document file uploads, OCR table extraction, and CAD diagram streaming require a desktop workstation view. Open Axios.ai on your desktop browser to upload and process engineering files."
+      />
+
       {/* Hidden File Input */}
       <input
         type="file"

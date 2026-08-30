@@ -1,4 +1,4 @@
-"""Open-Source Local Embedding Manager for Athleia Retrieval Service.
+"""Open-Source Local Embedding Manager for Axios Retrieval Service.
 
 Generates 384-dimensional dense vector embeddings for text chunks and search queries,
 and calculates exact cosine similarity scores. 100% free & local.

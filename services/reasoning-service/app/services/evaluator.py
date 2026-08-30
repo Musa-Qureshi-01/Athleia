@@ -1,4 +1,4 @@
-"""Evaluation Tools & Grounding Guardrails for Athleia Reasoning Service.
+"""Evaluation Tools & Grounding Guardrails for Axios Reasoning Service.
 
 Evaluates Grounding, Faithfulness, Relevance, Completeness, and Overall Confidence scores.
 Ensures zero hallucinations and strictly enforces minimum grounding thresholds.

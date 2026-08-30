@@ -2,7 +2,7 @@ import os
 from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
-    PROJECT_NAME: str = "Athleia Centralized Notification Service"
+    PROJECT_NAME: str = "Axios Centralized Notification Service"
     VERSION: str = "1.0.0"
     API_V1_STR: str = "/api/v1/notifications"
     PORT: int = 8009

@@ -1,0 +1,50 @@
+# render.yaml — Axios.ai Render Blueprint
+# Single Docker container running all 10 microservices via supervisord.
+# Only the API Gateway (port 8000) is exposed publicly.
+# Dashboard: https://dashboard.render.com → New → Blueprint → connect repo
+#
+# Secret env vars to set manually in Render dashboard:
+#   DATABASE_URL         — your Neon PostgreSQL connection string
+#   SECRET_KEY           — JWT signing secret (generate a random 64-char string)
+#   GEMINI_API_KEY
+#   GROQ_API_KEY
+#   OPENROUTER_API_KEY
+#   AMAZON_BEDROCK_API_KEY (optional)
+
+services:
+  - type: web
+    name: axios-backend
+    runtime: docker
+    dockerfilePath: ./Dockerfile   # root-level monolith Dockerfile
+    plan: standard                 # 2 GB RAM — needed for running 10 services + AI models
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+      - key: DEBUG
+        value: "false"
+
+      # ── Database (Neon PostgreSQL) ────────────────────────────────────────
+      - key: DATABASE_URL
+        sync: false   # Set manually in Render dashboard
+      - key: AUTH_DATABASE_URL
+        sync: false
+      - key: ASSISTANT_DATABASE_URL
+        sync: false
+      - key: NOTIFICATION_DATABASE_URL
+        sync: false
+
+      # ── AI API Keys ───────────────────────────────────────────────────────
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: AMAZON_BEDROCK_API_KEY
+        sync: false
+
+      # ── Auth ──────────────────────────────────────────────────────────────
+      - key: SECRET_KEY
+        sync: false
+
+    healthCheckPath: /              # Gateway root returns 200

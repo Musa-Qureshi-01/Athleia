@@ -1,4 +1,4 @@
-"""Environment configuration for Athleia Knowledge Service.
+"""Environment configuration for Axios Knowledge Service.
 """
 
 import os
@@ -7,7 +7,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    PROJECT_NAME: str = "Athleia Knowledge Service"
+    PROJECT_NAME: str = "Axios Knowledge Service"
     API_V1_STR: str = "/api/v1/knowledge"
     ENVIRONMENT: str = "development"
     DEBUG: bool = True

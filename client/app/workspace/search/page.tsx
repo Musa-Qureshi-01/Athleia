@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { executeSearch, RetrievalResultItem } from "@/lib/api";
+import { DesktopOnlyBanner } from "@/components/ui/DesktopOnlyBanner";
 
 function SearchContent() {
   const searchParams = useSearchParams();
@@ -71,7 +72,13 @@ function SearchContent() {
   };
 
   return (
-    <div className="p-8 max-w-7xl mx-auto flex flex-col gap-8">
+    <div className="p-4 sm:p-8 max-w-7xl mx-auto flex flex-col gap-6 sm:gap-8">
+      {/* Desktop Only Banner for Mobile */}
+      <DesktopOnlyBanner
+        serviceName="Hybrid Dense Vector & BM25 Search Engine"
+        description="Deep semantic vector search and Reciprocal Rank Fusion tuning are optimized for desktop workstation view. Switch to desktop browser for advanced hybrid tuning."
+      />
+
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-border-subtle">
         <div className="flex flex-col gap-1">

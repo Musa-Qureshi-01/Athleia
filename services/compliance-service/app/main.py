@@ -22,7 +22,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="Athleia Compliance Intelligence Service",
+    title="Axios Compliance Intelligence Service",
     description="Autonomous Event-Driven Compliance Monitoring, Policy Validation, and Regulatory Governance Engine",
     version=settings.VERSION,
     lifespan=lifespan,

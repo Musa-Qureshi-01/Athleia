@@ -4,10 +4,10 @@ from pydantic import BaseModel, Field
 from app.domain.enums import UserRole, UserStatus
 
 class UserRegister(BaseModel):
-    email: str = Field(..., example="engineer@athleia.ai")
+    email: str = Field(..., example="engineer@axios.ai")
     password: str = Field(..., min_length=8, example="Password123!")
     full_name: str = Field(..., example="Enterprise Engineer")
-    organization: Optional[str] = "Athleia Energy"
+    organization: Optional[str] = "Axios Energy"
 
 class VerifyOTPRequest(BaseModel):
     email: str

@@ -33,7 +33,7 @@ export function CTASection() {
 
           <div className="flex flex-wrap gap-4 items-center">
             <a
-              href="mailto:enterprise@athleia.ai"
+              href="mailto:enterprise@axios.ai"
               className="inline-flex items-center h-11 px-7 rounded-sm text-sm font-medium bg-text-primary text-bg-primary hover:opacity-85 transition-opacity duration-200"
             >
               Request Enterprise Demo

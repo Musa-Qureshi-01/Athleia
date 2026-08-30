@@ -39,7 +39,7 @@ export function CapabilitiesSection() {
               10 Enterprise Services Engineered for Industrial Intelligence.
             </h2>
             <p className="text-body-lg text-text-secondary leading-relaxed">
-              Athleia orchestrates specialized microservices on dedicated ports (8000 through 8010), giving your enterprise modular scalability, strict RBAC isolation, and instant audit traceability.
+              Axios orchestrates specialized microservices on dedicated ports (8000 through 8010), giving your enterprise modular scalability, strict RBAC isolation, and instant audit traceability.
             </p>
           </div>
         </div>

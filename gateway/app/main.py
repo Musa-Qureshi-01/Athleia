@@ -1,5 +1,5 @@
 """
-Athleia.ai — Enterprise API Gateway
+Axios.ai — Enterprise API Gateway
 FastAPI Application Entrypoint.
 
 Startup sequence (lifespan):
@@ -89,10 +89,10 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="Athleia.ai — Enterprise API Gateway",
+    title="Axios.ai — Enterprise API Gateway",
     version="1.0.0",
     description=(
-        "Single entry point for all Athleia.ai microservice traffic. "
+        "Single entry point for all Axios.ai microservice traffic. "
         "Handles routing, rate limiting, circuit breaking, retries, "
         "health checks, and observability."
     ),
@@ -128,7 +128,7 @@ app.include_router(router)
 @app.get("/", include_in_schema=False)
 async def root():
     return {
-        "service": "Athleia.ai API Gateway",
+        "service": "Axios.ai API Gateway",
         "version": "1.0.0",
         "environment": settings.environment,
         "health": "/__gateway/health",

@@ -27,7 +27,7 @@ export default function LoginPage() {
   const [regFullName, setRegFullName] = useState("");
   const [regEmail, setRegEmail] = useState("");
   const [regPassword, setRegPassword] = useState("");
-  const [regOrg, setRegOrg] = useState("Athleia Energy");
+  const [regOrg, setRegOrg] = useState("Axios Energy");
   const [isOtpStep, setIsOtpStep] = useState(false);
   const [otpCode, setOtpCode] = useState("");
   const [receivedOtpHint, setReceivedOtpHint] = useState<string | null>(null);
@@ -43,10 +43,10 @@ export default function LoginPage() {
 
     try {
       const data = await loginUser(email, password);
-      localStorage.setItem("athleia_token", data.access_token);
-      localStorage.setItem("athleia_refresh_token", data.refresh_token);
+      localStorage.setItem("axios_token", data.access_token);
+      localStorage.setItem("axios_refresh_token", data.refresh_token);
       localStorage.setItem(
-        "athleia_user",
+        "axios_user",
         JSON.stringify({
           user_id: data.user_id,
           email: data.email,
@@ -153,10 +153,10 @@ export default function LoginPage() {
 
       // Automatically authenticate user after successful OTP verification
       const loginData = await loginUser(regEmail, regPassword);
-      localStorage.setItem("athleia_token", loginData.access_token);
-      localStorage.setItem("athleia_refresh_token", loginData.refresh_token);
+      localStorage.setItem("axios_token", loginData.access_token);
+      localStorage.setItem("axios_refresh_token", loginData.refresh_token);
       localStorage.setItem(
-        "athleia_user",
+        "axios_user",
         JSON.stringify({
           user_id: loginData.user_id,
           email: loginData.email,
@@ -197,7 +197,7 @@ export default function LoginPage() {
               <div className="w-6.5 h-6.5 shrink-0 rounded-[4px] overflow-hidden bg-accent/10 border border-accent/30 flex items-center justify-center p-0.5">
                 <Image
                   src="/icon.png"
-                  alt="Athleia Logo"
+                  alt="Axios Logo"
                   width={24}
                   height={24}
                   className="w-full h-full object-cover"
@@ -207,7 +207,7 @@ export default function LoginPage() {
               <span
                 className="text-sm font-bold tracking-[0.08em] text-text-primary font-mono"
               >
-                ATHLEIA.AI
+                AXIOS.AI
               </span>
             </Link>
           </div>
@@ -285,7 +285,7 @@ export default function LoginPage() {
               <form onSubmit={handleLoginSubmit} className="px-8 py-7 flex flex-col gap-5">
                 <div className="flex flex-col gap-1">
                   <h1 className="text-text-primary font-bold text-lg font-display">
-                    Welcome to Athleia
+                    Welcome to Axios
                   </h1>
                   <p className="text-mono text-xs text-text-tertiary">
                     Enter your work credentials to access the platform.
@@ -460,7 +460,7 @@ export default function LoginPage() {
                         required
                         value={regEmail}
                         onChange={(e) => setRegEmail(e.target.value)}
-                        placeholder="engineer@athleia.ai"
+                        placeholder="engineer@axios.ai"
                         className={inputClass}
                         style={{ backgroundColor: "var(--bg-secondary)" }}
                       />
@@ -486,7 +486,7 @@ export default function LoginPage() {
                         type="text"
                         value={regOrg}
                         onChange={(e) => setRegOrg(e.target.value)}
-                        placeholder="Athleia Energy"
+                        placeholder="Axios Energy"
                         className={inputClass}
                         style={{ backgroundColor: "var(--bg-secondary)" }}
                       />

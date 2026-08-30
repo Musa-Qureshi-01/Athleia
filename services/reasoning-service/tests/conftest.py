@@ -1,4 +1,4 @@
-"""Pytest fixtures and test database setup for Athleia Reasoning Service.
+"""Pytest fixtures and test database setup for Axios Reasoning Service.
 """
 
 from typing import AsyncGenerator

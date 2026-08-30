@@ -63,7 +63,7 @@ export function HeroSection() {
               transition={{ ...TRANSITION_BASE, delay: 0.2 }}
             >
               <p className="text-body-lg text-text-secondary max-w-2xl leading-relaxed">
-                Athleia unifies engineering documents, SOPs, maintenance records, compliance standards, and organizational knowledge into a secure AI platform that enables intelligent search, grounded reasoning, compliance insights, predictive maintenance, and enterprise-wide knowledge discovery.
+                Axios unifies engineering documents, SOPs, maintenance records, compliance standards, and organizational knowledge into a secure AI platform that enables intelligent search, grounded reasoning, compliance insights, predictive maintenance, and enterprise-wide knowledge discovery.
               </p>
             </motion.div>
 

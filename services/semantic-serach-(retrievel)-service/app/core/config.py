@@ -1,4 +1,4 @@
-"""Environment configuration for Athleia Retrieval / Semantic Search Service.
+"""Environment configuration for Axios Retrieval / Semantic Search Service.
 """
 
 from typing import Set

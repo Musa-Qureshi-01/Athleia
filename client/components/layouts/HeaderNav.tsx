@@ -41,12 +41,12 @@ export function Navbar() {
             <Link
               href="/"
               className="flex items-center gap-3 shrink-0 group"
-              aria-label="Athleia.ai Enterprise Home"
+              aria-label="Axios.ai Enterprise Home"
             >
               <div className="w-8.5 h-8.5 rounded-[5px] overflow-hidden bg-accent/10 border border-accent/30 flex items-center justify-center p-0.5 group-hover:border-accent transition-colors">
                 <Image
                   src="/icon.png"
-                  alt="Athleia.ai"
+                  alt="Axios.ai"
                   width={34}
                   height={34}
                   className="w-full h-full object-cover"
@@ -55,7 +55,7 @@ export function Navbar() {
               </div>
               <div className="flex flex-col">
                 <span className="text-base font-bold tracking-[0.08em] text-text-primary group-hover:opacity-85 transition-opacity font-mono">
-                  ATHLEIA.AI
+                  AXIOS.AI
                 </span>
                 <span className="text-[10px] font-mono text-text-tertiary tracking-tight -mt-0.5">
                   ENTERPRISE PLATFORM

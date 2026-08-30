@@ -54,7 +54,7 @@ export function PlatformOverviewSection() {
             Unified Enterprise AI Suite for Industrial Operations.
           </h2>
           <p className="text-body-lg text-text-secondary leading-relaxed max-w-2xl">
-            Select a core service below to explore how Athleia transforms paper engineering manuals, CAD schematics, safety standards, and sensor streams into verified intelligence.
+            Select a core service below to explore how Axios transforms paper engineering manuals, CAD schematics, safety standards, and sensor streams into verified intelligence.
           </p>
         </div>
 

@@ -1,4 +1,4 @@
-# Athleia.ai — Enterprise API Gateway
+# Axios.ai — Enterprise API Gateway
 # All service dependencies pinned to avoid drift
 
 # ── Web Framework ──────────────────────────────────────────

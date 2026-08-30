@@ -19,7 +19,7 @@ class MarkdownAdapter:
         metadata = dict(post.metadata)
         content = post.content
 
-        doc_urn = metadata.get("urn", f"urn:athleia:doc:md-{hash(content) & 0xffffffff:08x}")
+        doc_urn = metadata.get("urn", f"urn:axios:doc:md-{hash(content) & 0xffffffff:08x}")
         doc_title = metadata.get("title", title)
         tags = metadata.get("tags", [])
 
@@ -33,7 +33,7 @@ class MarkdownAdapter:
             metadata=metadata,
         )
 
-        pkg_urn = metadata.get("package_urn", f"urn:athleia:pkg:md-{hash(content) & 0xffffffff:08x}")
+        pkg_urn = metadata.get("package_urn", f"urn:axios:pkg:md-{hash(content) & 0xffffffff:08x}")
 
         return OKFPackage(
             package_urn=pkg_urn,

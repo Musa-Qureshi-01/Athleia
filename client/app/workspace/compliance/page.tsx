@@ -38,6 +38,7 @@ import {
 } from "@/lib/api";
 import { DocumentViewerModal } from "@/components/workspace/DocumentViewerModal";
 import { getCorpusDocuments, CorpusDocument } from "@/lib/corpus-store";
+import { DesktopOnlyBanner } from "@/components/ui/DesktopOnlyBanner";
 
 export default function CompliancePage() {
   const [activeTab, setActiveTab] = useState<"overview" | "findings" | "rules" | "scans">("overview");
@@ -89,7 +90,7 @@ export default function CompliancePage() {
   const handleRunManualScan = async (e: React.FormEvent) => {
     e.preventDefault();
     setScanMessage(null);
-    const docId = scanDocId.trim() || `urn:athleia:doc:manual-${Date.now()}`;
+    const docId = scanDocId.trim() || `urn:axios:doc:manual-${Date.now()}`;
 
     try {
       const res = await triggerComplianceScan(
@@ -150,7 +151,13 @@ export default function CompliancePage() {
   const score = (overview.compliance_score as number) ?? 85;
 
   return (
-    <div className="p-8 max-w-7xl mx-auto flex flex-col gap-8">
+    <div className="p-4 sm:p-8 max-w-7xl mx-auto flex flex-col gap-6 sm:gap-8">
+      {/* Desktop Only Banner for Mobile */}
+      <DesktopOnlyBanner
+        serviceName="Compliance Audit & Scan Engine"
+        description="Executing multi-document compliance scans, regulatory rule verification, and PDF audit parsing require a desktop screen. Please use desktop view to trigger compliance scans."
+      />
+
       {/* Top Executive Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-border-subtle">
         <div className="flex flex-col gap-1">
@@ -329,7 +336,7 @@ export default function CompliancePage() {
                 {[
                   { name: "OSHA 1910.119 Process Safety Management", status: "NON-COMPLIANT", violations: 1 },
                   { name: "ISO 9001:2015 Control of Documented Info", status: "WARNING", violations: 1 },
-                  { name: "Athleia Corporate Governance §3.1", status: "WARNING", violations: 1 },
+                  { name: "Axios Corporate Governance §3.1", status: "WARNING", violations: 1 },
                   { name: "NIST SP 800-53 Security Controls", status: "COMPLIANT", violations: 0 },
                 ].map((framework, idx) => (
                   <div
@@ -584,7 +591,7 @@ export default function CompliancePage() {
                   type="text"
                   value={scanDocId}
                   onChange={(e) => setScanDocId(e.target.value)}
-                  placeholder="urn:athleia:doc:sop-cooling-water"
+                  placeholder="urn:axios:doc:sop-cooling-water"
                   className="p-2 bg-bg-secondary border border-border-subtle rounded text-text-primary font-mono text-xs outline-none"
                   required
                 />

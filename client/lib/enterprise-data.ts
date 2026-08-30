@@ -1,4 +1,4 @@
-// Athleia.ai — Enterprise Business Data & Content System
+// Axios.ai — Enterprise Business Data & Content System
 
 export interface ProductService {
   id: string;
@@ -22,8 +22,8 @@ export const ENTERPRISE_NAV_LINKS = [
 ];
 
 export const CORPORATE_INFO = {
-  companyName: "Athleia AI Technologies Private Limited",
-  brandName: "Athleia.ai",
+  companyName: "Axios AI Technologies Private Limited",
+  brandName: "Axios.ai",
   tagline: "Enterprise Industrial Knowledge Intelligence Platform",
   headquarters: {
     title: "Corporate Headquarters",
@@ -221,7 +221,7 @@ export const PRICING_TIERS = [
   },
 ];
 
-export const WHY_ATHLEIA_PILLARS = [
+export const WHY_AXIOS_PILLARS = [
   {
     title: "Operational Efficiency & MTTR Reduction",
     subtitle: "Cut emergency downtime by 45%",
@@ -231,19 +231,19 @@ export const WHY_ATHLEIA_PILLARS = [
   {
     title: "Automated Safety & Regulatory Governance",
     subtitle: "Continuous ISO 45001 & OSHA auditing",
-    description: "Stay audit-ready 365 days a year. Athleia's compliance intelligence automatically scans operating procedures against safety rules, generating risk scores and mitigation checklists before inspectors arrive.",
+    description: "Stay audit-ready 365 days a year. Axios's compliance intelligence automatically scans operating procedures against safety rules, generating risk scores and mitigation checklists before inspectors arrive.",
     iconName: "ShieldCheck",
   },
   {
     title: "Zero-Fabrication Grounded Intelligence",
     subtitle: "100% citation provenance guaranteed",
-    description: "In industrial engineering, an incorrect answer causes costly equipment damage or safety hazards. Athleia enforces a hard zero-fabrication policy: if evidence isn't found in your documents, it says so.",
+    description: "In industrial engineering, an incorrect answer causes costly equipment damage or safety hazards. Axios enforces a hard zero-fabrication policy: if evidence isn't found in your documents, it says so.",
     iconName: "CheckCircle2",
   },
   {
     title: "Air-Gapped & Bank-Grade VPC Security",
     subtitle: "Your data never leaves your infrastructure",
-    description: "Built for defense, nuclear, oil & gas, and power utilities. Deploy Athleia inside your AWS/Azure VPC or local plant server cluster with customer KMS keys, Argon2id encryption, and full audit logs.",
+    description: "Built for defense, nuclear, oil & gas, and power utilities. Deploy Axios inside your AWS/Azure VPC or local plant server cluster with customer KMS keys, Argon2id encryption, and full audit logs.",
     iconName: "Lock",
   },
 ];

@@ -1,4 +1,4 @@
-"""Search & Retrieval Data Transfer Objects for Athleia Retrieval Service.
+"""Search & Retrieval Data Transfer Objects for Axios Retrieval Service.
 """
 
 from enum import Enum

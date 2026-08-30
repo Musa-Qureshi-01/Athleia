@@ -67,10 +67,10 @@ export default function ProductDemoPage() {
               Interactive Product Walkthrough
             </span>
             <h1 className="text-display text-text-primary leading-tight">
-              Experience Athleia Intelligence in Action.
+              Experience Axios Intelligence in Action.
             </h1>
             <p className="text-body-lg text-text-secondary leading-relaxed">
-              Test how Athleia parses operational queries, executes grounded tools, and returns step-level citation evidence in real-time.
+              Test how Axios parses operational queries, executes grounded tools, and returns step-level citation evidence in real-time.
             </p>
           </div>
 
@@ -109,7 +109,7 @@ export default function ProductDemoPage() {
                 <div className="w-3 h-3 rounded-full bg-status-warning/40" />
                 <div className="w-3 h-3 rounded-full bg-status-verified/40" />
                 <span className="text-xs font-mono text-text-tertiary ml-2">
-                  Athleia.ai Platform Demo • {activeTab.name}
+                  Axios.ai Platform Demo • {activeTab.name}
                 </span>
               </div>
               <span className="text-[10px] font-mono text-accent bg-accent/10 px-2 py-0.5 rounded border border-accent/20">
@@ -141,7 +141,7 @@ export default function ProductDemoPage() {
                 <div className="space-y-2">
                   <span className="text-[10px] font-mono uppercase tracking-wider text-accent font-semibold flex items-center gap-1.5">
                     <Bot size={13} />
-                    <span>Athleia Verified Grounded Response</span>
+                    <span>Axios Verified Grounded Response</span>
                   </span>
                   <div className="p-4 rounded-sm border border-border-strong bg-bg-secondary text-xs leading-relaxed text-text-primary shadow-xs">
                     {activeTab.response}

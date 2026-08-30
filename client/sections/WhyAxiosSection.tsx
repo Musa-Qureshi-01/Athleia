@@ -2,10 +2,10 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { WHY_ATHLEIA_PILLARS } from "@/lib/enterprise-data";
+import { WHY_AXIOS_PILLARS } from "@/lib/enterprise-data";
 import { Zap, ShieldCheck, CheckCircle2, Lock, ArrowUpRight } from "lucide-react";
 
-export function WhyAthleiaSection() {
+export function WhyAxiosSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
@@ -29,16 +29,16 @@ export function WhyAthleiaSection() {
             Enterprise Value proposition
           </span>
           <h2 className="text-heading-1 text-text-primary mb-4">
-            Why Leading Industrial Enterprises Choose Athleia.ai
+            Why Leading Industrial Enterprises Choose Axios.ai
           </h2>
           <p className="text-body-lg text-text-secondary leading-relaxed">
-            General AI chatbots hallucinate and lack industrial context. Athleia is purpose-built to deliver verifiable, zero-fabrication decision intelligence for safety-critical plant operations.
+            General AI chatbots hallucinate and lack industrial context. Axios is purpose-built to deliver verifiable, zero-fabrication decision intelligence for safety-critical plant operations.
           </p>
         </div>
 
         {/* 4 Pillars Grid */}
         <div ref={ref} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {WHY_ATHLEIA_PILLARS.map((pillar, index) => {
+          {WHY_AXIOS_PILLARS.map((pillar, index) => {
             const IconComp = getIcon(pillar.iconName);
 
             return (

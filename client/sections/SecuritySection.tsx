@@ -31,7 +31,7 @@ export function SecuritySection() {
             className="flex flex-col justify-end"
           >
             <p className="text-body-lg text-text-secondary leading-relaxed">
-              Athleia is designed from first principles for environments where
+              Axios is designed from first principles for environments where
               document confidentiality and reasoning traceability are not optional —
               they are operational mandates.
             </p>

@@ -1,4 +1,4 @@
-# Athleia.ai — Gateway Service Registry
+# Axios.ai — Gateway Service Registry
 # Static configuration for Phase 1 service discovery.
 # To add a new service: add a new top-level key under `services`.
 # No code changes required.

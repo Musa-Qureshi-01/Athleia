@@ -29,7 +29,7 @@ class Settings(BaseSettings):
     # Storage Configuration (Local or S3)
     STORAGE_BACKEND: str = "local"  # "local" or "s3"
     STORAGE_BASE_DIR: str = "./storage/raw"
-    AWS_S3_BUCKET_NAME: str = "athleia-ingestion-bucket-256461399444-eu-north-1-an"
+    AWS_S3_BUCKET_NAME: str = "axios-ingestion-bucket-256461399444-eu-north-1-an"
     AWS_REGION: str = "eu-north-1"
     AWS_ACCESS_KEY_ID: str = ""
     AWS_SECRET_ACCESS_KEY: str = ""

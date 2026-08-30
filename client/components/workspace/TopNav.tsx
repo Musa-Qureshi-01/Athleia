@@ -51,7 +51,7 @@ export function TopNav({ onOpenSearch }: TopNavProps) {
 
   return (
     <header
-      className="h-14 border-b border-border-subtle flex items-center justify-between px-6 shrink-0 z-20"
+      className="h-14 border-b border-border-subtle flex items-center justify-between px-3.5 sm:px-6 shrink-0 z-20 gap-2 sm:gap-3"
       style={{ backgroundColor: "var(--bg-primary)" }}
     >
       {/* Search Input Trigger */}
@@ -86,7 +86,7 @@ export function TopNav({ onOpenSearch }: TopNavProps) {
         <button
           onClick={() => router.push("/workspace/assistant")}
           className="flex items-center gap-2 px-3 py-1.5 rounded-sm bg-text-primary text-bg-primary text-xs font-medium hover:opacity-90 transition-opacity shadow-sm"
-          title="Open Athleia Workforce Copilot (Shortcut: Alt+C)"
+          title="Open Axios Workforce Copilot (Shortcut: Alt+C)"
         >
           <Bot size={15} />
           <span className="hidden sm:inline">Workforce Copilot</span>
@@ -123,7 +123,7 @@ export function TopNav({ onOpenSearch }: TopNavProps) {
             >
               <div className="px-2.5 py-2 border-b border-border-subtle flex flex-col">
                 <span className="text-xs font-medium text-text-primary truncate">Musa Qureshi</span>
-                <span className="text-mono text-[10px] text-text-tertiary truncate">musa@athleia.ai</span>
+                <span className="text-mono text-[10px] text-text-tertiary truncate">musa@axios.ai</span>
                 <div className="mt-1 flex items-center gap-1.5 text-[10px] text-text-secondary">
                   <Shield size={10} className="text-status-verified" />
                   <span>Enterprise Admin</span>

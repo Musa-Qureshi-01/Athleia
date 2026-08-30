@@ -12,7 +12,7 @@ class Settings(BaseSettings):
     DEBUG: bool = False
 
     # Database Settings (PostgreSQL default, resilient SQLite fallback for tests)
-    DATABASE_URL: str = "postgresql+asyncpg://postgres:postgres@localhost:5432/athleia_compliance"
+    DATABASE_URL: str = "postgresql+asyncpg://postgres:postgres@localhost:5432/axios_compliance"
     TEST_DATABASE_URL: str = "sqlite+aiosqlite:///:memory:"
 
     # Service Discovery Endpoints

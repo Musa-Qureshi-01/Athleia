@@ -32,6 +32,7 @@ import {
 } from "@/lib/api";
 import { DocumentViewerModal } from "@/components/workspace/DocumentViewerModal";
 import { getCorpusDocuments, CorpusDocument } from "@/lib/corpus-store";
+import { DesktopOnlyBanner } from "@/components/ui/DesktopOnlyBanner";
 
 export default function MaintenancePage() {
   const [activeTab, setActiveTab] = useState<"overview" | "findings" | "health">("overview");
@@ -136,7 +137,13 @@ export default function MaintenancePage() {
   const healthIndex = (overview.overall_health_index as number) ?? 88.5;
 
   return (
-    <div className="p-8 max-w-7xl mx-auto flex flex-col gap-8">
+    <div className="p-4 sm:p-8 max-w-7xl mx-auto flex flex-col gap-6 sm:gap-8">
+      {/* Desktop Only Banner for Mobile */}
+      <DesktopOnlyBanner
+        serviceName="Maintenance Predictive Engine & Agent Execution"
+        description="Predictive MTBF analytics, sensor telemetries, and autonomous agent runs are optimized for desktop screens. Please open on desktop to trigger predictive maintenance tasks."
+      />
+
       {/* Top Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-border-subtle">
         <div className="flex flex-col gap-1">

@@ -39,7 +39,7 @@ class KnowledgeSearchTool:
         logger.info(f"[Tool: KnowledgeSearchTool] Searching Knowledge Service for: '{query}'")
         return [
             {
-                "package_urn": "urn:athleia:okf:pkg:cooling-pump-std:v1.0.0",
+                "package_urn": "urn:axios:okf:pkg:cooling-pump-std:v1.0.0",
                 "title": "Centrifugal Pump Maintenance & Cavitation Limits",
                 "snippet": "Section 4.2: Continuous operation at suction pressures below 25 PSI induces severe impeller erosion and mechanical seal thermal fatigue.",
             }

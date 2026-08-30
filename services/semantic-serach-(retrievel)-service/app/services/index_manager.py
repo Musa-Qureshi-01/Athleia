@@ -1,4 +1,4 @@
-"""Vector & BM25 Index Manager for Athleia Retrieval Service.
+"""Vector & BM25 Index Manager for Axios Retrieval Service.
 
 Manages indexing of NormalizedDocument chunks into VectorIndexRecord and BM25IndexRecord tables.
 """

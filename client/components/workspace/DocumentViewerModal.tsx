@@ -46,7 +46,7 @@ export function DocumentViewerModal({ doc, open, onClose }: DocumentViewerModalP
     if (doc.fileUrl) {
       window.open(doc.fileUrl, "_blank");
     } else {
-      const sampleText = `ATHLEIA INDUSTRIAL SYSTEM SPECIFICATION\nDocument: ${doc.name}\nType: ${doc.type}\n\n` +
+      const sampleText = `AXIOS INDUSTRIAL SYSTEM SPECIFICATION\nDocument: ${doc.name}\nType: ${doc.type}\n\n` +
         doc.chunks.map((c) => `--- ${c.section} (Page ${c.page}) ---\n${c.text}\n`).join("\n");
       const blob = new Blob([sampleText], { type: "text/plain" });
       const url = URL.createObjectURL(blob);
@@ -244,7 +244,7 @@ export function DocumentViewerModal({ doc, open, onClose }: DocumentViewerModalP
                       <div className="flex items-center gap-3">
                         <Cpu size={18} className="text-accent" />
                         <div>
-                          <h4 className="text-sm font-semibold text-text-primary">Athleia Grounded AI Analysis</h4>
+                          <h4 className="text-sm font-semibold text-text-primary">Axios Grounded AI Analysis</h4>
                           <p className="text-xs text-text-secondary">Extracted vector embeddings, CAD equipment tags, and section paths.</p>
                         </div>
                       </div>

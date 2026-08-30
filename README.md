@@ -1,16 +1,16 @@
-# Athleia.ai — Enterprise Industrial Knowledge Intelligence Platform
+# Axios.ai — Enterprise Industrial Knowledge Intelligence Platform
 
-Athleia.ai unifies complex engineering documents, standard operating procedures (SOPs), equipment maintenance logs, compliance standards, and operational knowledge into a single intelligent enterprise platform. 
+Axios.ai unifies complex engineering documents, standard operating procedures (SOPs), equipment maintenance logs, compliance standards, and operational knowledge into a single intelligent enterprise platform. 
 
 It empowers industrial workforces with instant knowledge search, grounded AI reasoning, safety compliance insights, and predictive maintenance intelligence.
 
-🔗 **Live Platform Demo**: [Athleia.ai Live Demo](https://main.d3eih13i37l72p.amplifyapp.com/)
+🔗 **Live Platform Demo**: [Axios.ai Live Demo](https://main.d3eih13i37l72p.amplifyapp.com/)
 
 ---
 
 ## Services & Products Provided
 
-Athleia.ai delivers an end-to-end suite of enterprise AI services tailored for industrial plant operations:
+Axios.ai delivers an end-to-end suite of enterprise AI services tailored for industrial plant operations:
 
 ### 1. Workforce Copilot (AI Plant Assistant)
 * **What it does**: Provides field technicians, operators, and engineers with an interactive AI assistant for real-time equipment troubleshooting, maintenance guidance, and procedural queries.
@@ -99,7 +99,7 @@ flowchart TD
 
 ## Flexible Enterprise Deployment
 
-Athleia.ai is containerized using open standards, allowing seamless deployment across any infrastructure model:
+Axios.ai is containerized using open standards, allowing seamless deployment across any infrastructure model:
 
 * **Public Cloud**: AWS, Google Cloud Platform (GCP), Microsoft Azure.
 * **Private Cloud / Enterprise VPC**: Fully isolated virtual private cloud environments.
@@ -113,4 +113,4 @@ For platform inquiries, security disclosures, or enterprise demonstration access
 * **Contact Email**: `musaqureshi0000@gmail.com`
 * **Live Demo**: [https://main.d3eih13i37l72p.amplifyapp.com/](https://main.d3eih13i37l72p.amplifyapp.com/)
 
-Copyright © 2026 Athleia.ai. All rights reserved.
+Copyright © 2026 Axios.ai. All rights reserved.

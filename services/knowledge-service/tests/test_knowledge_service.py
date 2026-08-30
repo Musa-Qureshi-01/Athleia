@@ -26,7 +26,7 @@ def test_health_endpoint():
 
 def test_okf_adapter_import_and_export():
     raw_data = {
-        "package_urn": "urn:athleia:pkg:cooling-water-sop",
+        "package_urn": "urn:axios:pkg:cooling-water-sop",
         "title": "Cooling Water System Operating Procedure",
         "description": "Standard Operating Procedure for Cooling Water Station 101",
         "version": "1.0.0",
@@ -35,7 +35,7 @@ def test_okf_adapter_import_and_export():
         "state": "DRAFT",
         "documents": [
             {
-                "document_urn": "urn:athleia:doc:cw-sop-01",
+                "document_urn": "urn:axios:doc:cw-sop-01",
                 "title": "Cooling Water Startup SOP",
                 "category": "SOP",
                 "content": "Verify suction pressure on PT-101 prior to starting Pump P-101A.",
@@ -52,7 +52,7 @@ def test_okf_adapter_import_and_export():
     }
 
     pkg = okf_adapter.import_from_dict(raw_data)
-    assert pkg.package_urn == "urn:athleia:pkg:cooling-water-sop"
+    assert pkg.package_urn == "urn:axios:pkg:cooling-water-sop"
     assert len(pkg.documents) == 1
     assert pkg.documents[0].category == DocumentCategory.SOP
 
@@ -66,14 +66,14 @@ def test_okf_adapter_import_and_export():
 
 def test_package_validation_success():
     pkg = OKFPackage(
-        package_urn="urn:athleia:pkg:test-01",
+        package_urn="urn:axios:pkg:test-01",
         title="Test Package",
         description="Testing validator",
         version="1.0.0",
         domain="Engineering",
         documents=[
             OKFDocument(
-                document_urn="urn:athleia:doc:test-doc-01",
+                document_urn="urn:axios:doc:test-doc-01",
                 title="Test Spec",
                 category=DocumentCategory.EQUIPMENT_SPEC,
                 content="Operating limit 150 PSI.",
@@ -99,14 +99,14 @@ def test_package_validation_failure():
 
 def test_relationship_validator():
     pkg = OKFPackage(
-        package_urn="urn:athleia:pkg:test-rel",
+        package_urn="urn:axios:pkg:test-rel",
         title="Rel Package",
         description="Testing relationships",
         version="1.0.0",
         domain="Engineering",
         documents=[
             OKFDocument(
-                document_urn="urn:athleia:doc:pump-101",
+                document_urn="urn:axios:doc:pump-101",
                 title="Pump 101 Spec",
                 category=DocumentCategory.EQUIPMENT_SPEC,
                 content="Centrifugal Pump P-101A",
@@ -114,8 +114,8 @@ def test_relationship_validator():
         ],
         relationships=[
             OKFRelationship(
-                source_urn="urn:athleia:doc:pump-101",
-                target_urn="urn:athleia:doc:pump-101",
+                source_urn="urn:axios:doc:pump-101",
+                target_urn="urn:axios:doc:pump-101",
                 relationship_type=RelationshipType.DEPENDS_ON,
             )
         ],
@@ -127,7 +127,7 @@ def test_relationship_validator():
 
 def test_lifecycle_state_machine():
     pkg = OKFPackage(
-        package_urn="urn:athleia:pkg:lifecycle",
+        package_urn="urn:axios:pkg:lifecycle",
         title="Lifecycle Test",
         description="State machine validation",
         version="1.0.0",
@@ -151,7 +151,7 @@ def test_lifecycle_state_machine():
 def test_markdown_adapter():
     raw_md = """---
 title: Maintenance SOP 101
-urn: urn:athleia:doc:maint-101
+urn: urn:axios:doc:maint-101
 tags: [maintenance, sop, cooling_water]
 version: 1.0.0
 ---
@@ -168,7 +168,7 @@ Inspect seal rings on Pump P-101A every 6 months.
 def test_api_import_and_search():
     with TestClient(app) as test_client:
         payload = {
-            "package_urn": "urn:athleia:pkg:api-test-01",
+            "package_urn": "urn:axios:pkg:api-test-01",
             "title": "API Integration Test Package",
             "description": "Integration test package payload",
             "version": "1.0.0",
@@ -176,7 +176,7 @@ def test_api_import_and_search():
             "authors": ["Automated Test"],
             "documents": [
                 {
-                    "document_urn": "urn:athleia:doc:api-doc-01",
+                    "document_urn": "urn:axios:doc:api-doc-01",
                     "title": "API Document Spec",
                     "category": "STANDARD",
                     "content": "API routing rules and schema compliance parameters.",

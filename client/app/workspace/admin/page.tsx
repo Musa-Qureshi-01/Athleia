@@ -61,10 +61,10 @@ const PERMISSIONS = [
   { label: "View System Metrics",         Icon: BarChart3,     employee: false, manager: false, admin: true  },
 ];
 
-function getToken() { return typeof window !== "undefined" ? localStorage.getItem("athleia_token") || "" : ""; }
+function getToken() { return typeof window !== "undefined" ? localStorage.getItem("axios_token") || "" : ""; }
 function getMyUserId() {
   if (typeof window === "undefined") return "";
-  try { return JSON.parse(localStorage.getItem("athleia_user") || "{}").user_id || ""; } catch { return ""; }
+  try { return JSON.parse(localStorage.getItem("axios_user") || "{}").user_id || ""; } catch { return ""; }
 }
 
 function Pill({ allowed }: { allowed: boolean }) {

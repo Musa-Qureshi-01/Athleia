@@ -1,4 +1,4 @@
-"""Grounded Reasoning Engine and Citation Generator for Athleia Reasoning Service.
+"""Grounded Reasoning Engine and Citation Generator for Axios Reasoning Service.
 
 Synthesizes grounded, factual industrial responses strictly using verified EvidenceItem objects.
 Never fabricates information or hallucinates unsupported claims.

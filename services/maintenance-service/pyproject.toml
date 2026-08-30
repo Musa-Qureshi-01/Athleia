@@ -3,10 +3,10 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "athleia-maintenance-service"
+name = "axios-maintenance-service"
 version = "1.0.0"
-description = "Athleia.ai Maintenance Intelligence Service"
-authors = [{ name = "Athleia AI Engineering" }]
+description = "Axios.ai Maintenance Intelligence Service"
+authors = [{ name = "Axios AI Engineering" }]
 dependencies = [
     "fastapi>=0.110.0",
     "uvicorn>=0.28.0",

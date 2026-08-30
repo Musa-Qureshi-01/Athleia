@@ -1,4 +1,4 @@
-"""Tool Schemas and 4-Tier Knowledge Priority Enums for Athleia Reasoning Service.
+"""Tool Schemas and 4-Tier Knowledge Priority Enums for Axios Reasoning Service.
 """
 
 from enum import Enum

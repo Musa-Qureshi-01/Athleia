@@ -18,7 +18,7 @@ services:
       - auth-service
       - assistant-service
     networks:
-      - athleia-net
+      - axios-net
 
   # Auth Service (Port 8008)
   auth-service:
@@ -34,7 +34,7 @@ services:
       - AUTH_DATABASE_URL=${DATABASE_URL}
       - SECRET_KEY=${SECRET_KEY}
     networks:
-      - athleia-net
+      - axios-net
 
   # Notification Service (Port 8009)
   notification-service:
@@ -49,7 +49,7 @@ services:
     environment:
       - NOTIFICATION_DATABASE_URL=${DATABASE_URL}
     networks:
-      - athleia-net
+      - axios-net
 
   # Assistant Service (Port 8010)
   assistant-service:
@@ -67,7 +67,7 @@ services:
       - GROQ_API_KEY=${GROQ_API_KEY}
       - GEMINI_API_KEY=${GEMINI_API_KEY}
     networks:
-      - athleia-net
+      - axios-net
 
   # Retrieval Service (Port 8001)
   retrieval-service:
@@ -80,7 +80,7 @@ services:
     ports:
       - "8001:8001"
     networks:
-      - athleia-net
+      - axios-net
 
   # Reasoning Service (Port 8002)
   reasoning-service:
@@ -93,7 +93,7 @@ services:
     ports:
       - "8002:8002"
     networks:
-      - athleia-net
+      - axios-net
 
   # Ingestion Service (Port 8003)
   ingestion-service:
@@ -106,7 +106,7 @@ services:
     ports:
       - "8003:8003"
     networks:
-      - athleia-net
+      - axios-net
 
   # Knowledge Service (Port 8005)
   knowledge-service:
@@ -119,7 +119,7 @@ services:
     ports:
       - "8005:8005"
     networks:
-      - athleia-net
+      - axios-net
 
   # Compliance Service (Port 8006)
   compliance-service:
@@ -132,7 +132,7 @@ services:
     ports:
       - "8006:8006"
     networks:
-      - athleia-net
+      - axios-net
 
   # Maintenance Service (Port 8007)
   maintenance-service:
@@ -145,7 +145,7 @@ services:
     ports:
       - "8007:8007"
     networks:
-      - athleia-net
+      - axios-net
 
   # Next.js Client Frontend (Port 3000)
   client:
@@ -159,8 +159,8 @@ services:
     depends_on:
       - gateway
     networks:
-      - athleia-net
+      - axios-net
 
 networks:
-  athleia-net:
+  axios-net:
     driver: bridge

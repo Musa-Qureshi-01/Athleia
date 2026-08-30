@@ -1,4 +1,4 @@
-"""CLI Reasoning & Knowledge AI Tester for Athleia Reasoning Service.
+"""CLI Reasoning & Knowledge AI Tester for Axios Reasoning Service.
 
 Usage:
     py -3.12 scripts/test_reasoning.py "Your industrial question here"

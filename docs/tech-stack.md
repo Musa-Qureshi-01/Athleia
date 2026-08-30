@@ -7,7 +7,7 @@
 - **ASGI Server**: Uvicorn
 - **Data Validation & Settings**: Pydantic v2 & Pydantic-Settings
 - **Database & Persistence**: Neon PostgreSQL (AWS East) via SQLAlchemy 2.0 (Async ORM) + `asyncpg` (Async SQLite fallback `aiosqlite` for local unit tests)
-- **File Storage**: Amazon S3 Bucket (`athleia-ingestion-bucket-256461399444-eu-north-1-an`, Region `eu-north-1` Stockholm) via `boto3` + Local content-addressable storage provider fallback (`aiofiles`)
+- **File Storage**: Amazon S3 Bucket (`axios-ingestion-bucket-256461399444-eu-north-1-an`, Region `eu-north-1` Stockholm) via `boto3` + Local content-addressable storage provider fallback (`aiofiles`)
 - **File Upload Parsing**: `python-multipart`
 - **Document Text & Layout Parsing**: `pypdf`, `python-docx`
 - **Image Preprocessing & OCR Engine**: `Pillow`, `pytesseract` (Tesseract OCR wrapper), `opencv-python-headless`

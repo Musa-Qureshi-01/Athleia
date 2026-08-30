@@ -1,4 +1,4 @@
-"""FastAPI Application Entrypoint for Athleia Retrieval / Semantic Search Service.
+"""FastAPI Application Entrypoint for Axios Retrieval / Semantic Search Service.
 """
 
 from contextlib import asynccontextmanager
@@ -25,7 +25,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title=settings.PROJECT_NAME,
     version="1.0.0",
-    description="Vector indexing, BM25 keyword search, and hybrid retrieval engine for Athleia.ai",
+    description="Vector indexing, BM25 keyword search, and hybrid retrieval engine for Axios.ai",
     lifespan=lifespan
 )
 

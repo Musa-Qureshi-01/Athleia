@@ -1,4 +1,4 @@
-"""Document Indexing API Endpoints for Athleia Retrieval Service.
+"""Document Indexing API Endpoints for Axios Retrieval Service.
 """
 
 import uuid

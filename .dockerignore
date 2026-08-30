@@ -1,0 +1,40 @@
+# Axios.ai — Docker build exclusions
+.git
+.gitignore
+.gitattributes
+
+# Frontend (deployed separately)
+client/
+
+# Python cache
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/*.pyd
+**/.pytest_cache/
+
+# Local SQLite databases (use Neon in production)
+**/*.db
+**/*.sqlite
+**/*.sqlite3
+
+# Local env files (secrets injected via Render env vars)
+**/.env
+**/.env.local
+
+# Docs and non-runtime files
+docs/
+README.md
+amplify.yml
+
+# Test files (not needed in production image)
+**/tests/
+**/scripts/
+
+# Node.js (frontend build artifacts)
+**/node_modules/
+**/.next/
+
+# IDE
+.vscode/
+.idea/

@@ -58,7 +58,7 @@ export function ServicesShowcaseSection() {
               Core Intelligence Modules
             </h2>
             <p className="text-body-lg text-text-secondary leading-relaxed">
-              Explore Athleia&apos;s modular AI services designed to orchestrate enterprise knowledge across every industrial department.
+              Explore Axios&apos;s modular AI services designed to orchestrate enterprise knowledge across every industrial department.
             </p>
           </div>
 

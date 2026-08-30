@@ -41,12 +41,12 @@ const FAQ_ITEMS = [
     a: "Our technical team typically schedules live architecture walkthroughs within 24 business hours of receiving your request.",
   },
   {
-    q: "Can Athleia be deployed inside our private cloud or on-premise hardware?",
-    a: "Yes. Athleia supports full deployment within your AWS VPC, Microsoft Azure subscription, or 100% offline air-gapped local plant servers.",
+    q: "Can Axios be deployed inside our private cloud or on-premise hardware?",
+    a: "Yes. Axios supports full deployment within your AWS VPC, Microsoft Azure subscription, or 100% offline air-gapped local plant servers.",
   },
   {
     q: "How is our company's proprietary document data protected?",
-    a: "Athleia enforces strict data perimeter isolation, customer-managed KMS key encryption, and zero external LLM training on customer corpora.",
+    a: "Axios enforces strict data perimeter isolation, customer-managed KMS key encryption, and zero external LLM training on customer corpora.",
   },
   {
     q: "What support options are available for plant emergency operations?",
@@ -119,7 +119,7 @@ export default function ContactPage() {
           {/* Concise Hero Header */}
           <div className="max-w-2xl mb-8 space-y-2">
             <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-text-tertiary font-semibold block">
-              CONTACT ATHLEIA
+              CONTACT AXIOS
             </span>
             <h1 className="text-display text-text-primary leading-tight">
               Contact Our Enterprise Team
@@ -284,7 +284,7 @@ export default function ContactPage() {
                   <div className="flex items-start gap-3">
                     <MapPin size={16} className="text-accent shrink-0 mt-0.5" />
                     <div className="flex flex-col gap-0.5">
-                      <span className="font-semibold text-text-primary">Athleia AI Technologies Pvt Ltd</span>
+                      <span className="font-semibold text-text-primary">Axios AI Technologies Pvt Ltd</span>
                       <span>Bhopal, Madhya Pradesh 462001</span>
                       <span className="text-text-tertiary">India</span>
                     </div>

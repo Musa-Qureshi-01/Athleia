@@ -1,4 +1,4 @@
-"""FastAPI Main Entrypoint for Athleia Enterprise Knowledge Service.
+"""FastAPI Main Entrypoint for Axios Enterprise Knowledge Service.
 """
 
 from contextlib import asynccontextmanager

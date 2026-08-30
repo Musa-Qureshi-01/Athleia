@@ -2,7 +2,7 @@ import os
 from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
-    PROJECT_NAME: str = "Athleia Enterprise AI Workforce Copilot"
+    PROJECT_NAME: str = "Axios Enterprise AI Workforce Copilot"
     VERSION: str = "1.0.0"
     API_V1_STR: str = "/api/v1/assistant"
     PORT: int = 8010
@@ -49,7 +49,7 @@ class Settings(BaseSettings):
     GLOBAL_MEMORY_ENABLED: bool = os.getenv("GLOBAL_MEMORY_ENABLED", "True").lower() == "true"
 
     # JWT Security Config
-    SECRET_KEY: str = os.getenv("SECRET_KEY", "athleia_enterprise_auth_super_secret_jwt_key_2026_prod")
+    SECRET_KEY: str = os.getenv("SECRET_KEY", "axios_enterprise_auth_super_secret_jwt_key_2026_prod")
     ALGORITHM: str = "HS256"
 
     class Config:

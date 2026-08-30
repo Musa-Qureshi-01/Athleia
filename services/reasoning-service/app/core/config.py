@@ -1,4 +1,4 @@
-"""Environment configuration for Athleia Reasoning Service.
+"""Environment configuration for Axios Reasoning Service.
 """
 
 from pydantic import field_validator

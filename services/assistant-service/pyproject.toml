@@ -3,10 +3,10 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "athleia-assistant-service"
+name = "axios-assistant-service"
 version = "1.0.0"
-description = "Athleia.ai Enterprise AI Workforce Copilot & Assistant Service"
-authors = [{ name = "Athleia AI Engineering Team" }]
+description = "Axios.ai Enterprise AI Workforce Copilot & Assistant Service"
+authors = [{ name = "Axios AI Engineering Team" }]
 requires-python = ">=3.10"
 dependencies = [
     "fastapi>=0.110.0",

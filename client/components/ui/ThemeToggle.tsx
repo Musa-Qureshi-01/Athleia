@@ -10,7 +10,7 @@ export function ThemeToggle({ className }: { className?: string }) {
 
   useEffect(() => {
     setMounted(true);
-    const saved = localStorage.getItem("athleia-theme");
+    const saved = localStorage.getItem("axios-theme");
     const preferred = window.matchMedia("(prefers-color-scheme: dark)").matches
       ? "dark"
       : "light";
@@ -23,7 +23,7 @@ export function ThemeToggle({ className }: { className?: string }) {
     const next = theme === "light" ? "dark" : "light";
     setTheme(next);
     document.documentElement.setAttribute("data-theme", next);
-    localStorage.setItem("athleia-theme", next);
+    localStorage.setItem("axios-theme", next);
   };
 
   if (!mounted) {

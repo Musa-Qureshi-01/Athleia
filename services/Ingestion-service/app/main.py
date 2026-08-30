@@ -26,7 +26,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title=settings.PROJECT_NAME,
     version="1.0.0",
-    description="Core ingestion, classification, normalization, and knowledge extraction service for Athleia.ai",
+    description="Core ingestion, classification, normalization, and knowledge extraction service for Axios.ai",
     lifespan=lifespan
 )
 

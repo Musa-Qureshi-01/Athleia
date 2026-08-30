@@ -175,7 +175,7 @@ export function SearchModal({ open, onClose }: SearchModalProps) {
                   <CornerDownLeft size={12} />
                   <span>Press Enter to launch search</span>
                 </div>
-                <span className="text-mono">Athleia Gateway v1.0</span>
+                <span className="text-mono">Axios Gateway v1.0</span>
               </div>
             </motion.div>
           </div>

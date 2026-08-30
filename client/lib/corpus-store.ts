@@ -28,7 +28,7 @@ const DEFAULT_DOCUMENTS: CorpusDocument[] = [
     chunks: [
       {
         id: "chk_sys_01",
-        text: "System Design Overview: Athleia is structured around microservices including Ingestion (8003), Retrieval (8001), Grounded Reasoning (8002), and an Enterprise API Gateway (8000). All internal traffic passes through the Gateway for rate limiting, circuit breaking, and trace propagation.",
+        text: "System Design Overview: Axios is structured around microservices including Ingestion (8003), Retrieval (8001), Grounded Reasoning (8002), and an Enterprise API Gateway (8000). All internal traffic passes through the Gateway for rate limiting, circuit breaking, and trace propagation.",
         section: "1.0 Architecture & Gateway Topology",
         page: 1,
         score: 0.96,
@@ -75,7 +75,7 @@ const DEFAULT_DOCUMENTS: CorpusDocument[] = [
   },
 ];
 
-const STORAGE_KEY = "athleia_corpus_documents";
+const STORAGE_KEY = "axios_corpus_documents";
 
 export function getCorpusDocuments(): CorpusDocument[] {
   if (typeof window === "undefined") return DEFAULT_DOCUMENTS;

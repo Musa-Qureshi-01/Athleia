@@ -29,8 +29,8 @@ class OpenRouterProvider(BaseLLMProvider):
 
         headers = {
             "Authorization": f"Bearer {key}",
-            "HTTP-Referer": "https://athleia.ai",
-            "X-Title": "Athleia Assistant",
+            "HTTP-Referer": "https://axios.ai",
+            "X-Title": "Axios Assistant",
             "Content-Type": "application/json"
         }
         payload = {

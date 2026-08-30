@@ -1,4 +1,4 @@
-"""Search & Knowledge Retrieval API Endpoints for Athleia Retrieval Service.
+"""Search & Knowledge Retrieval API Endpoints for Axios Retrieval Service.
 """
 
 import time

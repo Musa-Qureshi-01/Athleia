@@ -3,7 +3,7 @@ import { Footer } from "@/components/layouts/Footer";
 import { HeroSection } from "@/sections/HeroSection";
 import { PlatformOverviewSection } from "@/sections/PlatformOverviewSection";
 import { ServicesShowcaseSection } from "@/sections/ServicesShowcaseSection";
-import { WhyAthleiaSection } from "@/sections/WhyAthleiaSection";
+import { WhyAxiosSection } from "@/sections/WhyAxiosSection";
 import { DemoCTASection } from "@/sections/DemoCTASection";
 
 export default function Home() {
@@ -14,7 +14,7 @@ export default function Home() {
         <HeroSection />
         <PlatformOverviewSection />
         <ServicesShowcaseSection />
-        <WhyAthleiaSection />
+        <WhyAxiosSection />
         <DemoCTASection />
       </main>
       <Footer />

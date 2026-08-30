@@ -71,7 +71,7 @@ async def register(req: UserRegister):
             async with session.begin():
                 existing.hashed_password = hashed_pw
                 existing.full_name = req.full_name
-                existing.organization = req.organization or "Athleia Energy"
+                existing.organization = req.organization or "Axios Energy"
         
         otp_code = generate_otp()
         await repository.save_otp(existing.user_id, existing.email, otp_code)
@@ -93,7 +93,7 @@ async def register(req: UserRegister):
         email=req.email,
         hashed_pw=hashed_pw,
         full_name=req.full_name,
-        organization=req.organization or "Athleia Energy",
+        organization=req.organization or "Axios Energy",
     )
 
     # Generate 6-digit OTP code & save

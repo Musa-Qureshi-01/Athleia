@@ -18,7 +18,7 @@ class DBUser(Base):
     email: Mapped[str] = mapped_column(String(255), unique=True, index=True)
     hashed_password: Mapped[str] = mapped_column(String(255))
     full_name: Mapped[str] = mapped_column(String(255))
-    organization: Mapped[str] = mapped_column(String(255), default="Athleia.ai")
+    organization: Mapped[str] = mapped_column(String(255), default="Axios.ai")
     role: Mapped[str] = mapped_column(String(32), default=UserRole.EMPLOYEE.value, index=True)
     status: Mapped[str] = mapped_column(String(32), default=UserStatus.PENDING_VERIFICATION.value, index=True)
     is_verified: Mapped[bool] = mapped_column(Boolean, default=False)
@@ -84,8 +84,8 @@ class AuthRepository:
                     user_id="usr_superadmin",
                     email=settings.SUPERADMIN_EMAIL,
                     hashed_password=hash_password(settings.SUPERADMIN_PASSWORD),
-                    full_name="Athleia Super Admin",
-                    organization="Athleia Core",
+                    full_name="Axios Super Admin",
+                    organization="Axios Core",
                     role=UserRole.SUPER_ADMIN.value,
                     status=UserStatus.ACTIVE.value,
                     is_verified=True,
@@ -95,7 +95,7 @@ class AuthRepository:
                 await session.commit()
 
     async def create_user(
-        self, email: str, hashed_pw: str, full_name: str, organization: str = "Athleia Energy"
+        self, email: str, hashed_pw: str, full_name: str, organization: str = "Axios Energy"
     ) -> DBUser:
         async with self.async_session() as session:
             async with session.begin():

@@ -37,5 +37,5 @@ class EnterpriseSearchTool(BaseTool):
             return ToolResult(
                 success=True,
                 content=f"Enterprise Knowledge Search for '{query}': Grounded operational context loaded from Knowledge base.",
-                citations=[{"source_title": "Athleia SOP Index", "snippet": f"Grounded search results for query '{query}'", "confidence_score": 0.9}]
+                citations=[{"source_title": "Axios SOP Index", "snippet": f"Grounded search results for query '{query}'", "confidence_score": 0.9}]
             )

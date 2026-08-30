@@ -175,7 +175,7 @@ export default function WorkforceCopilotPage() {
       }
     } catch (err) {
       console.error("Error sending message", err);
-      const errMsg = err instanceof Error ? err.message : "Unable to reach Athleia Assistant Service. Please ensure Port 8010 is active.";
+      const errMsg = err instanceof Error ? err.message : "Unable to reach Axios Assistant Service. Please ensure Port 8010 is active.";
       setMessages((prev) => [
         ...prev,
         {
@@ -281,7 +281,7 @@ export default function WorkforceCopilotPage() {
               <Bot size={16} />
             </div>
             <div className="flex flex-col">
-              <span className="text-xs font-semibold text-text-primary leading-none">Athleia Workforce Copilot</span>
+              <span className="text-xs font-semibold text-text-primary leading-none">Axios Workforce Copilot</span>
               <span className="text-[10px] font-mono text-text-tertiary mt-0.5">Industrial Knowledge Intelligence</span>
             </div>
           </div>

@@ -41,12 +41,12 @@ def test_superadmin_bootstrap_login():
 
 def test_registration_and_otp_verification_flow():
     unique_suffix = uuid.uuid4().hex[:6]
-    test_email = f"engineer_{unique_suffix}@athleia.ai"
+    test_email = f"engineer_{unique_suffix}@axios.ai"
     reg_payload = {
         "email": test_email,
         "password": "SecureTestPassword123!",
         "full_name": "Test Field Engineer",
-        "organization": "Athleia Energy",
+        "organization": "Axios Energy",
     }
     res_reg = client.post("/api/v1/auth/register", json=reg_payload)
     assert res_reg.status_code == 200

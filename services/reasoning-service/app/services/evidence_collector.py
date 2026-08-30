@@ -1,4 +1,4 @@
-"""Evidence Collector & Knowledge Integrator for Athleia Reasoning Service.
+"""Evidence Collector & Knowledge Integrator for Axios Reasoning Service.
 
 Collects, ranks, deduplicates, and structures verified evidence items from Retrieval Service
 and internal asset databases according to 4-tier Knowledge Priority.

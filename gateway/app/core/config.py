@@ -4,6 +4,19 @@ Gateway Configuration System.
 All configuration is sourced from environment variables and the services.yaml
 file. Hardcoded values are not permitted anywhere in the gateway codebase.
 
+Service URL overrides (for Render / production deployments):
+    Each downstream service URL can be overridden via environment variable:
+      SERVICE_URL_AUTH          → overrides auth service instances
+      SERVICE_URL_ASSISTANT     → overrides assistant service instances
+      SERVICE_URL_RETRIEVAL     → overrides retrieval service instances
+      SERVICE_URL_REASONING     → overrides reasoning service instances
+      SERVICE_URL_INGESTION     → overrides ingestion service instances
+      SERVICE_URL_KNOWLEDGE     → overrides knowledge service instances
+      SERVICE_URL_COMPLIANCE    → overrides compliance service instances
+      SERVICE_URL_MAINTENANCE   → overrides maintenance service instances
+      SERVICE_URL_NOTIFICATION  → overrides notification service instances
+    When unset, the URL from services.yaml is used (localhost — local dev).
+
 Usage:
     from app.core.config import settings, services_config
 """
@@ -32,14 +45,42 @@ class GatewaySettings(BaseSettings):
     environment: str = Field(default="development")
     debug: bool = Field(default=False)
 
-    # ── Gateway network ────────────────────────────────────
+    # ── Gateway network ────────────────────────────────────────────────
     gateway_host: str = Field(default="0.0.0.0")
     gateway_port: int = Field(default=8000)
     gateway_log_level: str = Field(default="info")
 
-    # ── Service registry ───────────────────────────────────
+    # ── Service registry ───────────────────────────────────────────────
     registry_backend: str = Field(default="static")
     services_config_path: str = Field(default="config/services.yaml")
+
+    # ── Per-service URL overrides (production / Render) ────────────────
+    # When set, these override the instance URLs from services.yaml.
+    # Format: full base URL, e.g. https://axios-auth.onrender.com
+    service_url_auth: str | None = Field(default=None)
+    service_url_assistant: str | None = Field(default=None)
+    service_url_retrieval: str | None = Field(default=None)
+    service_url_reasoning: str | None = Field(default=None)
+    service_url_ingestion: str | None = Field(default=None)
+    service_url_knowledge: str | None = Field(default=None)
+    service_url_compliance: str | None = Field(default=None)
+    service_url_maintenance: str | None = Field(default=None)
+    service_url_notification: str | None = Field(default=None)
+
+    def service_url_overrides(self) -> dict[str, str]:
+        """Return mapping of service name → URL for any env vars that are set."""
+        mapping = {
+            "auth": self.service_url_auth,
+            "assistant": self.service_url_assistant,
+            "retrieval": self.service_url_retrieval,
+            "reasoning": self.service_url_reasoning,
+            "ingestion": self.service_url_ingestion,
+            "knowledge": self.service_url_knowledge,
+            "compliance": self.service_url_compliance,
+            "maintenance": self.service_url_maintenance,
+            "notification": self.service_url_notification,
+        }
+        return {name: url for name, url in mapping.items() if url}
 
     # ── Rate limiting ──────────────────────────────────────
     rate_limit_enabled: bool = Field(default=True)
@@ -121,7 +162,7 @@ class ServicesConfig:
     Provides O(1) prefix-based service lookup used by the router.
     """
 
-    def __init__(self, raw: dict[str, Any]) -> None:
+    def __init__(self, raw: dict[str, Any], url_overrides: dict[str, str] | None = None) -> None:
         gateway_raw = raw.get("gateway", {})
         self.gateway_port: int = int(gateway_raw.get("port", 8000))
         self.max_request_body_bytes: int = int(
@@ -134,6 +175,12 @@ class ServicesConfig:
             name: ServiceConfig(name, svc_raw)
             for name, svc_raw in services_raw.items()
         }
+
+        # Apply env-var URL overrides (used in production / Render deployments)
+        if url_overrides:
+            for svc_name, override_url in url_overrides.items():
+                if svc_name in self._services:
+                    self._services[svc_name].instances = [override_url]
 
         # Build prefix → service name index for O(1) routing
         self._prefix_index: dict[str, str] = {
@@ -165,7 +212,10 @@ class ServicesConfig:
         return list(self._prefix_index.keys())
 
 
-def _load_services_config(path: str) -> ServicesConfig:
+def _load_services_config(
+    path: str,
+    url_overrides: dict[str, str] | None = None,
+) -> ServicesConfig:
     config_path = Path(path)
     if not config_path.exists():
         raise FileNotFoundError(
@@ -173,11 +223,12 @@ def _load_services_config(path: str) -> ServicesConfig:
         )
     with config_path.open("r", encoding="utf-8") as fh:
         raw = yaml.safe_load(fh)
-    return ServicesConfig(raw or {})
+    return ServicesConfig(raw or {}, url_overrides=url_overrides)
 
 
 # ── Module-level singletons ────────────────────────────────────────────────
 settings = GatewaySettings()
 services_config: ServicesConfig = _load_services_config(
-    settings.services_config_path
+    settings.services_config_path,
+    url_overrides=settings.service_url_overrides(),
 )

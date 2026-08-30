@@ -190,7 +190,7 @@ export default function PricingPage() {
                 Supported Deployment Environments
               </h2>
               <p className="text-xs text-text-secondary leading-relaxed">
-                Athleia microservices are packaged as OCI-compliant container clusters designed to run seamlessly in multi-tenant SaaS, customer VPCs, or air-gapped hardware.
+                Axios microservices are packaged as OCI-compliant container clusters designed to run seamlessly in multi-tenant SaaS, customer VPCs, or air-gapped hardware.
               </p>
             </div>
 

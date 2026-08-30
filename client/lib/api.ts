@@ -1,5 +1,5 @@
 /**
- * Athleia.ai — API Gateway Client
+ * Axios.ai — API Gateway Client
  * Single entrypoint connecting client UI directly to the Python API Gateway.
  */
 
@@ -853,7 +853,7 @@ export async function fetchGatewayHealth(): Promise<Record<string, unknown>> {
 }
 
 // --------------------------------------------------
-// ATHLEIA WORKFORCE COPILOT / ASSISTANT SERVICE API
+// AXIOS WORKFORCE COPILOT / ASSISTANT SERVICE API
 // --------------------------------------------------
 const ASSISTANT_DIRECT = "http://localhost:8010";
 
@@ -865,7 +865,7 @@ export async function sendAssistantChatMessage(payload: {
   explanation_style?: string;
 }): Promise<any> {
 
-  const token = typeof window !== "undefined" ? localStorage.getItem("athleia_token") : null;
+  const token = typeof window !== "undefined" ? localStorage.getItem("axios_token") : null;
   const headers: Record<string, string> = { "Content-Type": "application/json" };
   if (token) headers["Authorization"] = `Bearer ${token}`;
 
@@ -900,7 +900,7 @@ export async function sendAssistantChatMessage(payload: {
 }
 
 export async function fetchAssistantConversations(): Promise<any[]> {
-  const token = typeof window !== "undefined" ? localStorage.getItem("athleia_token") : null;
+  const token = typeof window !== "undefined" ? localStorage.getItem("axios_token") : null;
   const headers: Record<string, string> = {};
   if (token) headers["Authorization"] = `Bearer ${token}`;
 
@@ -921,7 +921,7 @@ export async function fetchAssistantConversations(): Promise<any[]> {
 }
 
 export async function fetchAssistantConversationDetail(conversationId: string): Promise<any> {
-  const token = typeof window !== "undefined" ? localStorage.getItem("athleia_token") : null;
+  const token = typeof window !== "undefined" ? localStorage.getItem("axios_token") : null;
   const headers: Record<string, string> = {};
   if (token) headers["Authorization"] = `Bearer ${token}`;
 
@@ -954,7 +954,7 @@ export async function fetchAssistantModels(): Promise<any[]> {
 }
 
 export async function submitAssistantFeedback(messageId: string, rating: number, comment?: string): Promise<any> {
-  const token = typeof window !== "undefined" ? localStorage.getItem("athleia_token") : null;
+  const token = typeof window !== "undefined" ? localStorage.getItem("axios_token") : null;
   const headers: Record<string, string> = { "Content-Type": "application/json" };
   if (token) headers["Authorization"] = `Bearer ${token}`;
 

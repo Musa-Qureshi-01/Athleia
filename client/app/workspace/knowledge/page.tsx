@@ -36,11 +36,12 @@ import {
 import { KnowledgeGraphVisualizer } from "@/components/workspace/KnowledgeGraphVisualizer";
 import { DocumentViewerModal } from "@/components/workspace/DocumentViewerModal";
 import { getCorpusDocuments, CorpusDocument } from "@/lib/corpus-store";
+import { DesktopOnlyBanner } from "@/components/ui/DesktopOnlyBanner";
 
 const SAMPLE_PACKAGES: KnowledgePackageItem[] = [
   {
     okf_version: "1.0.0",
-    package_urn: "urn:athleia:pkg:cooling-water-101",
+    package_urn: "urn:axios:pkg:cooling-water-101",
     title: "Cooling Water System P&ID & SOP",
     description: "Standard Operating Procedure and CAD P&ID specifications for Cooling Water Station 101.",
     version: "1.0.0",
@@ -53,7 +54,7 @@ const SAMPLE_PACKAGES: KnowledgePackageItem[] = [
     metadata: { "plant_section": "Station-101", "compliance_level": "Tier-1" },
     documents: [
       {
-        document_urn: "urn:athleia:doc:sop-01",
+        document_urn: "urn:axios:doc:sop-01",
         title: "Pump P-101A Startup SOP",
         category: "SOP",
         content: "Verify PT-101 pressure gauge reaches 150 PSI before engaging secondary suction valve VLV-302.",
@@ -66,7 +67,7 @@ const SAMPLE_PACKAGES: KnowledgePackageItem[] = [
   },
   {
     okf_version: "1.0.0",
-    package_urn: "urn:athleia:pkg:sys-arch-2026",
+    package_urn: "urn:axios:pkg:sys-arch-2026",
     title: "Distributed Architecture & Gateway Spec",
     description: "Core architectural specification for 12-phase Gateway routing and Knowledge Service.",
     version: "1.2.0",
@@ -79,7 +80,7 @@ const SAMPLE_PACKAGES: KnowledgePackageItem[] = [
     metadata: { "architecture": "Clean Architecture", "resilience": "CircuitBreaker" },
     documents: [
       {
-        document_urn: "urn:athleia:doc:arch-01",
+        document_urn: "urn:axios:doc:arch-01",
         title: "Clean Architecture Guidelines",
         category: "STANDARD",
         content: "Services isolate domain logic from external transport adapters and storage layers.",
@@ -193,7 +194,7 @@ export default function KnowledgePage() {
     setErrorMsg(null);
     setSuccessMsg(null);
 
-    const urn = importUrn.trim() || `urn:athleia:pkg:${Date.now()}`;
+    const urn = importUrn.trim() || `urn:axios:pkg:${Date.now()}`;
     const payload = {
       package_urn: urn,
       title: importTitle || "Imported Engineering Knowledge",
@@ -242,7 +243,13 @@ export default function KnowledgePage() {
   const selectedPkg = packages.find((p) => p.package_urn === selectedPackageUrn) || packages[0];
 
   return (
-    <div className="p-8 max-w-7xl mx-auto flex flex-col gap-8">
+    <div className="p-4 sm:p-8 max-w-7xl mx-auto flex flex-col gap-6 sm:gap-8">
+      {/* Desktop Only Banner for Mobile */}
+      <DesktopOnlyBanner
+        serviceName="OKF Knowledge Graph & Package Console"
+        description="Interactive 2D/3D Knowledge Graph visualizers, package lifecycle state transitions, and OKF JSON schema validations are designed for desktop workstations."
+      />
+
       {/* Top Page Header & View Mode Switcher */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-border-subtle">
         <div className="flex flex-col gap-1">
@@ -573,7 +580,7 @@ export default function KnowledgePage() {
                   type="text"
                   value={importUrn}
                   onChange={(e) => setImportUrn(e.target.value)}
-                  placeholder="urn:athleia:pkg:turbine-01"
+                  placeholder="urn:axios:pkg:turbine-01"
                   className="bg-bg-secondary border border-border-subtle rounded p-2 text-text-primary outline-none"
                 />
               </div>

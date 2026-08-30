@@ -27,7 +27,7 @@ export function KnowledgePrioritySection() {
                 4-Tier Knowledge Priority Dispatcher
               </h2>
               <p className="text-body-lg text-text-secondary leading-relaxed">
-                Athleia enforces a strict knowledge authority hierarchy. Enterprise
+                Axios enforces a strict knowledge authority hierarchy. Enterprise
                 documents always outrank external sources. No answer is generated
                 without verified grounding.
               </p>

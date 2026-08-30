@@ -340,7 +340,7 @@ export function OriginalDocumentViewer({
               <span>UTF-8 ENCODING</span>
             </div>
             <pre className="whitespace-pre-wrap font-mono text-blue-200">
-              {rawText || `1.0 ATHLEIA SYSTEM ARCHITECTURE SPECIFICATION\n=======================================================\n\n- API Gateway: Port 8000 (Proxy engine, rate limiting, circuit breaker)\n- Retrieval Service: Port 8001 (Hybrid Dense Vector + BM25 Search)\n- Grounded Reasoning Service: Port 8002 (LLM orchestration & citation verification)\n- Ingestion Service: Port 8003 (OCR parsing & CAD P&ID processing)\n- Knowledge Service: Port 8005 (OKF v1.0, Markdown adapters & audit trail)`}
+              {rawText || `1.0 AXIOS SYSTEM ARCHITECTURE SPECIFICATION\n=======================================================\n\n- API Gateway: Port 8000 (Proxy engine, rate limiting, circuit breaker)\n- Retrieval Service: Port 8001 (Hybrid Dense Vector + BM25 Search)\n- Grounded Reasoning Service: Port 8002 (LLM orchestration & citation verification)\n- Ingestion Service: Port 8003 (OCR parsing & CAD P&ID processing)\n- Knowledge Service: Port 8005 (OKF v1.0, Markdown adapters & audit trail)`}
             </pre>
           </div>
         )}

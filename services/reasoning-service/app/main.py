@@ -1,4 +1,4 @@
-"""FastAPI Application Entrypoint for Athleia Industrial AI Reasoning Service.
+"""FastAPI Application Entrypoint for Axios Industrial AI Reasoning Service.
 """
 
 from contextlib import asynccontextmanager
@@ -25,7 +25,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title=settings.PROJECT_NAME,
     version="1.0.0",
-    description="Grounded AI reasoning, multi-tool orchestration, evidence ranking, and evaluation engine for Athleia.ai",
+    description="Grounded AI reasoning, multi-tool orchestration, evidence ranking, and evaluation engine for Axios.ai",
     lifespan=lifespan
 )
 

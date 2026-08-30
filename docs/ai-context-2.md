@@ -1,6 +1,6 @@
-You are joining the engineering team building Athleia.ai.
+You are joining the engineering team building Axios.ai.
 
-Athleia.ai is an enterprise-grade Industrial Knowledge Intelligence Platform designed for manufacturing and industrial organizations.
+Axios.ai is an enterprise-grade Industrial Knowledge Intelligence Platform designed for manufacturing and industrial organizations.
 
 Before implementing anything, carefully read and understand the following project documents located under the `/docs` directory:
 
@@ -143,6 +143,6 @@ Do not sacrifice maintainability for speed.
 
 ## Goal
 
-Build Athleia.ai as if it will be deployed to enterprise customers.
+Build Axios.ai as if it will be deployed to enterprise customers.
 
 Every implementation should integrate naturally with the existing architecture while remaining maintainable for years.

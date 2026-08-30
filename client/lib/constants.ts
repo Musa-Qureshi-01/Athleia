@@ -1,4 +1,4 @@
-// Athleia.ai — Site Constants & Microservice Platform Content
+// Axios.ai — Site Constants & Microservice Platform Content
 
 export const NAV_LINKS = [
   { label: "Platform Services", href: "#platform" },
@@ -114,7 +114,7 @@ export const KNOWLEDGE_PRIORITIES = [
     priority: "01",
     label: "Your Plant Engineering Documents",
     description:
-      "P&ID drawings, maintenance SOPs, CAD schematics, and technical datasheets. These always answer first. If the answer is in your document corpus, Athleia will find it and cite the exact page and section.",
+      "P&ID drawings, maintenance SOPs, CAD schematics, and technical datasheets. These always answer first. If the answer is in your document corpus, Axios will find it and cite the exact page and section.",
     tags: ["P&ID", "SOP", "CAD", "Datasheets", "Specs"],
     weight: "Highest authority",
   },
@@ -122,7 +122,7 @@ export const KNOWLEDGE_PRIORITIES = [
     priority: "02",
     label: "Live Asset Telemetry & CMMS Records",
     description:
-      "CMMS records, sensor telemetry, calibration histories, and inspection logs connected via API sync. Athleia queries these when operational equipment context is required.",
+      "CMMS records, sensor telemetry, calibration histories, and inspection logs connected via API sync. Axios queries these when operational equipment context is required.",
     tags: ["CMMS", "Telemetry", "Asset registry", "Calibration"],
     weight: "High authority",
   },
@@ -180,7 +180,7 @@ export const CAPABILITIES = [
     tag: "P&ID Diagram Intelligence",
     title: "Query tags directly to resolve equipment details",
     description:
-      "Enter a tag such as PT-101 or pump P-101A and Athleia resolves it against plant P&ID drawings, returning instrument functions, connected equipment, process lines, and operating ranges.",
+      "Enter a tag such as PT-101 or pump P-101A and Axios resolves it against plant P&ID drawings, returning instrument functions, connected equipment, process lines, and operating ranges.",
     metric: "PT-101 to P-101A suction line",
     metricLabel: "Tag resolved to equipment and line",
   },
@@ -240,7 +240,7 @@ export const USE_CASES = [
   },
 ];
 
-export const API_EXAMPLE = `curl -X POST https://api.athleia.ai/api/v1/assistant/chat \\
+export const API_EXAMPLE = `curl -X POST https://api.axios.ai/api/v1/assistant/chat \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -266,7 +266,7 @@ export const SECURITY_FEATURES = [
   {
     title: "VPC and Air-Gap Compatible",
     description:
-      "Athleia runs within your private cloud VPC or local plant server infrastructure. Zero internet data exposure and strict IAM token policies govern all data access.",
+      "Axios runs within your private cloud VPC or local plant server infrastructure. Zero internet data exposure and strict IAM token policies govern all data access.",
   },
   {
     title: "Documents Remain Secured",

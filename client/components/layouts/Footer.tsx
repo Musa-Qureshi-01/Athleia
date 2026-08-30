@@ -15,11 +15,11 @@ export function Footer() {
           <div className="lg:col-span-4 flex flex-col gap-6">
             <Link href="/" className="flex items-center gap-3 group">
               <div className="w-8 h-8 rounded-[5px] overflow-hidden bg-accent/10 border border-accent/30 flex items-center justify-center p-0.5 group-hover:border-accent transition-colors">
-                <Image src="/icon.png" alt="Athleia.ai" width={32} height={32} className="w-full h-full object-cover" />
+                <Image src="/icon.png" alt="Axios.ai" width={32} height={32} className="w-full h-full object-cover" />
               </div>
               <div className="flex flex-col">
                 <span className="text-sm font-bold tracking-[0.1em] font-mono text-text-primary">
-                  ATHLEIA.AI
+                  AXIOS.AI
                 </span>
                 <span className="text-[10px] font-mono text-text-tertiary">
                   ENTERPRISE PLATFORM
@@ -192,7 +192,7 @@ export function Footer() {
 
         {/* Bottom Legal & Copyright Bar */}
         <div className="pt-10 mt-16 border-t border-border-subtle flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-text-tertiary">
-          <span>&copy; {new Date().getFullYear()} Athleia AI Technologies Private Limited. All rights reserved.</span>
+          <span>&copy; {new Date().getFullYear()} Axios AI Technologies Private Limited. All rights reserved.</span>
           <div className="flex items-center gap-6">
             <Link href="/contact" className="hover:text-text-primary transition-colors">Privacy Policy</Link>
             <Link href="/contact" className="hover:text-text-primary transition-colors">Terms of Service</Link>

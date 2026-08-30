@@ -83,7 +83,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                   <div className="space-y-1">
                     <span className="text-xs font-semibold text-text-primary block">{feature}</span>
                     <span className="text-[11px] text-text-tertiary leading-relaxed block">
-                      Fully integrated with Athleia&apos;s zero-fabrication reasoning engine and audit telemetry logging.
+                      Fully integrated with Axios&apos;s zero-fabrication reasoning engine and audit telemetry logging.
                     </span>
                   </div>
                 </div>

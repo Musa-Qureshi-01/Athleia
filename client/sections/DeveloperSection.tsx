@@ -29,7 +29,7 @@ export function DeveloperSection() {
             </h2>
             <p className="text-body-lg text-text-secondary leading-relaxed">
               A single authenticated POST request returns a fully-grounded, citation-backed
-              reasoning response. Integrate Athleia directly into your SCADA systems,
+              reasoning response. Integrate Axios directly into your SCADA systems,
               maintenance portals, or engineering decision workflows.
             </p>
 

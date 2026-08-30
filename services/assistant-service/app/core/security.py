@@ -9,7 +9,7 @@ class UserIdentity(BaseModel):
     user_id: str
     email: str
     full_name: str
-    organization: str = "Athleia.ai"
+    organization: str = "Axios.ai"
     role: str = "EMPLOYEE"
     permissions: List[str] = []
 
@@ -56,9 +56,9 @@ def parse_user_token(authorization: Optional[str] = Header(None)) -> UserIdentit
             # Dev mock fallback
             return UserIdentity(
                 user_id="usr_superadmin_001",
-                email="admin@athleia.ai",
-                full_name="Athleia Super Admin",
-                organization="Athleia.ai",
+                email="admin@axios.ai",
+                full_name="Axios Super Admin",
+                organization="Axios.ai",
                 role="SUPER_ADMIN",
                 permissions=get_role_default_permissions("SUPER_ADMIN")
             )
@@ -72,7 +72,7 @@ def parse_user_token(authorization: Optional[str] = Header(None)) -> UserIdentit
         payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
         user_id = payload.get("sub") or payload.get("user_id")
         email = payload.get("email", "")
-        full_name = payload.get("full_name", "Athleia User")
+        full_name = payload.get("full_name", "Axios User")
         role = payload.get("role", "EMPLOYEE")
         permissions = payload.get("permissions", get_role_default_permissions(role))
 
@@ -83,7 +83,7 @@ def parse_user_token(authorization: Optional[str] = Header(None)) -> UserIdentit
             user_id=user_id,
             email=email,
             full_name=full_name,
-            organization=payload.get("organization", "Athleia.ai"),
+            organization=payload.get("organization", "Axios.ai"),
             role=role,
             permissions=permissions
         )

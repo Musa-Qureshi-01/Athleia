@@ -1,4 +1,4 @@
-"""CLI Search & Retrieval Tester for Athleia Retrieval Service.
+"""CLI Search & Retrieval Tester for Axios Retrieval Service.
 
 Usage:
     py -3.12 scripts/test_search.py "Your industrial query here"

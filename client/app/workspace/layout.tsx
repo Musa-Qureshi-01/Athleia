@@ -18,7 +18,10 @@ export default function WorkspaceLayout({
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const token = localStorage.getItem("athleia_token");
+      if (window.innerWidth < 768) {
+        setCollapsed(true);
+      }
+      const token = localStorage.getItem("axios_token");
       if (!token) {
         // Redirect unauthenticated access to login page
         router.push("/login");

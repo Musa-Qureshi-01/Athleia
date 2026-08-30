@@ -20,7 +20,7 @@ async def lifespan(app: FastAPI):
     await repository.init_db()
     logger.info("Database tables initialized successfully.")
     yield
-    logger.info("Shutting down Athleia Assistant Service...")
+    logger.info("Shutting down Axios Assistant Service...")
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
@@ -53,7 +53,7 @@ app.include_router(health_router, prefix=prefix)
 @app.get("/")
 async def root():
     return {
-        "message": "Athleia Assistant Service is running",
+        "message": "Axios Assistant Service is running",
         "docs": f"{settings.API_V1_STR}/docs",
         "health": f"{settings.API_V1_STR}/health"
     }

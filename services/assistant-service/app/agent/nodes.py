@@ -77,7 +77,7 @@ async def agent_llm_node(state: AssistantState) -> AssistantState:
     if any(w in user_query for w in ["search", "sop", "procedure", "finding", "pump", "compliance", "maintenance"]):
         dummy_user = UserIdentity(
             user_id=state.user_id,
-            email=state.user_id + "@athleia.ai",
+            email=state.user_id + "@axios.ai",
             full_name="Enterprise Worker",
             role=state.user_role,
             permissions=state.user_permissions

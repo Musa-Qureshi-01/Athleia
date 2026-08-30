@@ -1,4 +1,4 @@
-"""Async Database session management for Athleia Reasoning Service.
+"""Async Database session management for Axios Reasoning Service.
 """
 
 from typing import AsyncGenerator

@@ -1,4 +1,4 @@
-"""Multi-Provider LLM Orchestrator for Athleia Reasoning Service.
+"""Multi-Provider LLM Orchestrator for Axios Reasoning Service.
 
 Supports Google Gemini, Anthropic via Amazon Bedrock, Groq, OpenRouter, Local Ollama,
 and Deterministic Grounded Fallback.
@@ -12,7 +12,7 @@ from app.core.config import settings
 from app.core.logging import logger
 from app.schemas.reasoning import EvidenceItem
 
-GROUNDED_SYSTEM_PROMPT = """You are the Industrial AI Reasoning Engine for Athleia.ai.
+GROUNDED_SYSTEM_PROMPT = """You are the Industrial AI Reasoning Engine for Axios.ai.
 Your responsibility is to answer the user's technical inquiry strictly using the provided verified enterprise evidence.
 
 RULES:

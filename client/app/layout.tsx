@@ -21,9 +21,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Athleia.ai",
+  title: "Axios.ai",
   description:
-    "Athleia transforms engineering P&IDs, maintenance SOPs, and asset telemetry into verified, zero-hallucination AI reasoning for Fortune 500 industrial operations.",
+    "Axios transforms engineering P&IDs, maintenance SOPs, and asset telemetry into verified, zero-hallucination AI reasoning for Fortune 500 industrial operations.",
   keywords: [
     "Industrial AI",
     "Enterprise Intelligence",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     shortcut: "/favicon.svg",
   },
   openGraph: {
-    title: "Athleia.ai",
+    title: "Axios.ai",
     description:
       "Trust. Precision. Industrial Intelligence. Grounded AI reasoning for enterprise engineering operations.",
     type: "website",
@@ -66,7 +66,10 @@ export default function RootLayout({
       className={`${geistDisplay.variable} ${inter.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
-      <body className="bg-bg-primary text-text-primary antialiased">
+      <body
+        className="bg-bg-primary text-text-primary antialiased"
+        suppressHydrationWarning
+      >
         {children}
       </body>
     </html>

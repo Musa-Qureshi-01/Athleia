@@ -34,7 +34,7 @@ export default function SettingsPage() {
   const loadUsers = async () => {
     setLoadingUsers(true);
     try {
-      const token = typeof window !== "undefined" ? localStorage.getItem("athleia_token") : null;
+      const token = typeof window !== "undefined" ? localStorage.getItem("axios_token") : null;
       if (token) {
         const data = await fetchUserList(token);
         setUsers(data.users);
@@ -44,9 +44,9 @@ export default function SettingsPage() {
       setUsers([
         {
           user_id: "usr_superadmin",
-          email: "admin@athleia.ai",
-          full_name: "Athleia Super Admin",
-          organization: "Athleia Core",
+          email: "admin@axios.ai",
+          full_name: "Axios Super Admin",
+          organization: "Axios Core",
           role: "SUPER_ADMIN",
           status: "ACTIVE",
           is_verified: true,
@@ -55,9 +55,9 @@ export default function SettingsPage() {
         },
         {
           user_id: "usr_002",
-          email: "engineer.musa@athleia.ai",
+          email: "engineer.musa@axios.ai",
           full_name: "Musa Qureshi",
-          organization: "Athleia Energy",
+          organization: "Axios Energy",
           role: "ADMIN",
           status: "ACTIVE",
           is_verified: true,
@@ -66,9 +66,9 @@ export default function SettingsPage() {
         },
         {
           user_id: "usr_003",
-          email: "field.tech@athleia.ai",
+          email: "field.tech@axios.ai",
           full_name: "Field Technician",
-          organization: "Athleia Operations",
+          organization: "Axios Operations",
           role: "EMPLOYEE",
           status: "PENDING_VERIFICATION",
           is_verified: false,
@@ -88,7 +88,7 @@ export default function SettingsPage() {
   const handleRoleChange = async (userId: string, newRole: string) => {
     setUserAdminMsg(null);
     try {
-      const token = typeof window !== "undefined" ? localStorage.getItem("athleia_token") : null;
+      const token = typeof window !== "undefined" ? localStorage.getItem("axios_token") : null;
       if (token) {
         await updateUserRole(userId, newRole, token);
       }
@@ -160,7 +160,7 @@ export default function SettingsPage() {
                       <span className="text-[11px] font-mono text-text-tertiary">{u.email}</span>
                     </div>
                   </td>
-                  <td className="p-3 font-mono text-text-secondary">{u.organization || "Athleia Energy"}</td>
+                  <td className="p-3 font-mono text-text-secondary">{u.organization || "Axios Energy"}</td>
                   <td className="p-3">
                     <span
                       className={cn(
@@ -200,7 +200,7 @@ export default function SettingsPage() {
           <h2 className="text-sm font-medium text-text-primary">Appearance & Theme</h2>
         </div>
         <p className="text-xs text-text-secondary">
-          Customize the visual interface. Athleia supports semantic Light and Dark themes engineered for long engineering shifts.
+          Customize the visual interface. Axios supports semantic Light and Dark themes engineered for long engineering shifts.
         </p>
 
         <div className="flex items-center justify-between p-4 rounded-sm bg-bg-secondary border border-border-subtle">
@@ -256,10 +256,10 @@ export default function SettingsPage() {
         </div>
       </div>
 
-      {/* Section 4: About Athleia */}
+      {/* Section 4: About Axios */}
       <div className="p-6 rounded-md border border-border-subtle bg-bg-secondary flex flex-col gap-3">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-medium text-text-primary">Athleia Industrial Intelligence Platform</span>
+          <span className="text-xs font-medium text-text-primary">Axios Industrial Intelligence Platform</span>
           <span className="text-mono text-xs text-text-tertiary">v1.0.0 Enterprise</span>
         </div>
         <p className="text-xs text-text-secondary leading-relaxed">
