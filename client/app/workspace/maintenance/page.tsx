@@ -159,7 +159,7 @@ export default function MaintenancePage() {
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-sm bg-bg-secondary border border-border-subtle text-xs text-text-secondary">
             <HardDrive size={14} className="text-text-tertiary" />
-            <span className="text-mono">Maintenance Service: Port 8007</span>
+            <span className="text-mono">Predictive Maintenance: Active</span>
           </div>
 
           <button

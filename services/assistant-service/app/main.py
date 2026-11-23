@@ -50,6 +50,10 @@ app.include_router(tool_router, prefix=prefix)
 app.include_router(preference_router, prefix=prefix)
 app.include_router(health_router, prefix=prefix)
 
+@app.get("/health")
+async def health_check_root():
+    return {"status": "healthy", "service": "assistant-service"}
+
 @app.get("/")
 async def root():
     return {

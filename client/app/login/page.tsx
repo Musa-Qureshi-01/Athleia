@@ -1,18 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Eye, EyeOff, ShieldAlert, CheckCircle2, UserPlus, LogIn, KeyRound, Sparkles, ArrowLeft } from "lucide-react";
+import { Eye, EyeOff, ShieldAlert, CheckCircle2, UserPlus, LogIn, KeyRound, Sparkles, ArrowLeft, LayoutDashboard, LogOut } from "lucide-react";
 import { loginUser, registerUser, verifyOTP, resendOTP } from "@/lib/api";
+import { getAuthSession, clearAuthSession } from "@/lib/auth";
 
 const inputClass =
   "w-full h-10 px-3 rounded-sm text-sm text-text-primary bg-bg-primary border border-border-strong focus:outline-none focus:border-accent transition-colors duration-150 placeholder:text-text-tertiary";
 
 export default function LoginPage() {
   const router = useRouter();
+  const [existingSession, setExistingSession] = useState<{ isAuthenticated: boolean; user: any } | null>(null);
+
+  useEffect(() => {
+    const session = getAuthSession();
+    if (session.isAuthenticated) {
+      setExistingSession(session);
+    }
+  }, []);
+
   const [activeTab, setActiveTab] = useState<"login" | "signup">("login");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -245,7 +255,51 @@ export default function LoginPage() {
             className="border border-border-subtle rounded-md overflow-hidden shadow-2xl"
             style={{ backgroundColor: "var(--bg-primary)" }}
           >
-            {/* Mode Switcher Tabs */}
+            {existingSession?.isAuthenticated ? (
+              <div className="p-8 text-center space-y-4">
+                <div className="w-14 h-14 rounded-full bg-[#1F45EC]/10 text-[#1F45EC] border border-[#1F45EC]/20 flex items-center justify-center mx-auto">
+                  <CheckCircle2 size={28} />
+                </div>
+                <div>
+                  <h2 className="text-lg font-bold text-text-primary">Already Signed In</h2>
+                  <p className="text-xs text-text-secondary mt-1">
+                    You have an active session as <strong className="text-text-primary">{existingSession.user?.fullName}</strong>.
+                  </p>
+                  <div className="mt-2.5 flex items-center justify-center gap-1.5 flex-wrap">
+                    <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium bg-[#1F45EC]/10 text-[#1F45EC] border border-[#1F45EC]/20">
+                      {existingSession.user?.organization || "Axios Enterprise"}
+                    </span>
+                    <span className="text-[11px] font-mono text-text-tertiary">
+                      {existingSession.user?.email}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="pt-3 flex flex-col gap-2.5">
+                  <Link
+                    href="/workspace"
+                    className="w-full h-11 rounded-sm bg-[#1F45EC] hover:bg-[#1538D4] text-white text-xs font-semibold flex items-center justify-center gap-2 shadow-xs transition-all cursor-pointer"
+                  >
+                    <LayoutDashboard size={15} />
+                    <span>Go to Dashboard</span>
+                  </Link>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      clearAuthSession();
+                      setExistingSession(null);
+                    }}
+                    className="w-full h-10 rounded-sm border border-border-strong hover:bg-bg-tertiary text-xs font-medium text-text-secondary hover:text-text-primary transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                  >
+                    <LogOut size={13} />
+                    <span>Sign in as a different user</span>
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <>
+                {/* Mode Switcher Tabs */}
             <div className="flex border-b border-border-subtle bg-bg-secondary">
               <button
                 type="button"
@@ -560,6 +614,8 @@ export default function LoginPage() {
                 )}
               </div>
             )}
+          </>
+        )}
 
             {/* Card footer */}
             <div

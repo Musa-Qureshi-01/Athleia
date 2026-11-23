@@ -150,7 +150,7 @@ services:
         failure_threshold: 3
         cooldown_seconds: 30
     health_check:
-      path: /health
+      path: /api/v1/assistant/health
       interval_seconds: 30
 
 

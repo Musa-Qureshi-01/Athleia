@@ -218,9 +218,16 @@ def _load_services_config(
 ) -> ServicesConfig:
     config_path = Path(path)
     if not config_path.exists():
-        raise FileNotFoundError(
-            f"Services config not found: {config_path.resolve()}"
-        )
+        # Check inside gateway/config directory or relative to file
+        alt_path = Path(__file__).resolve().parent.parent.parent / "config" / "services.yaml"
+        if alt_path.exists():
+            config_path = alt_path
+        elif (Path("gateway") / path).exists():
+            config_path = Path("gateway") / path
+        else:
+            raise FileNotFoundError(
+                f"Services config not found: {config_path.resolve()}"
+            )
     with config_path.open("r", encoding="utf-8") as fh:
         raw = yaml.safe_load(fh)
     return ServicesConfig(raw or {}, url_overrides=url_overrides)

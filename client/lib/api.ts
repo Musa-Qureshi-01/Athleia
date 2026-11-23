@@ -1215,6 +1215,215 @@ export async function deleteUser(
   return await res.json();
 }
 
+// --------------------------------------------------
+// EVOLUTION DEMO AUTHENTICATION & WORKOS AUTHKIT API
+// --------------------------------------------------
+
+export interface EvolutionSessionData {
+  access_token: string;
+  token_type: string;
+  expires_in_seconds: number;
+  session_id: string;
+  demo_user: string;
+  role: string;
+  scope: string;
+  queries_allocated: number;
+  queries_remaining: number;
+}
+
+export interface EvolutionStatusData {
+  active: boolean;
+  session_id: string;
+  role: string;
+  scope: string;
+  queries_remaining: number;
+  features_permitted: string[];
+  features_restricted: string[];
+}
+
+export async function launchEvolutionDemoSession(
+  payloadOrEmail?:
+    | string
+    | {
+        email: string;
+        fullName: string;
+        phoneNumber: string;
+        organization?: string;
+      },
+  organization?: string
+): Promise<EvolutionSessionData> {
+  const url = `${GATEWAY_URL}/api/v1/auth/evolution/token`;
+
+  let bodyPayload: any;
+  if (typeof payloadOrEmail === "object" && payloadOrEmail !== null) {
+    bodyPayload = {
+      demo_email: payloadOrEmail.email,
+      full_name: payloadOrEmail.fullName,
+      phone_number: payloadOrEmail.phoneNumber,
+      demo_organization: payloadOrEmail.organization || `${payloadOrEmail.fullName}'s Preview`,
+      purpose: "Evaluation Sandbox",
+    };
+  } else {
+    bodyPayload = {
+      demo_email: payloadOrEmail,
+      demo_organization: organization || "Evolution Demo Workspace",
+      purpose: "Evaluation Sandbox",
+    };
+  }
+
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(bodyPayload),
+    });
+    if (res.ok) return await res.json();
+  } catch (err) {
+    // Gateway offline fallback
+  }
+
+  const directRes = await fetch(`${AUTH_DIRECT}/api/v1/auth/evolution/token`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(bodyPayload),
+  });
+  if (!directRes.ok) {
+    const err = await directRes.json().catch(() => ({}));
+    throw new Error(err.detail || "Failed to initialize Evolution demo session.");
+  }
+  return await directRes.json();
+}
+
+export async function verifyEvolutionDemoSession(token: string): Promise<Record<string, unknown>> {
+  const url = `${GATEWAY_URL}/api/v1/auth/evolution/verify`;
+  try {
+    const res = await fetch(url, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (res.ok) return await res.json();
+  } catch (err) {
+    // fallback
+  }
+
+  const directRes = await fetch(`${AUTH_DIRECT}/api/v1/auth/evolution/verify`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!directRes.ok) {
+    throw new Error("Evolution demo session is invalid or has expired.");
+  }
+  return await directRes.json();
+}
+
+export async function fetchEvolutionDemoStatus(token: string): Promise<EvolutionStatusData> {
+  const url = `${GATEWAY_URL}/api/v1/auth/evolution/status`;
+  try {
+    const res = await fetch(url, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (res.ok) return await res.json();
+  } catch (err) {
+    // fallback
+  }
+
+  const directRes = await fetch(`${AUTH_DIRECT}/api/v1/auth/evolution/status`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!directRes.ok) {
+    throw new Error("Failed to retrieve Evolution demo status.");
+  }
+  return await directRes.json();
+}
+
+export async function exchangeWorkOSCode(code: string): Promise<UserTokenResponse> {
+  const url = `${GATEWAY_URL}/api/v1/auth/workos/callback`;
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ code }),
+    });
+    if (res.ok) return await res.json();
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.detail || "WorkOS code exchange failed.");
+  } catch (err) {
+    if (err instanceof Error && err.message !== "Failed to fetch") throw err;
+  }
+
+  // Direct fallback
+  const directRes = await fetch(`${AUTH_DIRECT}/api/v1/auth/workos/callback`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ code }),
+  });
+  if (!directRes.ok) {
+    const err = await directRes.json().catch(() => ({}));
+    throw new Error(err.detail || "WorkOS code exchange failed.");
+  }
+  return await directRes.json();
+}
+
+export async function getWorkOSAuthorizeUrl(
+  redirectUri?: string,
+  provider?: string
+): Promise<string> {
+  const params = new URLSearchParams();
+  if (redirectUri) params.set("redirect_uri", redirectUri);
+  if (provider) params.set("provider", provider);
+  const qs = params.toString() ? `?${params.toString()}` : "";
+
+  const endpoint = `${GATEWAY_URL}/api/v1/auth/workos/authorize-url${qs}`;
+
+  try {
+    const res = await fetch(endpoint);
+    if (res.ok) {
+      const data = await res.json();
+      return data.authorization_url;
+    }
+  } catch (err) {
+    // fallback to direct auth service
+  }
+
+  const directEndpoint = `${AUTH_DIRECT}/api/v1/auth/workos/authorize-url${qs}`;
+  const directRes = await fetch(directEndpoint);
+  if (!directRes.ok) {
+    throw new Error("Failed to fetch WorkOS SSO authorization URL.");
+  }
+  const data = await directRes.json();
+  return data.authorization_url;
+}
+
+export async function validateSessionToken(token: string): Promise<{
+  valid: boolean;
+  type?: "organizational" | "evolution";
+  user?: any;
+}> {
+  if (!token) return { valid: false };
+
+  // 1. Try Organizational Profile Verification
+  try {
+    const profile = await fetchUserProfile(token);
+    if (profile && profile.user_id) {
+      return { valid: true, type: "organizational", user: profile };
+    }
+  } catch {
+    // Not an organizational token
+  }
+
+  // 2. Try Evolution Demo Session Verification
+  try {
+    const evoSession = await verifyEvolutionDemoSession(token);
+    if (evoSession && evoSession.valid) {
+      return { valid: true, type: "evolution", user: evoSession };
+    }
+  } catch {
+    // Not a valid evolution token
+  }
+
+  return { valid: false };
+}
+
+
+
 
 
 

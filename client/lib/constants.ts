@@ -31,7 +31,7 @@ export const TRUST_METRICS = [
   },
   {
     value: "100%",
-    label: "VPC & Neon Postgres Connected",
+    label: "VPC & Supabase Postgres Connected",
     sublabel: "Enterprise database and token security",
   },
 ];
@@ -49,7 +49,7 @@ export const PLATFORM_SERVICES = [
     name: "Auth & RBAC Service",
     tag: "Security Core",
     description: "Enterprise identity control powering Argon2id password encryption, JWT authorization tokens, 6-digit email OTP verification, and 3-tier role permissions.",
-    tech: "Argon2id • JWT • Neon Postgres • SMTP Adapter",
+    tech: "Argon2id • JWT • Supabase Postgres • SMTP Adapter",
   },
   {
     port: "8010",
@@ -105,7 +105,7 @@ export const PLATFORM_SERVICES = [
     name: "Notification Service",
     tag: "Event Broadcast",
     description: "Real-time system notification service handling plant broadcast alerts, user inbox delivery, audit logs, and clear-all operations.",
-    tech: "Real-time Broadcast • User Inbox • Neon Postgres",
+    tech: "Real-time Broadcast • User Inbox • Supabase Postgres",
   },
 ];
 
@@ -170,8 +170,8 @@ export const PIPELINE_STEPS = [
     step: "04",
     title: "Cited Response & Audit Telemetry",
     description:
-      "Every sentence in the final response links directly to citation evidence: document name, page number, and section path. Grounding scores, faithfulness metrics, latency timers, and tool execution logs are stored in Neon Postgres audit tables.",
-    technical: "Grounded Reasoning (Port 8002) • Response Validator • Neon Postgres",
+      "Every sentence in the final response links directly to citation evidence: document name, page number, and section path. Grounding scores, faithfulness metrics, latency timers, and tool execution logs are stored in Supabase Postgres audit tables.",
+    technical: "Grounded Reasoning (Port 8002) • Response Validator • Supabase Postgres",
   },
 ];
 
@@ -281,7 +281,7 @@ export const SECURITY_FEATURES = [
   {
     title: "Audit Logging Telemetry",
     description:
-      "Session IDs, user identities, tool execution logs, model latency, prompt tokens, and total cost are written to Neon Postgres audit storage on every request.",
+      "Session IDs, user identities, tool execution logs, model latency, prompt tokens, and total cost are written to Supabase Postgres audit storage on every request.",
   },
 ];
 
@@ -319,7 +319,7 @@ export const FOOTER_COLUMNS = [
   {
     heading: "Enterprise & Security",
     links: [
-      { label: "VPC & Neon PostgreSQL", href: "#security" },
+      { label: "VPC & Supabase PostgreSQL", href: "#security" },
       { label: "Argon2id & JWT Security", href: "#security" },
       { label: "Request Technical Demo", href: "/contact" },
       { label: "Sign in to Workspace", href: "/login" },

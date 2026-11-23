@@ -58,7 +58,7 @@ function SearchContent() {
       }
     } catch (err: unknown) {
       console.error("Search API error:", err);
-      setErrorMsg("Failed to connect to Retrieval Service via API Gateway. Ensure gateway (8000) or retrieval service (8001) is running.");
+      setErrorMsg("Failed to connect to Retrieval Service. Ensure enterprise services are operational.");
       setResults([]);
       setSelectedResult(null);
     } finally {
@@ -86,11 +86,6 @@ function SearchContent() {
           <h1 className="text-heading-1 text-text-primary">
             Semantic & Keyword Search
           </h1>
-        </div>
-
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-sm bg-bg-secondary border border-border-subtle text-xs text-text-secondary">
-          <Database size={14} className="text-text-tertiary" />
-          <span className="text-mono">Gateway API: http://localhost:8000</span>
         </div>
       </div>
 
@@ -194,7 +189,6 @@ function SearchContent() {
       {errorMsg && (
         <div className="p-4 rounded-sm border border-status-error/30 bg-status-error/10 text-xs text-status-error flex items-center justify-between">
           <span>{errorMsg}</span>
-          <span className="font-mono text-[10px]">HTTP Endpoint: /api/v1/retrieve/search</span>
         </div>
       )}
 
@@ -270,13 +264,9 @@ function SearchContent() {
               </h3>
               <p className="text-xs text-text-secondary max-w-sm mb-6 leading-relaxed">
                 {hasSearched
-                  ? `No passages in your index matched "${query}". Ensure the Retrieval Service (8001) has documents indexed.`
-                  : "Enter any search query above to execute live hybrid search via API Gateway."}
+                  ? `No passages in your index matched "${query}". Ensure documents are uploaded and indexed.`
+                  : "Enter any search query above to execute live hybrid search across your enterprise documents."}
               </p>
-              <div className="flex items-center gap-2 text-mono text-xs text-text-tertiary">
-                <Info size={13} />
-                <span>API Gateway (8000) → Retrieval Microservice (8001)</span>
-              </div>
             </div>
           )}
         </div>

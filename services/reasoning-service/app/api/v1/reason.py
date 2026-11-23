@@ -56,7 +56,7 @@ async def reason_over_knowledge(
 
     duration_ms = int((time.time() - start_time) * 1000)
 
-    # 5. Persist Session & Trace Audit Records into Neon PostgreSQL
+    # 5. Persist Session & Trace Audit Records into Supabase PostgreSQL
     session_rec = ReasoningSessionRecord(
         session_id=session_id,
         tenant_id=tenant_id,

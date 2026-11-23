@@ -39,10 +39,18 @@ htmlcov/
 coverage.xml
 *.cover
 
-# ── Local SQLite databases (use Neon in prod) ───────────────────
+# ── Local SQLite databases & cache (Supabase in prod) ───────────
 *.db
 *.sqlite
 *.sqlite3
+axios_auth.db
+axios_main.db
+axios_notifications.db
+axios_assistant.db
+
+# ── Local Ingestion & Raw Upload Storage ────────────────────────
+services/Ingestion-service/storage/raw/
+storage/raw/
 
 # ── Node / Next.js (client/) ────────────────────────────────────
 node_modules/

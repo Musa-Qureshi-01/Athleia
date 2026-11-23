@@ -1,8 +1,7 @@
-// Axios.ai — Next.js Configuration
-import type { NextConfig } from "next";
+ï»¿import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  devIndicators: false,
 };
 
 export default nextConfig;

@@ -26,17 +26,17 @@ export const CORPORATE_INFO = {
   brandName: "Axios.ai",
   tagline: "Enterprise Industrial Knowledge Intelligence Platform",
   headquarters: {
-    title: "Corporate Headquarters",
-    address: "Bhopal, Madhya Pradesh 462001",
-    city: "Bhopal, MP 462001",
+    title: "Operations Hub",
+    address: "Operating from India",
+    city: "India",
     country: "India",
   },
-  phone: "+91 6263473208",
+  phone: "Contact via Enterprise Email",
   email: {
-    general: "musaqureshi0000@gmail.com",
-    enterprise: "musaqureshi0000@gmail.com",
-    support: "musaqureshi0000@gmail.com",
-    security: "musaqureshi0000@gmail.com",
+    general: "support.axiosai@gmail.com",
+    enterprise: "support.axiosai@gmail.com",
+    support: "support.axiosai@gmail.com",
+    security: "support.axiosai@gmail.com",
   },
 };
 

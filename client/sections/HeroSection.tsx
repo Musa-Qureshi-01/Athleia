@@ -1,150 +1,277 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { ArrowRight, ShieldCheck, CheckCircle2, Zap, Lock, Building2 } from "lucide-react";
-import gsap from "gsap";
-import { KnowledgeGraphCanvas } from "@/components/visuals/KnowledgeGraphCanvas";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  SlidersHorizontal,
+  Bot,
+  FileText,
+  AudioLines,
+  MoreHorizontal,
+  LayoutDashboard,
+  ArrowRight,
+} from "lucide-react";
+import { useAuthSession } from "@/lib/auth";
 
-const TRANSITION_BASE = { duration: 0.6, ease: "easeOut" as const };
+interface AppConnector {
+  name: string;
+  iconBg: string;
+  dotColor: string;
+}
+
+const APPS: AppConnector[] = [
+  { name: "Slack", iconBg: "bg-[#4A154B]", dotColor: "#E01E5A" },
+  { name: "Google Drive", iconBg: "bg-emerald-100", dotColor: "#0F9D58" },
+  { name: "Jira", iconBg: "bg-blue-100", dotColor: "#0052CC" },
+  { name: "Confluence", iconBg: "bg-blue-50", dotColor: "#172B4D" },
+  { name: "SharePoint", iconBg: "bg-sky-100", dotColor: "#0078D4" },
+  { name: "GitHub", iconBg: "bg-neutral-100", dotColor: "#24292F" },
+  { name: "Salesforce", iconBg: "bg-cyan-100", dotColor: "#00A1E0" },
+];
+
+const SEARCH_QUERIES = [
+  "Find isolation procedure and P&ID drawing for boiler feed pump P-101A",
+  "Summarize high-pressure steam valve ECO-8842 and outline calibration steps",
+  "Audit cooling water maintenance SOPs against ISO 45001 & OSHA 1910 standards",
+  "What caused vibration anomaly on Turbine Compressor C-302 during night shift?",
+];
 
 export function HeroSection() {
-  const headlineRef = useRef<HTMLHeadingElement>(null);
-  const badgeRef = useRef<HTMLDivElement>(null);
+  const { isAuthenticated } = useAuthSession();
+  const [displayText, setDisplayText] = useState("");
+  const [queryIndex, setQueryIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [charIndex, setCharIndex] = useState(0);
+  const [hasSearched, setHasSearched] = useState(false);
+  const [customInput, setCustomInput] = useState<string | null>(null);
 
+  // Typewriter effect simulation matching Glean's live demo
   useEffect(() => {
-    if (headlineRef.current) {
-      gsap.fromTo(
-        headlineRef.current,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out", delay: 0.1 }
-      );
+    if (customInput !== null) return; // User is manually typing
+
+    const currentTarget = SEARCH_QUERIES[queryIndex];
+    let timer: NodeJS.Timeout;
+
+    if (!isDeleting && charIndex <= currentTarget.length) {
+      setDisplayText(currentTarget.substring(0, charIndex));
+      timer = setTimeout(() => {
+        setCharIndex((prev) => prev + 1);
+      }, 38); // Natural human keystroke speed
+    } else if (!isDeleting && charIndex > currentTarget.length) {
+      // Pause at full text before deleting
+      timer = setTimeout(() => {
+        setIsDeleting(true);
+      }, 3000);
+    } else if (isDeleting && charIndex > 0) {
+      setDisplayText(currentTarget.substring(0, charIndex));
+      timer = setTimeout(() => {
+        setCharIndex((prev) => prev - 1);
+      }, 16); // Fast backspace
+    } else if (isDeleting && charIndex === 0) {
+      setIsDeleting(false);
+      setQueryIndex((prev) => (prev + 1) % SEARCH_QUERIES.length);
     }
-  }, []);
+
+    return () => clearTimeout(timer);
+  }, [charIndex, isDeleting, queryIndex, customInput]);
+
+  const handleManualInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCustomInput(e.target.value);
+    setDisplayText(e.target.value);
+  };
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setHasSearched(true);
+  };
 
   return (
-    <section className="relative pt-24 lg:pt-28 pb-12 lg:pb-16 border-b border-border-subtle overflow-hidden bg-bg-primary">
-      {/* Background Subtle Mesh Grid */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-accent/5 via-transparent to-transparent pointer-events-none" />
-
-      <div className="container-editorial w-full relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-
-          {/* Left Text & CTAs (7 cols) */}
-          <div className="lg:col-span-7 flex flex-col gap-7">
-            
-            {/* Enterprise Trust Badge */}
-            <motion.div
-              ref={badgeRef}
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ ...TRANSITION_BASE, delay: 0 }}
-              className="flex items-center gap-2.5 flex-wrap"
-            >
-              <span className="text-label text-text-primary border border-border-strong bg-bg-secondary px-3.5 py-1.5 rounded-sm inline-flex items-center gap-2 shadow-2xs font-mono">
-                <span className="w-2 h-2 rounded-full bg-status-verified animate-pulse" />
-                <span className="font-semibold uppercase tracking-wider">Enterprise Industrial Knowledge Intelligence Platform</span>
-              </span>
-            </motion.div>
-
-            {/* GSAP Animated Headline */}
-            <h1
-              ref={headlineRef}
-              className="text-display text-text-primary max-w-3xl leading-[1.08] tracking-tight font-semibold"
-            >
-              Transform Industrial Knowledge into Actionable Intelligence.
-            </h1>
-
-            {/* Subheading */}
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ ...TRANSITION_BASE, delay: 0.2 }}
-            >
-              <p className="text-body-lg text-text-secondary max-w-2xl leading-relaxed">
-                Axios unifies engineering documents, SOPs, maintenance records, compliance standards, and organizational knowledge into a secure AI platform that enables intelligent search, grounded reasoning, compliance insights, predictive maintenance, and enterprise-wide knowledge discovery.
-              </p>
-            </motion.div>
-
-            {/* Action CTAs */}
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ ...TRANSITION_BASE, delay: 0.3 }}
-              className="flex flex-wrap gap-4 items-center pt-2"
-            >
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 h-11.5 px-6 rounded-sm text-sm font-semibold bg-text-primary text-bg-primary hover:opacity-90 transition-all duration-200 shadow-md group"
-              >
-                <span>Book a Product Demo</span>
-                <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
-              </Link>
-
-              <a
-                href="#overview"
-                className="inline-flex items-center gap-2 h-11.5 px-6 rounded-sm text-sm font-semibold text-text-primary border border-border-strong bg-bg-primary hover:bg-bg-secondary transition-colors duration-200 shadow-2xs"
-              >
-                <span>Explore Platform</span>
-              </a>
-            </motion.div>
-
-            {/* Enterprise Trust Metrics Bar */}
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ ...TRANSITION_BASE, delay: 0.4 }}
-              className="grid grid-cols-3 gap-4 pt-6 mt-4 border-t border-border-subtle max-w-xl"
-            >
-              <div className="flex flex-col gap-0.5">
-                <span className="text-base font-bold text-text-primary font-mono">99.94%</span>
-                <span className="text-[11px] text-text-tertiary">Grounding Accuracy</span>
-              </div>
-              <div className="flex flex-col gap-0.5">
-                <span className="text-base font-bold text-text-primary font-mono">0.00%</span>
-                <span className="text-[11px] text-text-tertiary">Fabrication Rate</span>
-              </div>
-              <div className="flex flex-col gap-0.5">
-                <span className="text-base font-bold text-text-primary font-mono">100%</span>
-                <span className="text-[11px] text-text-tertiary">Air-Gap VPC Compatible</span>
-              </div>
-            </motion.div>
-
-          </div>
-
-          {/* Right Visual Architecture Canvas (5 cols) */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.97 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.9, delay: 0.25, ease: "easeOut" as const }}
-            className="lg:col-span-5 relative"
+    <section id="hero" className="relative pb-10 sm:pb-14 lg:pb-16 overflow-hidden bg-white font-sans">
+      <div className="max-w-[1280px] mx-auto border-x border-neutral-200 px-4 sm:px-8 lg:px-12 pt-14 sm:pt-20 lg:pt-24 pb-0">
+        
+        {/* Top Centered Header Content */}
+        <div className="text-center max-w-6xl mx-auto mb-10 sm:mb-14">
+          
+          {/* Eyebrow: Gray line exact text */}
+          <motion.p
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35 }}
+            className="text-[14px] sm:text-[15.5px] font-normal text-[#666666] tracking-tight mb-4 font-sans"
           >
-            <div
-              className="relative w-full aspect-square max-w-lg mx-auto rounded-sm overflow-hidden border border-border-strong shadow-2xl"
-              style={{ backgroundColor: "var(--bg-secondary)" }}
-            >
-              <KnowledgeGraphCanvas />
+            Enterprise AI that understands your company
+          </motion.p>
 
-              {/* Status Pills */}
-              <div className="absolute top-4 left-4 flex items-center gap-2 bg-bg-primary/95 backdrop-blur-md px-3.5 py-1.5 rounded-sm border border-border-subtle shadow-xs">
-                <span className="w-2 h-2 rounded-full bg-status-verified" />
-                <span className="text-xs font-semibold text-text-primary">Enterprise Knowledge Graph</span>
-              </div>
+          {/* Main Tagline: Guaranteed 2-line structure with extended horizontal width per user request */}
+          <motion.h1
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.05 }}
+            className="text-[28px] sm:text-[36px] md:text-[42px] lg:text-[48px] xl:text-[50px] font-semibold text-neutral-900 tracking-[-0.035em] leading-[1.14] mb-8 font-display max-w-[1140px] mx-auto"
+          >
+            <span className="block md:whitespace-nowrap">An intelligence layer for organizational knowledge</span>
+            <span className="block md:whitespace-nowrap text-neutral-900">and industrial operations.</span>
+          </motion.h1>
 
-              <div className="absolute bottom-4 right-4 flex flex-col items-end gap-0.5 bg-bg-primary/95 backdrop-blur-md px-3.5 py-2 rounded-sm border border-border-subtle text-right shadow-xs">
-                <span className="text-[11px] font-mono text-accent font-semibold">Zero Fabrication Engine</span>
-                <span className="text-[10px] font-mono text-text-tertiary">100% Citation Provenance</span>
-              </div>
-
-              <div className="absolute top-4 right-4 flex items-center gap-2 bg-bg-primary/95 backdrop-blur-md px-2.5 py-1 rounded-sm border border-border-subtle">
-                <span className="w-2.5 h-px bg-accent" />
-                <span className="text-[10px] font-mono text-text-secondary">P&amp;ID Reasoning Path</span>
-              </div>
-            </div>
+          {/* Primary Action Button: Boxy CTA with healthy roundness directly below headline */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.1 }}
+            className="flex items-center justify-center mb-12 sm:mb-16"
+          >
+            {isAuthenticated ? (
+              <Link
+                href="/workspace"
+                className="h-11 px-7 rounded-lg text-[14.5px] font-semibold bg-[#1F45EC] hover:bg-[#1538D4] text-white shadow-xs hover:shadow-md transition-all duration-200 flex items-center justify-center cursor-pointer gap-2"
+              >
+                <LayoutDashboard size={16} />
+                <span>Go to Dashboard</span>
+                <ArrowRight size={15} />
+              </Link>
+            ) : (
+              <Link
+                href="/get-a-demo"
+                className="h-11 px-7 rounded-lg text-[14.5px] font-semibold bg-[#1F45EC] hover:bg-[#1538D4] text-white shadow-xs hover:shadow-md transition-all duration-200 flex items-center justify-center cursor-pointer"
+              >
+                Get a demo
+              </Link>
+            )}
           </motion.div>
-
         </div>
+
+        {/* 3D Iridescent Fluid Ribbon Graphic Banner (Boxy corner with healthy roundness: rounded-md sm:rounded-lg) */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, delay: 0.15 }}
+          className="relative w-full max-w-[1240px] mx-auto rounded-md sm:rounded-lg overflow-hidden shadow-xl bg-[#0d1436] mb-2 sm:mb-4"
+        >
+          {/* High-Resolution Fluid Ribbon Background Image (Pristine 3D Artwork) */}
+          <div className="relative w-full min-h-[340px] sm:min-h-[390px] lg:min-h-[420px] flex items-center justify-center overflow-hidden">
+            <img
+              src="/hero-fluid-ribbon.png?v=3"
+              alt="Axios Enterprise Intelligence Ribbon"
+              className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
+            />
+
+            {/* Central White Search Input Card (Boxy with healthy roundness: rounded-md sm:rounded-lg) */}
+            <div className="relative z-10 max-w-[640px] w-[90%] sm:w-full mx-auto bg-white/95 backdrop-blur-md rounded-md sm:rounded-lg shadow-[0_20px_50px_rgba(0,0,0,0.25)] border border-white p-3.5 sm:p-5">
+              
+              {/* Form Input Bar with Animated Typewriter Text */}
+              <form onSubmit={handleSearchSubmit} className="flex items-center gap-2.5 pb-2.5 border-b border-neutral-100">
+                <span className="text-lg sm:text-xl text-neutral-400 font-light select-none pl-1">
+                  +
+                </span>
+                
+                <div className="flex-1 flex items-center overflow-hidden">
+                  <input
+                    type="text"
+                    value={displayText}
+                    onChange={handleManualInput}
+                    className="w-full text-[13px] sm:text-[14px] font-normal text-neutral-900 focus:outline-none bg-transparent placeholder:text-neutral-400"
+                    placeholder="Ask anything across your company's tools..."
+                  />
+                  {customInput === null && (
+                    <span className="inline-block w-0.5 h-4.5 bg-[#1F45EC] ml-0.5 animate-pulse shrink-0" />
+                  )}
+                </div>
+
+                <div className="flex items-center gap-1.5 text-neutral-400 shrink-0">
+                  {/* Sliders/Filter Icon */}
+                  <button
+                    type="button"
+                    title="Filters"
+                    className="p-1.5 rounded-md hover:bg-neutral-100 text-neutral-600 transition-colors cursor-pointer"
+                  >
+                    <SlidersHorizontal size={15} />
+                  </button>
+                  
+                  {/* Waveform / Mic Button with healthy roundness */}
+                  <button
+                    type="submit"
+                    className="w-7 h-7 sm:w-7.5 sm:h-7.5 rounded-md bg-black hover:bg-neutral-800 text-white flex items-center justify-center transition-all cursor-pointer shadow-xs"
+                    title="Run AI audio reasoning"
+                  >
+                    <AudioLines size={14} />
+                  </button>
+                </div>
+              </form>
+
+              {/* App Connectors Strip */}
+              <div className="pt-2.5 flex items-center justify-between flex-wrap gap-1.5">
+                <div className="flex items-center flex-wrap gap-1.5">
+                  {APPS.map((app, idx) => (
+                    <div
+                      key={idx}
+                      className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-neutral-100/90 hover:bg-neutral-200/90 transition-colors text-[10.5px] sm:text-[11px] font-medium text-neutral-700 cursor-pointer"
+                    >
+                      <span
+                        className="w-1.5 h-1.5 rounded-full shrink-0"
+                        style={{ backgroundColor: app.dotColor }}
+                      />
+                      <span>{app.name}</span>
+                    </div>
+                  ))}
+                  
+                  {/* More (...) Button */}
+                  <button
+                    type="button"
+                    title="More integrations"
+                    className="w-5 h-5 rounded-md bg-neutral-100 hover:bg-neutral-200 flex items-center justify-center text-neutral-600 transition-colors cursor-pointer"
+                  >
+                    <MoreHorizontal size={13} />
+                  </button>
+                </div>
+
+                <div className="text-[10px] sm:text-[10.5px] font-mono text-neutral-400 hidden sm:block">
+                  275+ enterprise connectors
+                </div>
+              </div>
+
+              {/* Interactive Search Response Preview (Appears when submitted) */}
+              <AnimatePresence>
+                {hasSearched && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="mt-3 pt-3 border-t border-neutral-100 space-y-2.5"
+                  >
+                    <div className="p-3.5 rounded-md bg-blue-50/70 border border-blue-200/70 text-xs text-neutral-800 leading-relaxed">
+                      <div className="flex items-center gap-1.5 font-bold text-[#1F45EC] mb-1.5 font-mono text-[11px]">
+                        <Bot size={14} />
+                        <span>AXIOS WORKFORCE INTELLIGENCE</span>
+                      </div>
+                      <p className="mb-2.5 text-[11.5px] sm:text-[12px] leading-relaxed">
+                        Identified Engineering Change Order <strong className="text-neutral-900 font-semibold">ECO-8842</strong> affecting high-pressure boiler feed pump <strong className="text-neutral-900 font-semibold">P-101A</strong>. The relief valve cracking pressure threshold was verified at 1.1x design MAWP. Action: calibrate 4-20mA positioner loop on DCS rack 3B and inspect mechanical seal oil pressure before unit startup.
+                      </p>
+
+                      <div className="flex flex-wrap gap-1.5 pt-1.5 border-t border-blue-200/40 text-[10.5px] font-mono text-neutral-600">
+                        <span className="bg-white px-2 py-0.5 rounded border border-neutral-200 flex items-center gap-1">
+                          <FileText size={10} className="text-[#1F45EC]" />
+                          P&amp;ID: DWG-8842-Boiler-Feed-Unit3
+                        </span>
+                        <span className="bg-white px-2 py-0.5 rounded border border-neutral-200 flex items-center gap-1">
+                          <FileText size={10} className="text-[#1F45EC]" />
+                          SOP: SOP-P101A-Pump-Isolation-Rev4
+                        </span>
+                        <span className="bg-white px-2 py-0.5 rounded border border-neutral-200 flex items-center gap-1">
+                          <FileText size={10} className="text-[#1F45EC]" />
+                          Manual: API-610-Centrifugal-Pumps
+                        </span>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+            </div>
+          </div>
+        </motion.div>
+
       </div>
     </section>
   );

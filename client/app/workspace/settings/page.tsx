@@ -55,8 +55,8 @@ export default function SettingsPage() {
         },
         {
           user_id: "usr_002",
-          email: "engineer.musa@axios.ai",
-          full_name: "Musa Qureshi",
+          email: "operations.lead@axios.ai",
+          full_name: "Operations Lead",
           organization: "Axios Energy",
           role: "ADMIN",
           status: "ACTIVE",
@@ -111,14 +111,14 @@ export default function SettingsPage() {
         </h1>
       </div>
 
-      {/* Section 1: User & Identity Administration (Auth Service Port 8008) */}
+      {/* Section 1: User & Identity Administration */}
       <div className="p-6 rounded-md border border-border-subtle bg-bg-primary flex flex-col gap-5 shadow-sm">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <UserCog size={18} className="text-accent" />
             <div>
               <h2 className="text-sm font-bold text-text-primary font-mono uppercase tracking-wider">
-                User & Organization Identity (Port 8008)
+                User & Organization Identity
               </h2>
               <p className="text-xs text-text-tertiary">
                 Manage organizational accounts, email OTP verification, and RBAC roles.

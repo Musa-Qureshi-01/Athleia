@@ -104,7 +104,7 @@ export default function ContactPage() {
       }
     } catch (err) {
       console.error("Formspree submission error", err);
-      setErrorMsg("Network error sending form. Please email musaqureshi0000@gmail.com directly.");
+      setErrorMsg("Network error sending form. Please email support.axiosai@gmail.com directly.");
     } finally {
       setSubmitting(false);
     }
@@ -149,7 +149,7 @@ export default function ContactPage() {
                     Thank you. Our team has received your message.
                   </h2>
                   <p className="text-xs text-text-secondary leading-relaxed">
-                    A representative will review your inquiry and respond within 1 business day. If you need immediate assistance, email us at musaqureshi0000@gmail.com.
+                    A representative will review your inquiry and respond within 1 business day. If you need immediate assistance, email us at support.axiosai@gmail.com.
                   </p>
                 </div>
               ) : (
@@ -284,23 +284,15 @@ export default function ContactPage() {
                   <div className="flex items-start gap-3">
                     <MapPin size={16} className="text-accent shrink-0 mt-0.5" />
                     <div className="flex flex-col gap-0.5">
-                      <span className="font-semibold text-text-primary">Axios AI Technologies Pvt Ltd</span>
-                      <span>Bhopal, Madhya Pradesh 462001</span>
-                      <span className="text-text-tertiary">India</span>
+                      <span className="font-semibold text-text-primary">Axios AI Technologies</span>
+                      <span>Operating from India</span>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-3 pt-2 border-t border-border-subtle/70">
-                    <Phone size={15} className="text-accent shrink-0" />
-                    <a href="tel:+916263473208" className="font-mono text-text-primary hover:text-accent transition-colors font-medium">
-                      +91 6263473208
-                    </a>
-                  </div>
-
-                  <div className="flex items-center gap-3">
                     <Mail size={15} className="text-accent shrink-0" />
-                    <a href="mailto:musaqureshi0000@gmail.com" className="font-mono text-text-primary hover:text-accent transition-colors font-medium">
-                      musaqureshi0000@gmail.com
+                    <a href="mailto:support.axiosai@gmail.com" className="font-mono text-text-primary hover:text-accent transition-colors font-medium">
+                      support.axiosai@gmail.com
                     </a>
                   </div>
                 </div>

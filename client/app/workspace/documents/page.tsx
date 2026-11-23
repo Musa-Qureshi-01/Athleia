@@ -126,13 +126,6 @@ export default function DocumentsPage() {
             Document Corpus
           </h1>
         </div>
-
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-sm bg-bg-secondary border border-border-subtle text-xs text-text-secondary">
-            <HardDrive size={14} className="text-text-tertiary" />
-            <span className="text-mono">Gateway Endpoint: /api/v1/ingest</span>
-          </div>
-        </div>
       </div>
 
       {/* Upload Dropzone */}
@@ -298,7 +291,7 @@ export default function DocumentsPage() {
                 </p>
                 <div className="flex items-center gap-2 text-mono text-xs text-text-tertiary">
                   <Info size={13} />
-                  <span>API Gateway (8000) → Ingestion Service (Port 8003)</span>
+                  <span>Secure Document Processing Pipeline Active</span>
                 </div>
               </div>
             )}

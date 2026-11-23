@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     ENVIRONMENT: str = "development"
     DEBUG: bool = True
 
-    # Database: Default points to Neon PostgreSQL or local SQLite fallback
+    # Database: Default points to Supabase PostgreSQL or local SQLite fallback
     DATABASE_URL: str = "sqlite+aiosqlite:///./ingestion_service.db"
 
     @field_validator("DATABASE_URL", mode="before")

@@ -39,7 +39,7 @@ export function CapabilitiesSection() {
               10 Enterprise Services Engineered for Industrial Intelligence.
             </h2>
             <p className="text-body-lg text-text-secondary leading-relaxed">
-              Axios orchestrates specialized microservices on dedicated ports (8000 through 8010), giving your enterprise modular scalability, strict RBAC isolation, and instant audit traceability.
+              Axios orchestrates specialized microservices across secure isolated environments, giving your enterprise modular scalability, strict RBAC isolation, and instant audit traceability.
             </p>
           </div>
         </div>
@@ -65,7 +65,7 @@ export function CapabilitiesSection() {
                       <span className="text-xs font-semibold text-text-primary">{svc.name}</span>
                     </div>
                     <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-bg-primary border border-border-subtle text-text-tertiary font-medium">
-                      Port {svc.port}
+                      Enterprise Core
                     </span>
                   </div>
 

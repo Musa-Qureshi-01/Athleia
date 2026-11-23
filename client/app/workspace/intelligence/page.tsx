@@ -43,7 +43,7 @@ export default function IntelligencePage() {
       setResult(data);
     } catch (err: unknown) {
       console.error("Reasoning API error:", err);
-      setErrorMsg("Failed to connect to Reasoning Service via API Gateway. Ensure Gateway (8000) or Reasoning Service (8002) is running.");
+      setErrorMsg("Failed to connect to Reasoning Service. Ensure enterprise services are operational.");
       setResult(null);
     } finally {
       setLoading(false);
@@ -64,11 +64,6 @@ export default function IntelligencePage() {
           <h1 className="text-heading-1 text-text-primary">
             Grounded Industrial Intelligence
           </h1>
-        </div>
-
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-sm bg-bg-secondary border border-border-subtle text-xs text-text-secondary">
-          <Cpu size={14} className="text-text-tertiary" />
-          <span className="text-mono">Gateway API: http://localhost:8000</span>
         </div>
       </div>
 
@@ -138,7 +133,6 @@ export default function IntelligencePage() {
       {errorMsg && (
         <div className="p-4 rounded-sm border border-status-error/30 bg-status-error/10 text-xs text-status-error flex items-center justify-between">
           <span>{errorMsg}</span>
-          <span className="font-mono text-[10px]">HTTP Endpoint: /api/v1/reason/reason</span>
         </div>
       )}
 

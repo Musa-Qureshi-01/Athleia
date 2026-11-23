@@ -14,6 +14,8 @@ import {
   Sparkles,
 } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { NotificationBell } from "@/components/workspace/NotificationBell";
+import { AttachedSearchBar } from "@/components/workspace/AttachedSearchBar";
 import { cn } from "@/lib/utils";
 
 interface TopNavProps {
@@ -23,8 +25,81 @@ interface TopNavProps {
 export function TopNav({ onOpenSearch }: TopNavProps) {
   const router = useRouter();
   const [profileOpen, setProfileOpen] = useState(false);
+  const [currentUser, setCurrentUser] = useState<{
+    fullName: string;
+    email: string;
+    role: string;
+    initials: string;
+    isDemo: boolean;
+  }>({
+    fullName: "Axios Member",
+    email: "user@axios.ai",
+    role: "Member",
+    initials: "AM",
+    isDemo: false,
+  });
 
   const profileRef = useRef<HTMLDivElement>(null);
+
+  // Dynamically load real authenticated user profile
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      const sessionType = localStorage.getItem("axios_session_type");
+      const storedUser = localStorage.getItem("axios_user");
+      const evalUser = localStorage.getItem("axios_eval_user");
+
+      if (sessionType === "evolution" || evalUser) {
+        const parsed = evalUser ? JSON.parse(evalUser) : {};
+        const name = parsed.fullName || parsed.full_name || "Evaluation Guest";
+        const email = parsed.email || parsed.demo_email || "guest@evaluation.demo";
+        const initials = name
+          .split(" ")
+          .map((n: string) => n[0])
+          .join("")
+          .slice(0, 2)
+          .toUpperCase() || "EG";
+        setCurrentUser({
+          fullName: name,
+          email,
+          role: "Evaluation Sandbox",
+          initials,
+          isDemo: true,
+        });
+      } else if (storedUser) {
+        const parsed = JSON.parse(storedUser);
+        const name = parsed.full_name || parsed.fullName || parsed.email?.split("@")[0] || "Axios User";
+        const email = parsed.email || "";
+        const role = parsed.role ? parsed.role.replace(/_/g, " ") : "Enterprise Member";
+        const initials = name
+          .split(" ")
+          .map((n: string) => n[0])
+          .join("")
+          .slice(0, 2)
+          .toUpperCase() || "AU";
+        setCurrentUser({
+          fullName: name,
+          email,
+          role,
+          initials,
+          isDemo: false,
+        });
+      }
+    } catch (e) {
+      console.error("Failed to parse user session", e);
+    }
+  }, []);
+
+  const handleSignOut = () => {
+    localStorage.removeItem("axios_token");
+    localStorage.removeItem("axios_user");
+    localStorage.removeItem("axios_eval_user");
+    localStorage.removeItem("axios_session_type");
+    localStorage.removeItem("axios_org_auth");
+    localStorage.removeItem("axios_org_user");
+    setProfileOpen(false);
+    router.push("/login");
+  };
 
   // Global keyboard shortcut listener for Alt+C (Workforce Copilot)
   useEffect(() => {
@@ -51,69 +126,57 @@ export function TopNav({ onOpenSearch }: TopNavProps) {
 
   return (
     <header
-      className="h-14 border-b border-border-subtle flex items-center justify-between px-3.5 sm:px-6 shrink-0 z-20 gap-2 sm:gap-3"
+      className="relative h-14 border-b border-border-subtle flex items-center justify-between px-3.5 sm:px-6 shrink-0 z-50 gap-2 sm:gap-3"
       style={{ backgroundColor: "var(--bg-primary)" }}
     >
-      {/* Search Input Trigger */}
-      <div className="flex items-center gap-4 flex-1 max-w-md">
-        <button
-          onClick={onOpenSearch}
-          className="w-full flex items-center justify-between h-9 px-3 rounded-sm border border-border-subtle bg-bg-secondary text-text-tertiary hover:text-text-secondary hover:border-border-strong transition-colors duration-150 text-sm"
-        >
-          <div className="flex items-center gap-2.5">
-            <Search size={15} strokeWidth={1.75} className="text-text-tertiary" />
-            <span className="text-xs">Search documents, tags, SOPs...</span>
-          </div>
-          <kbd
-            className="hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-mono rounded border border-border-strong bg-bg-primary text-text-tertiary"
-          >
-            ⌘K
-          </kbd>
-        </button>
-      </div>
+      {/* AWS Console Style Attached Global Search Bar */}
+      <AttachedSearchBar />
 
       {/* Right Actions */}
-      <div className="flex items-center gap-3">
-        {/* Gateway Status Badge */}
+      <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+        {/* Enterprise Status Badge */}
         <div
-          className="hidden md:flex items-center gap-2 px-2.5 py-1 rounded-sm border border-border-subtle bg-bg-secondary text-xs text-text-secondary"
+          className="hidden xl:flex items-center gap-2 px-2.5 py-1 rounded-sm border border-border-subtle bg-bg-secondary text-xs text-text-secondary"
         >
-          <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "var(--status-verified)" }} />
-          <span className="text-mono text-[11px]">API Gateway Connected</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="text-mono text-[11px] font-medium">Enterprise Active</span>
         </div>
 
         {/* Workforce Copilot Quick Launch Button */}
         <button
           onClick={() => router.push("/workspace/assistant")}
-          className="flex items-center gap-2 px-3 py-1.5 rounded-sm bg-text-primary text-bg-primary text-xs font-medium hover:opacity-90 transition-opacity shadow-sm"
+          className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-sm bg-black hover:bg-neutral-800 text-white text-xs font-semibold transition-all shadow-xs cursor-pointer shrink-0"
           title="Open Axios Workforce Copilot (Shortcut: Alt+C)"
         >
-          <Bot size={15} />
-          <span className="hidden sm:inline">Workforce Copilot</span>
-          <kbd className="hidden md:inline-flex items-center px-1.5 py-0.2 text-[9px] font-mono rounded bg-bg-primary text-text-primary border border-border-subtle opacity-80">
+          <Bot size={14} className="text-blue-400 shrink-0" />
+          <span className="hidden lg:inline">Workforce Copilot</span>
+          <kbd className="hidden 2xl:inline-flex items-center px-1.5 py-0.2 text-[9px] font-mono rounded-xs bg-neutral-800 text-neutral-300 border border-neutral-700">
             Alt+C
           </kbd>
         </button>
 
+        {/* Real-time Notifications Bell */}
+        <NotificationBell />
+
         {/* Theme Toggle */}
         <ThemeToggle />
 
-{/* Profile Dropdown */}
-        <div className="relative" ref={profileRef}>
+        {/* Profile Dropdown */}
+        <div className="relative shrink-0" ref={profileRef}>
           <button
             onClick={() => setProfileOpen((v) => !v)}
-            className="flex items-center gap-2 p-1 rounded-sm hover:bg-bg-secondary transition-colors duration-150"
+            className="flex items-center gap-1.5 p-1 rounded-sm hover:bg-bg-secondary transition-colors duration-150 cursor-pointer"
           >
             <div
-              className="w-7 h-7 rounded-sm flex items-center justify-center text-xs font-mono font-medium text-bg-primary"
+              className="w-7 h-7 rounded-sm flex items-center justify-center text-xs font-mono font-medium text-bg-primary shrink-0"
               style={{ backgroundColor: "var(--text-primary)" }}
             >
-              MQ
+              {currentUser.initials}
             </div>
-            <span className="hidden lg:inline-block text-xs font-medium text-text-primary">
-              Musa Qureshi
+            <span className="hidden xl:inline-block text-xs font-medium text-text-primary truncate max-w-[120px]">
+              {currentUser.fullName}
             </span>
-            <ChevronDown size={13} className="text-text-tertiary hidden lg:inline-block" />
+            <ChevronDown size={13} className="text-text-tertiary hidden xl:inline-block shrink-0" />
           </button>
 
           {profileOpen && (
@@ -122,11 +185,11 @@ export function TopNav({ onOpenSearch }: TopNavProps) {
               style={{ backgroundColor: "var(--bg-primary)" }}
             >
               <div className="px-2.5 py-2 border-b border-border-subtle flex flex-col">
-                <span className="text-xs font-medium text-text-primary truncate">Musa Qureshi</span>
-                <span className="text-mono text-[10px] text-text-tertiary truncate">musa@axios.ai</span>
+                <span className="text-xs font-medium text-text-primary truncate">{currentUser.fullName}</span>
+                <span className="text-mono text-[10px] text-text-tertiary truncate">{currentUser.email}</span>
                 <div className="mt-1 flex items-center gap-1.5 text-[10px] text-text-secondary">
-                  <Shield size={10} className="text-status-verified" />
-                  <span>Enterprise Admin</span>
+                  <Shield size={10} className={currentUser.isDemo ? "text-amber-500" : "text-status-verified"} />
+                  <span>{currentUser.role}</span>
                 </div>
               </div>
 
@@ -140,11 +203,8 @@ export function TopNav({ onOpenSearch }: TopNavProps) {
               </Link>
 
               <button
-                onClick={() => {
-                  setProfileOpen(false);
-                  router.push("/login");
-                }}
-                className="flex items-center gap-2 px-2.5 py-1.5 text-xs text-status-error hover:bg-bg-secondary rounded-sm transition-colors w-full text-left"
+                onClick={handleSignOut}
+                className="flex items-center gap-2 px-2.5 py-1.5 text-xs text-status-error hover:bg-bg-secondary rounded-sm transition-colors w-full text-left cursor-pointer"
               >
                 <LogOut size={14} />
                 <span>Sign out</span>

@@ -22,6 +22,7 @@ async def health_check(request: Request, db: AsyncSession = Depends(get_db)):
     try:
         await db.execute(text("SELECT 1"))
     except Exception as e:
+        await db.rollback()
         db_status = f"unhealthy: {str(e)}"
 
     storage_writable = os.access(settings.STORAGE_BASE_DIR, os.W_OK) if os.path.exists(settings.STORAGE_BASE_DIR) else True
