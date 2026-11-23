@@ -1,4 +1,4 @@
-﻿# Axios.ai — Master Microservice Launcher
+# Axios.ai — Master Microservice Launcher
 $root = $PSScriptRoot
 
 # Load environment variables from local .env if present

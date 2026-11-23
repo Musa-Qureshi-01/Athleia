@@ -13,6 +13,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { useAuthSession } from "@/lib/auth";
+import { cn } from "@/lib/utils";
 
 interface AppConnector {
   name: string;
@@ -156,56 +157,59 @@ export function HeroSection() {
               className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
             />
 
-            {/* Central White Search Input Card (Boxy with healthy roundness: rounded-md sm:rounded-lg) */}
-            <div className="relative z-10 max-w-[640px] w-[90%] sm:w-full mx-auto bg-white/95 backdrop-blur-md rounded-md sm:rounded-lg shadow-[0_20px_50px_rgba(0,0,0,0.25)] border border-white p-3.5 sm:p-5">
+            {/* Central White Search Input Card (Crisp enterprise geometry: rounded-md) */}
+            <div className="relative z-10 max-w-[640px] w-[calc(100%-24px)] sm:w-full mx-auto bg-white/95 backdrop-blur-md rounded-md shadow-[0_20px_50px_rgba(0,0,0,0.25)] border border-white p-3 sm:p-5">
               
               {/* Form Input Bar with Animated Typewriter Text */}
-              <form onSubmit={handleSearchSubmit} className="flex items-center gap-2.5 pb-2.5 border-b border-neutral-100">
-                <span className="text-lg sm:text-xl text-neutral-400 font-light select-none pl-1">
+              <form onSubmit={handleSearchSubmit} className="flex items-center gap-2 pb-2.5 border-b border-neutral-100">
+                <span className="text-base sm:text-xl text-neutral-400 font-light select-none pl-0.5">
                   +
                 </span>
                 
-                <div className="flex-1 flex items-center overflow-hidden">
+                <div className="flex-1 flex items-center overflow-hidden min-w-0">
                   <input
                     type="text"
                     value={displayText}
                     onChange={handleManualInput}
-                    className="w-full text-[13px] sm:text-[14px] font-normal text-neutral-900 focus:outline-none bg-transparent placeholder:text-neutral-400"
+                    className="w-full text-xs sm:text-[14px] font-normal text-neutral-900 focus:outline-none bg-transparent placeholder:text-neutral-400 truncate"
                     placeholder="Ask anything across your company's tools..."
                   />
                   {customInput === null && (
-                    <span className="inline-block w-0.5 h-4.5 bg-[#1F45EC] ml-0.5 animate-pulse shrink-0" />
+                    <span className="inline-block w-0.5 h-4 bg-[#1F45EC] ml-0.5 animate-pulse shrink-0" />
                   )}
                 </div>
 
-                <div className="flex items-center gap-1.5 text-neutral-400 shrink-0">
+                <div className="flex items-center gap-1 sm:gap-1.5 text-neutral-400 shrink-0">
                   {/* Sliders/Filter Icon */}
                   <button
                     type="button"
                     title="Filters"
-                    className="p-1.5 rounded-md hover:bg-neutral-100 text-neutral-600 transition-colors cursor-pointer"
+                    className="p-1 sm:p-1.5 rounded-sm hover:bg-neutral-100 text-neutral-600 transition-colors cursor-pointer"
                   >
-                    <SlidersHorizontal size={15} />
+                    <SlidersHorizontal size={14} />
                   </button>
                   
-                  {/* Waveform / Mic Button with healthy roundness */}
+                  {/* Waveform / Mic Button with crisp rounded-sm */}
                   <button
                     type="submit"
-                    className="w-7 h-7 sm:w-7.5 sm:h-7.5 rounded-md bg-black hover:bg-neutral-800 text-white flex items-center justify-center transition-all cursor-pointer shadow-xs"
+                    className="w-7 h-7 sm:w-7.5 sm:h-7.5 rounded-sm bg-black hover:bg-neutral-800 text-white flex items-center justify-center transition-all cursor-pointer shadow-xs"
                     title="Run AI audio reasoning"
                   >
-                    <AudioLines size={14} />
+                    <AudioLines size={13} />
                   </button>
                 </div>
               </form>
 
               {/* App Connectors Strip */}
-              <div className="pt-2.5 flex items-center justify-between flex-wrap gap-1.5">
+              <div className="pt-2 flex items-center justify-between flex-wrap gap-1.5">
                 <div className="flex items-center flex-wrap gap-1.5">
                   {APPS.map((app, idx) => (
                     <div
                       key={idx}
-                      className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-neutral-100/90 hover:bg-neutral-200/90 transition-colors text-[10.5px] sm:text-[11px] font-medium text-neutral-700 cursor-pointer"
+                      className={cn(
+                        "inline-flex items-center gap-1.5 px-2 py-0.5 rounded-sm bg-neutral-100/90 hover:bg-neutral-200/90 transition-colors text-[10px] sm:text-[11px] font-medium text-neutral-700 cursor-pointer",
+                        idx >= 3 && "hidden sm:inline-flex"
+                      )}
                     >
                       <span
                         className="w-1.5 h-1.5 rounded-full shrink-0"
@@ -219,13 +223,13 @@ export function HeroSection() {
                   <button
                     type="button"
                     title="More integrations"
-                    className="w-5 h-5 rounded-md bg-neutral-100 hover:bg-neutral-200 flex items-center justify-center text-neutral-600 transition-colors cursor-pointer"
+                    className="w-5 h-5 rounded-sm bg-neutral-100 hover:bg-neutral-200 flex items-center justify-center text-neutral-600 transition-colors cursor-pointer"
                   >
-                    <MoreHorizontal size={13} />
+                    <MoreHorizontal size={12} />
                   </button>
                 </div>
 
-                <div className="text-[10px] sm:text-[10.5px] font-mono text-neutral-400 hidden sm:block">
+                <div className="text-[10px] sm:text-[10.5px] font-mono text-neutral-400 hidden md:block">
                   275+ enterprise connectors
                 </div>
               </div>
