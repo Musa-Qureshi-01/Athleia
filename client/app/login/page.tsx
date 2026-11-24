@@ -3,26 +3,18 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, ArrowRight, Eye, EyeOff, CheckCircle2, LayoutDashboard, LogOut, Sparkles } from "lucide-react";
-import { loginUser, getWorkOSAuthorizeUrl, launchEvolutionDemoSession } from "@/lib/api";
+import { Eye, EyeOff, CheckCircle2, UserPlus, LogIn, Sparkles, ArrowLeft, LayoutDashboard, LogOut } from "lucide-react";
+import { loginUser, registerUser, verifyOTP, resendOTP } from "@/lib/api";
 import { getAuthSession, clearAuthSession } from "@/lib/auth";
+
+const inputClass =
+  "w-full h-10 px-3 rounded-sm text-sm text-text-primary bg-bg-primary border border-border-strong focus:outline-none focus:border-accent transition-colors duration-150 placeholder:text-text-tertiary";
 
 export default function LoginPage() {
   const router = useRouter();
-
-  // Active Session State
   const [existingSession, setExistingSession] = useState<{ isAuthenticated: boolean; user: any } | null>(null);
-
-  // Form State
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [rememberMe, setRememberMe] = useState(true);
-  const [loginStep, setLoginStep] = useState<"email" | "password">("email");
-  const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [detectedOrg, setDetectedOrg] = useState<string | null>(null);
 
   useEffect(() => {
     const session = getAuthSession();
@@ -31,464 +23,634 @@ export default function LoginPage() {
     }
   }, []);
 
-  const handleEmailSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email.trim()) return;
-    setErrorMessage(null);
+  const [activeTab, setActiveTab] = useState<"login" | "signup">("login");
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-    // Auto-detect enterprise tenant domain
-    const domain = email.split("@")[1]?.toLowerCase();
-    if (domain) {
-      if (domain.includes("booking")) setDetectedOrg("Booking.com Global Tenant");
-      else if (domain.includes("zillow")) setDetectedOrg("Zillow Group Tenant");
-      else if (domain.includes("ericsson")) setDetectedOrg("Ericsson Telecom Tenant");
-      else if (domain.includes("time")) setDetectedOrg("TIME Editorial Tenant");
-      else setDetectedOrg("Axios Enterprise Tenant");
-    }
-
-    setLoginStep("password");
+  // Mobile detection
+  const isMobileClient = () => {
+    if (typeof window === "undefined") return false;
+    const ua = navigator.userAgent || "";
+    const isMobileUA = /android|iphone|ipad|ipod|blackberry|iemobile|opera mini|mobile/i.test(ua);
+    const isSmallScreen = window.innerWidth < 768;
+    return isMobileUA || isSmallScreen;
   };
 
-  const handleFinalSubmit = async (e: React.FormEvent) => {
+  const [mobileNotice, setMobileNotice] = useState<string | null>(null);
+
+  // Login Form State
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState<string | null>(null);
+  const [unverifiedAccount, setUnverifiedAccount] = useState<{ email: string; otp: string } | null>(null);
+
+  // Evaluation Account Registration & OTP State
+  const [regFullName, setRegFullName] = useState("");
+  const [regEmail, setRegEmail] = useState("");
+  const [regPassword, setRegPassword] = useState("");
+  const [regOrg, setRegOrg] = useState("Evaluation Sandbox");
+  const [isOtpStep, setIsOtpStep] = useState(false);
+  const [otpCode, setOtpCode] = useState("");
+  const [receivedOtpHint, setReceivedOtpHint] = useState<string | null>(null);
+  const [regMessage, setRegMessage] = useState<string | null>(null);
+  const [regError, setRegError] = useState<string | null>(null);
+  const [isResending, setIsResending] = useState(false);
+
+  const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!password) {
-      setErrorMessage("Please enter your account password.");
+    setMobileNotice(null);
+    setLoginError(null);
+    setUnverifiedAccount(null);
+
+    // Mobile restriction check
+    if (isMobileClient()) {
+      setMobileNotice("Cannot login via mobile phone now.");
       return;
     }
 
     setIsLoading(true);
-    setErrorMessage(null);
 
     try {
-      const authRes = await loginUser(email, password);
-      localStorage.setItem("axios_token", authRes.access_token);
-      localStorage.setItem("axios_refresh_token", authRes.refresh_token || "");
+      const data = await loginUser(email, password);
+      localStorage.setItem("axios_token", data.access_token);
+      localStorage.setItem("axios_refresh_token", data.refresh_token || "");
       localStorage.setItem("axios_session_type", "organizational");
       localStorage.setItem(
         "axios_user",
         JSON.stringify({
-          user_id: authRes.user_id,
-          email: authRes.email || email,
-          full_name: authRes.full_name || email.split("@")[0],
-          role: authRes.role || "EMPLOYEE",
-          organization: (authRes as any).organization || detectedOrg || "Axios Enterprise",
+          user_id: data.user_id,
+          email: data.email,
+          full_name: data.full_name,
+          role: data.role,
+          status: data.status,
+          organization: "Axios Enterprise",
         })
       );
       window.dispatchEvent(new Event("axios-auth-changed"));
       router.push("/workspace");
-    } catch (err: any) {
-      setErrorMessage(
-        err.message || "Invalid enterprise credentials. Please check your email and password."
-      );
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Authentication failed.";
+      if (msg.startsWith("UNVERIFIED:")) {
+        const parts = msg.split(":");
+        const unverifiedEmail = parts[1] || email;
+        const unverifiedOtp = parts[2] || "";
+        setUnverifiedAccount({ email: unverifiedEmail, otp: unverifiedOtp });
+        setLoginError("Email is registered but not verified yet.");
+      } else {
+        setLoginError(msg);
+      }
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleLaunchEvaluation = async () => {
-    setIsLoading(true);
-    setErrorMessage(null);
+  const handleDashboardRedirect = (e: React.MouseEvent) => {
+    setMobileNotice(null);
+    if (isMobileClient()) {
+      e.preventDefault();
+      setMobileNotice("Cannot login via mobile phone now.");
+      return;
+    }
+    router.push("/workspace");
+  };
+
+  const handleJumpToOtpVerification = (targetEmail: string, targetOtp: string) => {
+    setRegEmail(targetEmail);
+    if (password) setRegPassword(password);
+    if (targetOtp) {
+      setReceivedOtpHint(targetOtp);
+      setOtpCode(targetOtp);
+    }
+    setActiveTab("signup");
+    setIsOtpStep(true);
+    setRegMessage(
+      targetOtp
+        ? "Your fresh OTP is shown below. Click Auto-fill then Verify."
+        : "Enter the 6-digit OTP sent to your email."
+    );
+  };
+
+  const handleResendOtp = async (targetEmail: string) => {
+    setIsResending(true);
     try {
-      const evalSession = await launchEvolutionDemoSession({
-        email: "guest@evaluation.demo",
-        fullName: "Evaluation Guest",
-        phoneNumber: "+10000000000",
-        organization: "Evaluation Sandbox",
+      const res = await resendOTP(targetEmail);
+      const newOtp = res.dev_otp as string | undefined;
+      setRegEmail(targetEmail);
+      if (password) setRegPassword(password);
+      if (newOtp) {
+        setReceivedOtpHint(newOtp);
+        setOtpCode(newOtp);
+      }
+      setUnverifiedAccount(null);
+      setLoginError(null);
+      setActiveTab("signup");
+      setIsOtpStep(true);
+      setRegMessage(
+        newOtp
+          ? `Fresh OTP dispatched. Code: ${newOtp}`
+          : "Fresh OTP dispatched to your email."
+      );
+    } catch (err) {
+      setLoginError(err instanceof Error ? err.message : "Failed to resend OTP.");
+    } finally {
+      setIsResending(false);
+    }
+  };
+
+  const handleRegisterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setMobileNotice(null);
+    setRegError(null);
+    setRegMessage(null);
+
+    // Mobile restriction check
+    if (isMobileClient()) {
+      setMobileNotice("Cannot login via mobile phone now.");
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const res = await registerUser({
+        email: regEmail,
+        password: regPassword,
+        full_name: regFullName,
+        organization: regOrg || "Evaluation Sandbox",
       });
 
-      localStorage.setItem("axios_token", evalSession.access_token);
-      localStorage.setItem("axios_session_type", "evolution");
-      localStorage.setItem(
-        "axios_user",
-        JSON.stringify({
-          user_id: evalSession.session_id,
-          email: evalSession.demo_user || "guest@evaluation.demo",
-          full_name: "Evaluation Guest",
-          role: evalSession.role || "EVOLUTION_GUEST",
-          organization: "Evaluation Sandbox",
-        })
-      );
-      window.dispatchEvent(new Event("axios-auth-changed"));
-      router.push("/workspace");
-    } catch {
-      // Local development fallback
-      localStorage.setItem("axios_token", "eval_mock_token_local");
-      localStorage.setItem("axios_session_type", "evolution");
-      localStorage.setItem(
-        "axios_user",
-        JSON.stringify({
-          user_id: "eval-local-001",
-          email: "guest@evaluation.demo",
-          full_name: "Evaluation Guest",
-          role: "EVOLUTION_GUEST",
-          organization: "Evaluation Sandbox",
-        })
-      );
-      window.dispatchEvent(new Event("axios-auth-changed"));
-      router.push("/workspace");
+      const otp = (res.dev_otp as string) || null;
+      if (otp) {
+        setReceivedOtpHint(otp);
+        setOtpCode(otp);
+      }
+      setRegMessage("6-digit OTP security code generated.");
+      setIsOtpStep(true);
+    } catch (err) {
+      setRegError(err instanceof Error ? err.message : "Failed to create evaluation account.");
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleSSO = async (provider: string) => {
+  const handleOtpVerify = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setMobileNotice(null);
+    setRegError(null);
+
+    if (isMobileClient()) {
+      setMobileNotice("Cannot login via mobile phone now.");
+      return;
+    }
+
     setIsLoading(true);
-    setErrorMessage(null);
+
     try {
-      const redirectUri = `${window.location.origin}/auth/callback`;
-      const providerParam = provider.toLowerCase().includes("google")
-        ? "GoogleOAuth"
-        : provider.toLowerCase().includes("microsoft")
-        ? "MicrosoftOAuth"
-        : "authkit";
-      const authUrl = await getWorkOSAuthorizeUrl(redirectUri, providerParam);
-      window.location.href = authUrl;
-    } catch (err: any) {
-      setErrorMessage(
-        err.message || `Failed to initiate ${provider} SSO. Please verify WorkOS configuration.`
+      await verifyOTP(regEmail, otpCode);
+      setRegMessage("Account verified! Logging you into your evaluation workspace...");
+
+      // Automatically authenticate user after successful OTP verification
+      const loginData = await loginUser(regEmail, regPassword);
+      localStorage.setItem("axios_token", loginData.access_token);
+      localStorage.setItem("axios_refresh_token", loginData.refresh_token || "");
+      localStorage.setItem("axios_session_type", "evolution");
+      localStorage.setItem(
+        "axios_user",
+        JSON.stringify({
+          user_id: loginData.user_id,
+          email: loginData.email,
+          full_name: loginData.full_name,
+          role: loginData.role,
+          status: loginData.status,
+          organization: regOrg || "Evaluation Sandbox",
+        })
       );
+      window.dispatchEvent(new Event("axios-auth-changed"));
+
+      setTimeout(() => {
+        router.push("/workspace");
+      }, 700);
+    } catch (err) {
+      setRegError(err instanceof Error ? err.message : "Invalid or expired OTP code.");
+    } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2 font-sans bg-white selection:bg-[#1F45EC]/15 selection:text-[#1F45EC]">
-      
-      {/* ── LEFT COLUMN: WARM CREAM HERO ILLUSTRATION (matching Glean benchmark) ── */}
-      <div className="hidden lg:flex flex-col justify-between p-12 lg:p-16 xl:p-20 bg-[#FAF8F5] border-r border-neutral-200/70 relative overflow-hidden select-none">
-        
-        {/* Top Back Link */}
-        <div>
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-xs font-semibold text-neutral-500 hover:text-neutral-900 transition-colors"
-          >
-            <ArrowLeft size={14} />
-            <span>Back to website</span>
-          </Link>
-        </div>
-
-        {/* Center Editorial Statement & Minimalistic Floating Documents Graphic */}
-        <div className="max-w-lg mx-auto w-full my-auto space-y-10">
-          <div className="space-y-3.5 text-center">
-            <h1 className="text-[34px] xl:text-[40px] font-bold text-neutral-900 leading-[1.12] tracking-[-0.035em]">
-              Start with an alarm or query. Walk away with verified work.
-            </h1>
-            <p className="text-[15px] xl:text-[16px] text-neutral-600 leading-relaxed max-w-md mx-auto">
-              Engineering specs, P&amp;IDs, equipment manuals, and maintenance logs grounded in your company&apos;s context, ready to review and act.
-            </p>
-          </div>
-
-          {/* Minimalist Floating Graphic matching Glean reference */}
-          <div className="relative w-full max-w-[380px] h-[280px] mx-auto flex items-center justify-center">
-            {/* Soft Ambient Pastel Glow */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-[#E6F4EA]/80 via-[#E8F0FE]/90 to-[#FCE8E6]/70 rounded-2xl blur-2xl opacity-70" />
-
-            {/* Back Card (.sop) */}
-            <div className="absolute w-[240px] h-[190px] rounded-md bg-[#E8E6DF]/90 border border-neutral-300/60 p-4 shadow-xs -rotate-6 -translate-x-12 -translate-y-4">
-              <span className="inline-block px-1.5 py-0.5 rounded-sm text-[9px] font-mono font-bold bg-neutral-200 text-neutral-700">
-                .sop
-              </span>
-              <div className="mt-3 space-y-2">
-                <div className="h-2 w-3/4 bg-neutral-300/70 rounded-sm" />
-                <div className="h-2 w-1/2 bg-neutral-300/70 rounded-sm" />
-                <div className="h-2 w-5/6 bg-neutral-300/70 rounded-sm" />
+    <div
+      className="min-h-screen flex flex-col font-sans"
+      style={{ backgroundColor: "var(--bg-secondary)" }}
+    >
+      {/* Minimal top bar with Back to Home button */}
+      <header className="border-b border-border-subtle" style={{ backgroundColor: "var(--bg-primary)" }}>
+        <div className="container-editorial h-14 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm text-xs font-semibold text-text-secondary hover:text-text-primary hover:bg-bg-secondary transition-colors"
+            >
+              <ArrowLeft size={14} />
+              <span>Back to Home</span>
+            </Link>
+            <div className="h-4 w-px bg-border-subtle" />
+            <Link href="/" className="flex items-center gap-2.5 group">
+              <div className="w-6.5 h-6.5 shrink-0 rounded-[4px] overflow-hidden bg-accent/10 border border-accent/30 flex items-center justify-center p-0.5">
+                <Image
+                  src="/icon.png"
+                  alt="Axios Logo"
+                  width={24}
+                  height={24}
+                  className="w-full h-full object-cover"
+                  priority
+                />
               </div>
-            </div>
-
-            {/* Middle Card (.dwg) */}
-            <div className="absolute w-[250px] h-[195px] rounded-md bg-[#D6ECF9]/90 border border-blue-200/70 p-4 shadow-xs rotate-6 translate-x-10 -translate-y-2">
-              <span className="inline-block px-1.5 py-0.5 rounded-sm text-[9px] font-mono font-bold bg-blue-100 text-blue-700">
-                .dwg
-              </span>
-              <div className="mt-3 space-y-2">
-                <div className="h-2 w-2/3 bg-blue-200/80 rounded-sm" />
-                <div className="h-2 w-4/5 bg-blue-200/80 rounded-sm" />
-              </div>
-            </div>
-
-            {/* Foreground Main Card (.pdf) */}
-            <div className="relative z-10 w-[270px] h-[210px] rounded-md bg-white border border-neutral-200/90 p-5 shadow-md flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between">
-                  <div className="h-2.5 w-24 bg-neutral-200 rounded-sm" />
-                  <span className="px-1.5 py-0.5 rounded-sm text-[9px] font-mono font-bold bg-blue-50 text-[#1F45EC] border border-blue-200/60">
-                    .pdf
-                  </span>
-                </div>
-                <div className="mt-4 space-y-2.5">
-                  <div className="h-2 w-full bg-neutral-100 rounded-sm" />
-                  <div className="h-2 w-5/6 bg-neutral-100 rounded-sm" />
-                  <div className="h-2 w-4/6 bg-neutral-100 rounded-sm" />
-                  <div className="h-2 w-3/4 bg-neutral-100 rounded-sm" />
-                </div>
-              </div>
-              <div className="w-8 h-8 rounded-sm bg-neutral-100 border border-neutral-200" />
-            </div>
-
-          </div>
-        </div>
-
-        {/* Bottom Note */}
-        <div className="text-xs text-neutral-400 text-center">
-          Enterprise Industrial Knowledge Intelligence · Isolated Multi-Tenant Architecture
-        </div>
-
-      </div>
-
-      {/* ── RIGHT COLUMN: ULTRA-CLEAN AUTH FORM ── */}
-      <div className="flex flex-col justify-between p-6 sm:p-12 lg:p-16 xl:p-20 bg-white">
-        
-        {/* Top Header Row */}
-        <div className="flex justify-between items-center">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-neutral-500 hover:text-black transition-colors"
-          >
-            <ArrowLeft size={13} />
-            <span>Back to website</span>
-          </Link>
-
-          <button
-            type="button"
-            onClick={handleLaunchEvaluation}
-            disabled={isLoading}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm text-xs font-medium bg-[#1F45EC]/10 hover:bg-[#1F45EC]/15 text-[#1F45EC] transition-colors cursor-pointer"
-          >
-            <Sparkles size={13} />
-            <span>1-Click Demo Sandbox</span>
-          </button>
-        </div>
-
-        {/* Center Card Content */}
-        <div className="w-full max-w-[380px] mx-auto my-auto py-8">
-          
-          {/* Brand Logo in signature Royal Blue */}
-          <div className="mb-8 text-center">
-            <Link href="/" className="inline-block">
-              <span className="text-[34px] font-bold tracking-tight text-[#1F45EC] font-sans">
-                axios
+              <span className="text-sm font-bold tracking-[0.08em] text-text-primary font-mono">
+                AXIOS.AI
               </span>
             </Link>
           </div>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => {
+                setActiveTab("login");
+                setMobileNotice(null);
+              }}
+              className={`text-xs font-mono px-3 py-1.5 rounded-sm transition-colors ${
+                activeTab === "login" ? "bg-bg-tertiary text-text-primary font-bold" : "text-text-tertiary hover:text-text-primary"
+              }`}
+            >
+              Sign In
+            </button>
+            <button
+              onClick={() => {
+                setActiveTab("signup");
+                setMobileNotice(null);
+              }}
+              className={`text-xs font-mono px-3 py-1.5 rounded-sm transition-colors ${
+                activeTab === "signup" ? "bg-bg-tertiary text-text-primary font-bold" : "text-text-tertiary hover:text-text-primary"
+              }`}
+            >
+              Create Evaluation Account
+            </button>
+          </div>
+        </div>
+      </header>
 
-          {/* ACTIVE SESSION CARD (If user already logged in) */}
-          {existingSession?.isAuthenticated ? (
-            <div className="p-6 rounded-md border border-neutral-200 bg-neutral-50/70 text-center space-y-4">
-              <div className="w-12 h-12 rounded-full bg-[#1F45EC]/10 text-[#1F45EC] border border-[#1F45EC]/20 flex items-center justify-center mx-auto">
-                <CheckCircle2 size={24} />
+      {/* Centered Auth Card */}
+      <main className="flex-1 flex items-center justify-center p-4 sm:p-6">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          className="w-full max-w-md"
+        >
+          {/* Card */}
+          <div
+            className="border border-border-subtle rounded-md overflow-hidden shadow-2xl"
+            style={{ backgroundColor: "var(--bg-primary)" }}
+          >
+            {/* Plain text mobile notice - strictly clear information without emojis or icons */}
+            {mobileNotice && (
+              <div className="p-3.5 bg-red-50 border-b border-red-200 text-red-600 text-xs font-medium text-center">
+                {mobileNotice}
               </div>
-              <div>
-                <h2 className="text-base font-bold text-neutral-900">Already Signed In</h2>
-                <p className="text-xs text-neutral-600 mt-1">
-                  Active session as <strong className="text-neutral-900">{existingSession.user?.fullName}</strong>
-                </p>
-                <div className="mt-2 flex items-center justify-center gap-1.5">
-                  <span className="px-2 py-0.5 rounded-sm text-[11px] font-mono font-medium bg-[#1F45EC]/10 text-[#1F45EC]">
-                    {existingSession.user?.organization || "Axios Enterprise"}
-                  </span>
+            )}
+
+            {existingSession?.isAuthenticated ? (
+              <div className="p-8 text-center space-y-4">
+                <div className="w-14 h-14 rounded-full bg-[#1F45EC]/10 text-[#1F45EC] border border-[#1F45EC]/20 flex items-center justify-center mx-auto">
+                  <CheckCircle2 size={28} />
                 </div>
-              </div>
-
-              <div className="pt-2 flex flex-col gap-2">
-                <Link
-                  href="/workspace"
-                  className="w-full h-10 rounded-sm bg-[#1F45EC] hover:bg-[#1538D4] text-white text-xs font-semibold flex items-center justify-center gap-2 shadow-xs transition-colors"
-                >
-                  <LayoutDashboard size={14} />
-                  <span>Go to Dashboard</span>
-                </Link>
-
-                <button
-                  type="button"
-                  onClick={() => {
-                    clearAuthSession();
-                    setExistingSession(null);
-                  }}
-                  className="w-full h-9 rounded-sm border border-neutral-300 hover:bg-neutral-100 text-xs font-medium text-neutral-600 hover:text-neutral-900 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
-                >
-                  <LogOut size={13} />
-                  <span>Sign in as a different user</span>
-                </button>
-              </div>
-            </div>
-          ) : (
-            <>
-              {/* Error Alert */}
-              {errorMessage && (
-                <div className="mb-4 p-3 rounded-sm bg-red-50 border border-red-200 text-xs text-red-600 flex items-start gap-2">
-                  <span className="font-bold">•</span>
-                  <span>{errorMessage}</span>
+                <div>
+                  <h2 className="text-lg font-bold text-text-primary">Already Signed In</h2>
+                  <p className="text-xs text-text-secondary mt-1">
+                    You have an active session as <strong className="text-text-primary">{existingSession.user?.fullName}</strong>.
+                  </p>
+                  <div className="mt-2.5 flex items-center justify-center gap-1.5 flex-wrap">
+                    <span className="px-2.5 py-0.5 rounded-sm text-[11px] font-mono font-medium bg-[#1F45EC]/10 text-[#1F45EC] border border-[#1F45EC]/20">
+                      {existingSession.user?.organization || "Axios Enterprise"}
+                    </span>
+                    <span className="text-[11px] font-mono text-text-tertiary">
+                      {existingSession.user?.email}
+                    </span>
+                  </div>
                 </div>
-              )}
 
-              {/* STEP 1: WORK EMAIL */}
-              {loginStep === "email" && (
-                <form onSubmit={handleEmailSubmit} className="space-y-4">
-                  <div className="space-y-1.5">
-                    <label htmlFor="work-email" className="block text-xs font-semibold uppercase tracking-wider text-neutral-700 font-mono">
-                      Work email
-                    </label>
-                    <input
-                      id="work-email"
-                      type="email"
-                      required
-                      autoFocus
-                      autoComplete="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="name@company.com"
-                      className="w-full h-11 px-3.5 rounded-sm text-sm text-neutral-900 bg-white border border-neutral-300 focus:outline-none focus:border-[#1F45EC] focus:ring-1 focus:ring-[#1F45EC] transition-all placeholder:text-neutral-400"
-                    />
-                  </div>
-
-                  <div className="flex items-center justify-between pt-0.5 text-xs text-neutral-600">
-                    <label className="flex items-center gap-2 cursor-pointer select-none">
-                      <input
-                        type="checkbox"
-                        checked={rememberMe}
-                        onChange={(e) => setRememberMe(e.target.checked)}
-                        className="w-3.5 h-3.5 rounded-xs text-[#1F45EC] border-neutral-300 focus:ring-0 cursor-pointer"
-                      />
-                      <span>Remember me</span>
-                    </label>
-                  </div>
-
-                  {/* Clean Non-Curvy Button */}
+                <div className="pt-3 flex flex-col gap-2.5">
                   <button
-                    type="submit"
-                    disabled={isLoading || !email.trim()}
-                    className="w-full h-11 rounded-sm text-xs font-semibold uppercase tracking-wider bg-black hover:bg-neutral-800 text-white transition-all mt-3 flex items-center justify-center cursor-pointer shadow-xs disabled:opacity-50"
+                    type="button"
+                    onClick={handleDashboardRedirect}
+                    className="w-full h-10 rounded-sm bg-[#1F45EC] hover:bg-[#1538D4] text-white text-xs font-semibold flex items-center justify-center gap-2 shadow-xs transition-colors cursor-pointer"
                   >
-                    {isLoading ? "Checking tenant..." : "Continue with Email"}
+                    <LayoutDashboard size={15} />
+                    <span>Go to Dashboard</span>
                   </button>
 
-                  {/* Enterprise SSO Divider */}
-                  <div className="relative my-6">
-                    <div className="absolute inset-0 flex items-center">
-                      <div className="w-full border-t border-neutral-200" />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      clearAuthSession();
+                      setExistingSession(null);
+                    }}
+                    className="w-full h-10 rounded-sm border border-border-strong hover:bg-bg-tertiary text-xs font-medium text-text-secondary hover:text-text-primary transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                  >
+                    <LogOut size={13} />
+                    <span>Sign in as a different user</span>
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <>
+                {/* Mode Switcher Tabs */}
+                <div className="flex border-b border-border-subtle bg-bg-secondary">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setActiveTab("login");
+                      setLoginError(null);
+                      setMobileNotice(null);
+                    }}
+                    className={`flex-1 py-3 text-xs font-mono font-bold uppercase tracking-wider flex items-center justify-center gap-2 border-b-2 transition-colors ${
+                      activeTab === "login"
+                        ? "border-accent text-text-primary bg-bg-primary"
+                        : "border-transparent text-text-tertiary hover:text-text-secondary"
+                    }`}
+                  >
+                    <LogIn size={14} />
+                    <span>Sign In</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setActiveTab("signup");
+                      setRegError(null);
+                      setRegMessage(null);
+                      setMobileNotice(null);
+                    }}
+                    className={`flex-1 py-3 text-xs font-mono font-bold uppercase tracking-wider flex items-center justify-center gap-2 border-b-2 transition-colors ${
+                      activeTab === "signup"
+                        ? "border-accent text-text-primary bg-bg-primary"
+                        : "border-transparent text-text-tertiary hover:text-text-secondary"
+                    }`}
+                  >
+                    <UserPlus size={14} />
+                    <span>Create Evaluation Account</span>
+                  </button>
+                </div>
+
+                {/* TAB 1: SIGN IN */}
+                {activeTab === "login" && (
+                  <form onSubmit={handleLoginSubmit} className="px-6 sm:px-8 py-7 flex flex-col gap-4">
+                    <div className="flex flex-col gap-1">
+                      <h1 className="text-text-primary font-bold text-lg font-display">
+                        Welcome to Axios
+                      </h1>
+                      <p className="text-mono text-xs text-text-tertiary">
+                        Enter your work credentials to access the platform.
+                      </p>
                     </div>
-                    <div className="relative flex justify-center text-[10px] font-mono uppercase tracking-wider text-neutral-400">
-                      <span className="bg-white px-2.5">or continue with SSO</span>
-                    </div>
-                  </div>
 
-                  {/* Clean Single Sign-On Buttons (rounded-sm) */}
-                  <div className="space-y-2">
-                    <button
-                      type="button"
-                      onClick={() => handleSSO("Google Workspace")}
-                      className="w-full h-10 px-4 rounded-sm border border-neutral-200 hover:border-neutral-300 hover:bg-neutral-50 text-xs font-semibold text-neutral-700 flex items-center justify-center gap-2.5 transition-colors cursor-pointer"
-                    >
-                      <svg className="w-4 h-4" viewBox="0 0 24 24">
-                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
-                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
-                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
-                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
-                      </svg>
-                      <span>Continue with Google Workspace</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => handleSSO("Microsoft Entra ID")}
-                      className="w-full h-10 px-4 rounded-sm border border-neutral-200 hover:border-neutral-300 hover:bg-neutral-50 text-xs font-semibold text-neutral-700 flex items-center justify-center gap-2.5 transition-colors cursor-pointer"
-                    >
-                      <svg className="w-4 h-4" viewBox="0 0 23 23">
-                        <path fill="#f35325" d="M1 1h10v10H1z" />
-                        <path fill="#81bc06" d="M12 1h10v10H12z" />
-                        <path fill="#05a6f0" d="M1 12h10v10H1z" />
-                        <path fill="#ffba08" d="M12 12h10v10H12z" />
-                      </svg>
-                      <span>Continue with Microsoft Entra ID</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => handleSSO("Okta")}
-                      className="w-full h-10 px-4 rounded-sm border border-neutral-200 hover:border-neutral-300 hover:bg-neutral-50 text-xs font-semibold text-neutral-700 flex items-center justify-center gap-2 transition-colors cursor-pointer"
-                    >
-                      <span className="w-2 h-2 rounded-full bg-[#007DC1]" />
-                      <span>Continue with Okta SSO</span>
-                    </button>
-                  </div>
-                </form>
-              )}
-
-              {/* STEP 2: PASSWORD */}
-              {loginStep === "password" && (
-                <form onSubmit={handleFinalSubmit} className="space-y-4">
-                  <div className="pb-1">
-                    <span className="text-xs text-neutral-500 block">Signing in as</span>
-                    <span className="text-sm font-semibold text-neutral-900">{email}</span>
-                    {detectedOrg && (
-                      <span className="text-[11px] font-mono text-[#1F45EC] font-semibold block mt-0.5">
-                        {detectedOrg}
-                      </span>
+                    {loginError && (
+                      <div
+                        className="rounded-sm border overflow-hidden text-xs flex flex-col p-3 text-red-600 bg-red-50 border-red-200"
+                      >
+                        <div>{loginError}</div>
+                        {unverifiedAccount && (
+                          <div className="mt-2 flex items-center gap-2">
+                            <button
+                              type="button"
+                              onClick={() => handleJumpToOtpVerification(unverifiedAccount.email, unverifiedAccount.otp)}
+                              className="px-2 py-1 rounded-sm bg-accent text-white font-mono text-xs font-bold"
+                            >
+                              Verify Account Now →
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => handleResendOtp(unverifiedAccount.email)}
+                              disabled={isResending}
+                              className="text-xs font-mono underline text-text-secondary hover:text-text-primary"
+                            >
+                              {isResending ? "Dispatching..." : "Resend Code"}
+                            </button>
+                          </div>
+                        )}
+                      </div>
                     )}
-                  </div>
 
-                  <div className="space-y-1.5">
-                    <div className="flex items-center justify-between">
-                      <label htmlFor="password-field" className="block text-xs font-semibold uppercase tracking-wider text-neutral-700 font-mono">
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-xs font-semibold text-text-primary uppercase font-mono">
+                        Work Email
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="you@company.com"
+                        className={inputClass}
+                      />
+                    </div>
+
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-xs font-semibold text-text-primary uppercase font-mono">
                         Password
                       </label>
+                      <div className="relative">
+                        <input
+                          type={showPassword ? "text" : "password"}
+                          required
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          placeholder="••••••••••••"
+                          className={`${inputClass} pr-10`}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-text-tertiary hover:text-text-primary cursor-pointer"
+                        >
+                          {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
+                        </button>
+                      </div>
                     </div>
-                    <div className="relative">
-                      <input
-                        id="password-field"
-                        type={showPassword ? "text" : "password"}
-                        required
-                        autoFocus
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder="••••••••••••"
-                        className="w-full h-11 px-3.5 pr-10 rounded-sm text-sm text-neutral-900 bg-white border border-neutral-300 focus:outline-none focus:border-[#1F45EC] focus:ring-1 focus:ring-[#1F45EC] transition-all"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-700 cursor-pointer"
-                      >
-                        {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                      </button>
-                    </div>
-                  </div>
 
-                  <button
-                    type="submit"
-                    disabled={isLoading || !password}
-                    className="w-full h-11 rounded-sm text-xs font-semibold uppercase tracking-wider bg-black hover:bg-neutral-800 text-white transition-all mt-2 flex items-center justify-center cursor-pointer shadow-xs disabled:opacity-50"
-                  >
-                    {isLoading ? "Signing in..." : "Sign In to Workspace"}
-                  </button>
-
-                  <div className="text-center pt-2">
                     <button
-                      type="button"
-                      onClick={() => setLoginStep("email")}
-                      className="text-xs text-neutral-500 hover:text-black cursor-pointer"
+                      type="submit"
+                      disabled={isLoading}
+                      className="w-full h-10 mt-2 bg-text-primary text-bg-primary font-semibold text-xs uppercase tracking-wider rounded-sm hover:opacity-90 transition-opacity cursor-pointer disabled:opacity-50"
                     >
-                      ← Use different email
+                      {isLoading ? "Signing in..." : "Sign in →"}
                     </button>
+                  </form>
+                )}
+
+                {/* TAB 2: CREATE EVALUATION ACCOUNT */}
+                {activeTab === "signup" && (
+                  <div className="px-6 sm:px-8 py-7 flex flex-col gap-4">
+                    <div className="flex flex-col gap-1">
+                      <h1 className="text-text-primary font-bold text-lg font-display">
+                        Create Evaluation Account
+                      </h1>
+                      <p className="text-mono text-xs text-text-tertiary">
+                        Set up your dedicated evaluation sandbox credentials.
+                      </p>
+                    </div>
+
+                    {regError && (
+                      <div className="p-3 rounded-sm border border-red-200 bg-red-50 text-red-600 text-xs">
+                        {regError}
+                      </div>
+                    )}
+
+                    {regMessage && (
+                      <div className="p-3 rounded-sm border border-emerald-200 bg-emerald-50 text-emerald-700 text-xs">
+                        {regMessage}
+                      </div>
+                    )}
+
+                    {!isOtpStep ? (
+                      <form onSubmit={handleRegisterSubmit} className="flex flex-col gap-3.5">
+                        <div className="flex flex-col gap-1.5">
+                          <label className="text-xs font-semibold text-text-primary uppercase font-mono">
+                            Full Name
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            value={regFullName}
+                            onChange={(e) => setRegFullName(e.target.value)}
+                            placeholder="Alex Vance"
+                            className={inputClass}
+                          />
+                        </div>
+
+                        <div className="flex flex-col gap-1.5">
+                          <label className="text-xs font-semibold text-text-primary uppercase font-mono">
+                            Work Email
+                          </label>
+                          <input
+                            type="email"
+                            required
+                            value={regEmail}
+                            onChange={(e) => setRegEmail(e.target.value)}
+                            placeholder="alex@company.com"
+                            className={inputClass}
+                          />
+                        </div>
+
+                        <div className="flex flex-col gap-1.5">
+                          <label className="text-xs font-semibold text-text-primary uppercase font-mono">
+                            Password
+                          </label>
+                          <input
+                            type="password"
+                            required
+                            minLength={8}
+                            value={regPassword}
+                            onChange={(e) => setRegPassword(e.target.value)}
+                            placeholder="At least 8 characters"
+                            className={inputClass}
+                          />
+                        </div>
+
+                        <div className="flex flex-col gap-1.5">
+                          <label className="text-xs font-semibold text-text-primary uppercase font-mono">
+                            Evaluation Workspace / Organization
+                          </label>
+                          <input
+                            type="text"
+                            value={regOrg}
+                            onChange={(e) => setRegOrg(e.target.value)}
+                            placeholder="Evaluation Sandbox"
+                            className={inputClass}
+                          />
+                        </div>
+
+                        <button
+                          type="submit"
+                          disabled={isLoading}
+                          className="w-full h-10 mt-2 bg-text-primary text-bg-primary font-semibold text-xs uppercase tracking-wider rounded-sm hover:opacity-90 transition-opacity cursor-pointer disabled:opacity-50"
+                        >
+                          {isLoading ? "Creating Sandbox..." : "Create Evaluation Account →"}
+                        </button>
+                      </form>
+                    ) : (
+                      <form onSubmit={handleOtpVerify} className="flex flex-col gap-4">
+                        {receivedOtpHint && (
+                          <div className="p-3 rounded-sm bg-accent/10 border border-accent/30 text-text-primary flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <Sparkles size={16} className="text-accent" />
+                              <div className="flex flex-col">
+                                <span className="text-[10px] font-mono uppercase text-text-tertiary">
+                                  Evaluation Verification Code
+                                </span>
+                                <span className="text-sm font-mono font-bold tracking-widest text-accent">
+                                  {receivedOtpHint}
+                                </span>
+                              </div>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => setOtpCode(receivedOtpHint)}
+                              className="px-2.5 py-1 rounded-sm bg-accent text-bg-primary font-mono text-xs font-bold hover:opacity-90 cursor-pointer"
+                            >
+                              Auto-fill
+                            </button>
+                          </div>
+                        )}
+
+                        <div className="flex flex-col gap-1.5">
+                          <label className="text-xs font-semibold text-text-primary uppercase font-mono">
+                            6-Digit Verification Code
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            maxLength={6}
+                            value={otpCode}
+                            onChange={(e) => setOtpCode(e.target.value)}
+                            placeholder="123456"
+                            className={`${inputClass} text-center font-mono text-xl tracking-[0.3em] font-bold`}
+                          />
+                          <p className="text-[11px] font-mono text-text-tertiary">
+                            Code sent to <span className="text-text-primary font-bold">{regEmail}</span>
+                          </p>
+                        </div>
+
+                        <button
+                          type="submit"
+                          disabled={isLoading || otpCode.length < 6}
+                          className="w-full h-10 mt-1 bg-accent text-white font-bold text-xs uppercase tracking-wider rounded-sm hover:opacity-90 transition-opacity cursor-pointer disabled:opacity-50"
+                        >
+                          {isLoading ? "Verifying..." : "Verify & Launch Evaluation Workspace →"}
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => setIsOtpStep(false)}
+                          className="text-xs font-mono text-text-tertiary hover:text-text-primary text-center cursor-pointer"
+                        >
+                          ← Edit details
+                        </button>
+                      </form>
+                    )}
                   </div>
-                </form>
-              )}
-            </>
-          )}
+                )}
+              </>
+            )}
 
-        </div>
-
-        {/* Clean Minimalist Footer */}
-        <div className="text-center text-xs text-neutral-400">
-          <span>Axios Technologies · Enterprise Support: </span>
-          <a href="mailto:support.axiosai@gmail.com" className="text-neutral-600 hover:underline">
-            support.axiosai@gmail.com
-          </a>
-        </div>
-
-      </div>
-
+            {/* Card footer */}
+            <div
+              className="px-6 sm:px-8 py-3.5 border-t border-border-subtle flex items-center justify-between"
+              style={{ backgroundColor: "var(--bg-secondary)" }}
+            >
+              <span className="text-mono text-xs text-text-tertiary">Auth Service Port 8008</span>
+              <span className="text-mono text-xs text-text-tertiary">Argon2id · JWT · OTP</span>
+            </div>
+          </div>
+        </motion.div>
+      </main>
     </div>
   );
 }
