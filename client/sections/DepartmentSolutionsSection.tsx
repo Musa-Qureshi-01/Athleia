@@ -118,7 +118,7 @@ export function DepartmentSolutionsSection() {
 
   return (
     <section className="py-24 lg:py-32 bg-white border-b border-neutral-200 font-sans">
-      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1120px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14 lg:mb-16">

@@ -7,6 +7,7 @@ from shared.auth.config import settings
 from shared.auth.db import init_auth_db
 from shared.auth.organizational.router import auth_router, users_router
 from shared.auth.evolution.router import evolution_router
+from shared.auth.forms_router import forms_router
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("auth.main")
@@ -42,6 +43,9 @@ app.include_router(users_router)
 
 # Register Evolution Router
 app.include_router(evolution_router)
+
+# Register Public Form Inquiries Router (Isolated from Core Services)
+app.include_router(forms_router)
 
 
 @app.get("/health", tags=["Health"])

@@ -62,7 +62,7 @@ export function SecuritySection() {
           transition={{ duration: 0.5, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
           className="mt-10 flex flex-wrap items-center gap-3"
         >
-          {["SOC 2 Type II", "ISO 27001", "GDPR Ready", "FedRAMP Aligned", "AWS GovCloud"].map((badge) => (
+          {["SOC 2 Type II", "FedRAMP Aligned", "GDPR Ready", "HIPAA Compliant", "AWS GovCloud"].map((badge) => (
             <span
               key={badge}
               className="text-mono text-text-tertiary border border-border-subtle px-3 py-1.5 rounded-sm text-xs"

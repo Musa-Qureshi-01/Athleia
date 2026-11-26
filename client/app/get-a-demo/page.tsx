@@ -7,6 +7,7 @@ import { Navbar } from "@/components/layouts/HeaderNav";
 import { BookingLogo } from "@/components/visuals/CustomerLogos";
 import { FloatingAssistantWidget } from "@/components/ui/FloatingAssistantWidget";
 import { CustomSelect } from "@/components/ui/CustomSelect";
+import { submitDemoRequest } from "@/lib/api";
 
 const COMPANY_SIZE_OPTIONS = [
   { value: "1-50", label: "1 - 50 employees" },
@@ -46,6 +47,19 @@ export default function GetADemoPage() {
     setIsSubmitting(true);
 
     try {
+      // 1. Persist directly to backend database demo_requests table
+      await submitDemoRequest({
+        firstName,
+        lastName,
+        email,
+        company,
+        companySize,
+        phone,
+        country,
+        sparkedInterest: interest,
+      });
+
+      // 2. Also dispatch to email notification endpoint
       await fetch("https://formspree.io/f/xbdnkgjr", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -61,7 +75,8 @@ export default function GetADemoPage() {
           recipient: "support.axiosai@gmail.com",
           source: "Axios Enterprise Demo Page",
         }),
-      });
+      }).catch(() => {});
+
       setIsSuccess(true);
     } catch {
       setIsSuccess(true);
@@ -118,7 +133,7 @@ export default function GetADemoPage() {
           </div>
 
           {/* Testimonial Card with Tadeu Faedrick matching Snapshot */}
-          <div className="relative z-10 mt-10 lg:mt-14 bg-white rounded-2xl p-5 sm:p-6 text-neutral-900 shadow-2xl max-w-lg overflow-hidden border border-neutral-100">
+          <div className="relative z-10 mt-10 lg:mt-14 bg-white rounded-md p-5 sm:p-6 text-neutral-900 shadow-2xl max-w-lg overflow-hidden border border-neutral-100">
             <div className="flex items-center justify-between gap-4">
               <div className="space-y-2.5 flex-1 pr-2">
                 {/* Booking.com Logo in Official Blue */}
@@ -137,7 +152,7 @@ export default function GetADemoPage() {
               </div>
 
               {/* Authentic Portrait of Tadeu Faedrick cropped from Glean Snapshot */}
-              <div className="w-20 h-24 sm:w-24 sm:h-28 rounded-xl overflow-hidden shrink-0 shadow-xs relative bg-white border border-neutral-100">
+              <div className="w-20 h-24 sm:w-24 sm:h-28 rounded-md overflow-hidden shrink-0 shadow-xs relative bg-white border border-neutral-100">
                 <img
                   src="/images/booking-leader.png?v=4"
                   alt="Tadeu Faedrick - Senior Engineer Manager, Booking.com"
@@ -157,7 +172,7 @@ export default function GetADemoPage() {
           <div className="w-full max-w-[520px]">
             
             {/* Frosted Lilac Container (#F4F3FD) matching Snapshot Exactly */}
-            <div className="rounded-2xl bg-[#F4F3FD] p-4.5 sm:p-8 border border-[#E5E3F8] shadow-sm">
+            <div className="rounded-md bg-[#F4F3FD] p-4.5 sm:p-8 border border-[#E5E3F8] shadow-sm">
               
               {/* 3-Step Pill Header */}
               <div className="mb-6 flex items-center justify-between text-[11px] sm:text-xs font-sans text-neutral-600 px-1">
@@ -185,7 +200,7 @@ export default function GetADemoPage() {
 
               {/* Form Content */}
               {isSuccess ? (
-                <div className="py-12 text-center space-y-4 bg-white rounded-xl p-8 border border-neutral-200/90 shadow-xs">
+                <div className="py-12 text-center space-y-4 bg-white rounded-md p-8 border border-neutral-200/90 shadow-xs">
                   <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
                     <CheckCircle2 size={26} />
                   </div>
@@ -198,7 +213,7 @@ export default function GetADemoPage() {
                   <div className="pt-2">
                     <Link
                       href="/"
-                      className="inline-flex items-center justify-center h-10 px-5 rounded-lg bg-neutral-900 hover:bg-black text-white text-xs font-semibold transition-colors"
+                      className="inline-flex items-center justify-center h-10 px-5 rounded-md bg-neutral-900 hover:bg-black text-white text-xs font-semibold transition-colors"
                     >
                       Return to homepage
                     </Link>

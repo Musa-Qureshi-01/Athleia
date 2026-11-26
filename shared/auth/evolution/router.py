@@ -14,7 +14,7 @@ evolution_router = APIRouter(prefix="/api/v1/auth/evolution", tags=["Evolution D
 @evolution_router.post("/token", response_model=EvolutionTokenResponse, summary="Issue Evolution Demo Token")
 async def issue_demo_token(req: EvolutionTokenRequest):
     """Launch an isolated Evolution demo workspace with restricted quota and privileges."""
-    return evolution_auth_service.issue_demo_token(req)
+    return await evolution_auth_service.issue_demo_token(req)
 
 
 @evolution_router.get("/verify", summary="Verify Evolution Demo Session")

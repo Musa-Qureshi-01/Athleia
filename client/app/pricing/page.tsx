@@ -20,7 +20,7 @@ const PLANS = [
       "Single-plant document corpus (up to 50,000 pages)",
       "Automated P&ID drawing & CAD schematic OCR",
       "Workforce Copilot assistant & citation engine",
-      "ISO 45001 & OSHA regulatory compliance evaluation",
+      "OSHA 1910 & ASME regulatory compliance evaluation",
       "Standard email support with 1 business day SLA",
     ],
   },

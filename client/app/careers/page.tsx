@@ -7,6 +7,7 @@ import { Navbar } from "@/components/layouts/HeaderNav";
 import { Footer } from "@/components/layouts/Footer";
 import { ArrowRight, CheckCircle2, Upload } from "lucide-react";
 import { CustomSelect } from "@/components/ui/CustomSelect";
+import { submitCareerApplication } from "@/lib/api";
 
 const BENEFITS = [
   { title: "Comprehensive Health", desc: "100% employer-covered medical, dental, and vision for employees and dependents." },
@@ -50,6 +51,20 @@ export default function CareersPage() {
     setIsSubmitting(true);
 
     try {
+      // 1. Persist directly to backend database career_applications table
+      await submitCareerApplication({
+        name,
+        email,
+        phone,
+        linkedin,
+        department: field,
+        portfolioOrGithub: portfolio,
+        desiredRole: role,
+        cvFileName: cvFileName || "CV Attached",
+        messageToAxiosTeam: message,
+      });
+
+      // 2. Also dispatch to email notification endpoint
       await fetch("https://formspree.io/f/xbdnkgjr", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -66,7 +81,8 @@ export default function CareersPage() {
           recipient: "support.axiosai@gmail.com",
           source: "Axios Careers Application",
         }),
-      });
+      }).catch(() => {});
+
       setIsSuccess(true);
     } catch {
       setIsSuccess(true);
@@ -83,7 +99,7 @@ export default function CareersPage() {
       <main className="flex-1">
         {/* Hero Section matching Glean's /careers layout */}
         <section className="pt-16 sm:pt-20 lg:pt-24 pb-14 sm:pb-18 border-b border-neutral-200 bg-white">
-          <div className="max-w-[1280px] mx-auto px-6 sm:px-10 lg:px-14">
+          <div className="max-w-[1120px] mx-auto px-6 sm:px-10 lg:px-14">
             
             <div className="max-w-4xl space-y-5">
               <span className="text-[12px] sm:text-[13px] font-mono font-medium text-neutral-500 uppercase tracking-wider block">
@@ -114,7 +130,7 @@ export default function CareersPage() {
 
         {/* Application Form Section */}
         <section className="py-16 sm:py-24 bg-[#FAFAFC] border-b border-neutral-200 font-sans">
-          <div className="max-w-[1280px] mx-auto px-6 sm:px-10 lg:px-14">
+          <div className="max-w-[1120px] mx-auto px-6 sm:px-10 lg:px-14">
             
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
               
@@ -149,7 +165,7 @@ export default function CareersPage() {
 
               {/* Right Column: Application Form Card */}
               <div className="lg:col-span-7">
-                <div className="rounded-xl border border-neutral-300/90 bg-white p-7 sm:p-10 shadow-sm">
+                <div className="rounded-md border border-neutral-300/90 bg-white p-7 sm:p-10 shadow-sm">
                   
                   {isSuccess ? (
                     <div className="py-12 text-center space-y-4">
@@ -163,7 +179,7 @@ export default function CareersPage() {
                       <div className="pt-2">
                         <Link
                           href="/"
-                          className="inline-flex items-center justify-center h-10 px-5 rounded-lg bg-neutral-900 hover:bg-black text-white text-xs font-semibold transition-colors"
+                          className="inline-flex items-center justify-center h-10 px-5 rounded-md bg-neutral-900 hover:bg-black text-white text-xs font-semibold transition-colors"
                         >
                           Return to homepage
                         </Link>
@@ -183,7 +199,7 @@ export default function CareersPage() {
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             placeholder="Ada Lovelace"
-                            className="w-full h-11 px-3.5 rounded-lg border border-neutral-200 text-sm focus:outline-none focus:border-[#1F45EC] focus:ring-1 focus:ring-[#1F45EC]"
+                            className="w-full h-11 px-3.5 rounded-md border border-neutral-200 text-sm focus:outline-none focus:border-[#1F45EC] focus:ring-1 focus:ring-[#1F45EC]"
                           />
                         </div>
 
@@ -197,7 +213,7 @@ export default function CareersPage() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="ada@example.com"
-                            className="w-full h-11 px-3.5 rounded-lg border border-neutral-200 text-sm focus:outline-none focus:border-[#1F45EC] focus:ring-1 focus:ring-[#1F45EC]"
+                            className="w-full h-11 px-3.5 rounded-md border border-neutral-200 text-sm focus:outline-none focus:border-[#1F45EC] focus:ring-1 focus:ring-[#1F45EC]"
                           />
                         </div>
                       </div>
@@ -213,7 +229,7 @@ export default function CareersPage() {
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
                             placeholder="+1 (555) 000-0000"
-                            className="w-full h-11 px-3.5 rounded-lg border border-neutral-200 text-sm focus:outline-none focus:border-[#1F45EC] focus:ring-1 focus:ring-[#1F45EC]"
+                            className="w-full h-11 px-3.5 rounded-md border border-neutral-200 text-sm focus:outline-none focus:border-[#1F45EC] focus:ring-1 focus:ring-[#1F45EC]"
                           />
                         </div>
 
@@ -226,7 +242,7 @@ export default function CareersPage() {
                             value={linkedin}
                             onChange={(e) => setLinkedin(e.target.value)}
                             placeholder="https://linkedin.com/in/username"
-                            className="w-full h-11 px-3.5 rounded-lg border border-neutral-200 text-sm focus:outline-none focus:border-[#1F45EC] focus:ring-1 focus:ring-[#1F45EC]"
+                            className="w-full h-11 px-3.5 rounded-md border border-neutral-200 text-sm focus:outline-none focus:border-[#1F45EC] focus:ring-1 focus:ring-[#1F45EC]"
                           />
                         </div>
                       </div>
@@ -254,7 +270,7 @@ export default function CareersPage() {
                             value={portfolio}
                             onChange={(e) => setPortfolio(e.target.value)}
                             placeholder="linkedin.com/in/... or github.com/..."
-                            className="w-full h-11 px-3.5 rounded-lg border border-neutral-200 text-sm focus:outline-none focus:border-[#1F45EC] focus:ring-1 focus:ring-[#1F45EC]"
+                            className="w-full h-11 px-3.5 rounded-md border border-neutral-200 text-sm focus:outline-none focus:border-[#1F45EC] focus:ring-1 focus:ring-[#1F45EC]"
                           />
                         </div>
 
@@ -267,7 +283,7 @@ export default function CareersPage() {
                             value={role}
                             onChange={(e) => setRole(e.target.value)}
                             placeholder="e.g. Enterprise Account Executive, Product Lead, Systems Engineer"
-                            className="w-full h-11 px-3.5 rounded-lg border border-neutral-200 text-sm focus:outline-none focus:border-[#1F45EC] focus:ring-1 focus:ring-[#1F45EC]"
+                            className="w-full h-11 px-3.5 rounded-md border border-neutral-200 text-sm focus:outline-none focus:border-[#1F45EC] focus:ring-1 focus:ring-[#1F45EC]"
                           />
                         </div>
                       </div>
@@ -277,7 +293,7 @@ export default function CareersPage() {
                         <label className="block text-xs font-semibold text-neutral-800 mb-1.5 font-mono">
                           Upload CV / Resume (PDF, DOCX) *
                         </label>
-                        <label className="border-2 border-dashed border-neutral-200 hover:border-neutral-400 rounded-lg p-5 flex flex-col items-center justify-center cursor-pointer transition-colors bg-neutral-50/50">
+                        <label className="border-2 border-dashed border-neutral-200 hover:border-neutral-400 rounded-md p-5 flex flex-col items-center justify-center cursor-pointer transition-colors bg-neutral-50/50">
                           <Upload size={18} className="text-neutral-400 mb-2" />
                           <span className="text-xs font-medium text-neutral-700">
                             {cvFileName ? cvFileName : "Click to select file or drag here"}
@@ -302,7 +318,7 @@ export default function CareersPage() {
                           value={message}
                           onChange={(e) => setMessage(e.target.value)}
                           placeholder="Tell us about a complex system you designed, a hard problem you solved, or why you want to build Axios..."
-                          className="w-full p-3.5 rounded-lg border border-neutral-200 text-sm focus:outline-none focus:border-[#1F45EC] focus:ring-1 focus:ring-[#1F45EC]"
+                          className="w-full p-3.5 rounded-md border border-neutral-200 text-sm focus:outline-none focus:border-[#1F45EC] focus:ring-1 focus:ring-[#1F45EC]"
                         />
                       </div>
 
@@ -310,7 +326,7 @@ export default function CareersPage() {
                         <button
                           type="submit"
                           disabled={isSubmitting}
-                          className="w-full h-12 rounded-lg bg-black hover:bg-neutral-800 text-white font-semibold text-sm transition-colors shadow-xs cursor-pointer flex items-center justify-center"
+                          className="w-full h-12 rounded-md bg-black hover:bg-neutral-800 text-white font-semibold text-sm transition-colors shadow-xs cursor-pointer flex items-center justify-center"
                         >
                           {isSubmitting ? "Submitting Application..." : "Submit Application"}
                         </button>

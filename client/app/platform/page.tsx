@@ -17,7 +17,7 @@ export default function PlatformPage() {
       <main className="flex-1">
         {/* Platform Hero Card with 3D Fluid Ribbon */}
         <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-[1280px] mx-auto">
-          <div className="relative rounded-2xl overflow-hidden border border-neutral-200/90 shadow-md bg-neutral-950 text-white min-h-[380px] sm:min-h-[440px] flex flex-col justify-between p-8 sm:p-12 lg:p-16">
+          <div className="relative rounded-md overflow-hidden border border-neutral-200/90 shadow-md bg-neutral-950 text-white min-h-[380px] sm:min-h-[440px] flex flex-col justify-between p-8 sm:p-12 lg:p-16">
             <img
               src="/hero-fluid-ribbon.png"
               alt="Axios Platform"

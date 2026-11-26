@@ -68,7 +68,7 @@ export default function CulturePage() {
               {PRINCIPLES.map((p) => (
                 <div
                   key={p.num}
-                  className="p-6 sm:p-7 rounded-xl border border-neutral-200/90 bg-[#FAFBFD] shadow-xs hover:border-[#1F45EC]/40 transition-all space-y-4 group"
+                  className="p-6 sm:p-7 rounded-md border border-neutral-200/90 bg-[#FAFBFD] shadow-xs hover:border-[#1F45EC]/40 transition-all space-y-4 group"
                 >
                   <div className="flex items-center justify-between border-b border-neutral-200/70 pb-3">
                     <span className="font-mono text-xs font-bold text-[#1F45EC]">

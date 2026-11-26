@@ -119,3 +119,44 @@ class EvolutionStatusResponse(BaseModel):
     queries_remaining: int
     features_permitted: List[str]
     features_restricted: List[str]
+
+
+# ── Website Form Models (Isolated Intake) ────────────────────────────────────
+
+class DemoRequestCreate(BaseModel):
+    firstName: str
+    lastName: str
+    email: EmailStr
+    company: str
+    companySize: Optional[str] = None
+    phone: Optional[str] = None
+    country: Optional[str] = "United States"
+    sparkedInterest: Optional[str] = None
+
+
+class CareerApplicationCreate(BaseModel):
+    name: str
+    email: EmailStr
+    phone: Optional[str] = None
+    linkedin: Optional[str] = None
+    department: Optional[str] = None
+    portfolioOrGithub: Optional[str] = None
+    desiredRole: Optional[str] = None
+    cvFileName: Optional[str] = None
+    messageToAxiosTeam: Optional[str] = None
+
+
+class ContactInquiryCreate(BaseModel):
+    name: str
+    email: EmailStr
+    company: Optional[str] = None
+    phone: Optional[str] = None
+    industry: Optional[str] = None
+    company_size: Optional[str] = None
+    message: str
+
+
+class FormSubmitResponse(BaseModel):
+    success: bool
+    message: str
+    submission_id: str

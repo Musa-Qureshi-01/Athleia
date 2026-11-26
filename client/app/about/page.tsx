@@ -40,7 +40,7 @@ export default function AboutPage() {
             </div>
 
             {/* Interactive Bloom Transformation Card */}
-            <div className="mt-10 p-6 sm:p-8 rounded-xl border border-neutral-200/90 bg-[#FAFBFD] shadow-[0_15px_40px_rgba(0,0,0,0.04)] relative">
+            <div className="mt-10 p-6 sm:p-8 rounded-md border border-neutral-200/90 bg-[#FAFBFD] shadow-[0_15px_40px_rgba(0,0,0,0.04)] relative">
               
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-neutral-200">
                 <div>

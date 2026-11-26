@@ -261,10 +261,10 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2 font-sans bg-white selection:bg-[#1F45EC]/15 selection:text-[#1F45EC]">
+    <div className="min-h-screen lg:h-screen lg:max-h-screen lg:overflow-hidden grid grid-cols-1 lg:grid-cols-2 font-sans bg-white selection:bg-[#1F45EC]/15 selection:text-[#1F45EC]">
       
       {/* ── LEFT COLUMN: WARM CREAM HERO ILLUSTRATION (Exact Glean style match) ── */}
-      <div className="hidden lg:flex flex-col justify-between p-12 lg:p-16 xl:p-20 bg-[#FAF8F5] border-r border-neutral-200/70 relative overflow-hidden select-none">
+      <div className="hidden lg:flex flex-col justify-between p-6 lg:p-8 xl:p-10 bg-[#FAF8F5] border-r border-neutral-200/70 relative overflow-hidden select-none h-full">
         
         {/* Top Back Link */}
         <div>
@@ -278,27 +278,27 @@ export default function LoginPage() {
         </div>
 
         {/* Center Editorial Statement & Minimalistic Floating Documents Graphic */}
-        <div className="max-w-lg mx-auto w-full my-auto space-y-10">
-          <div className="space-y-3.5 text-center">
-            <h1 className="text-[34px] xl:text-[40px] font-bold text-neutral-900 leading-[1.12] tracking-[-0.035em]">
+        <div className="max-w-md mx-auto w-full my-auto space-y-6 lg:space-y-8">
+          <div className="space-y-3 text-center">
+            <h1 className="text-[28px] xl:text-[34px] font-bold text-neutral-900 leading-[1.14] tracking-[-0.035em]">
               Start with an alarm or query. Walk away with verified work.
             </h1>
-            <p className="text-[14.5px] xl:text-[15.5px] text-neutral-600 leading-relaxed max-w-md mx-auto">
+            <p className="text-[13.5px] xl:text-[14.5px] text-neutral-600 leading-relaxed max-w-sm mx-auto">
               Decks, docs, specs, and procedures drafted from your company&apos;s context, ready to review and share.
             </p>
           </div>
 
           {/* Minimalist Floating Graphic matching exact benchmark */}
-          <div className="relative w-full max-w-[380px] h-[280px] mx-auto flex items-center justify-center">
+          <div className="relative w-full max-w-[340px] h-[220px] lg:h-[240px] mx-auto flex items-center justify-center">
             {/* Soft Ambient Pastel Glow */}
             <div className="absolute inset-0 bg-gradient-to-tr from-[#E6F4EA]/80 via-[#E8F0FE]/90 to-[#FCE8E6]/70 rounded-2xl blur-2xl opacity-70" />
 
             {/* Back Card (.xlsx) */}
-            <div className="absolute w-[240px] h-[190px] rounded-md bg-[#E8E6DF]/90 border border-neutral-300/60 p-4 shadow-xs -rotate-6 -translate-x-12 -translate-y-4">
+            <div className="absolute w-[210px] h-[165px] rounded-md bg-[#E8E6DF]/90 border border-neutral-300/60 p-3.5 shadow-xs -rotate-6 -translate-x-10 -translate-y-3">
               <span className="inline-block px-1.5 py-0.5 rounded-sm text-[9px] font-mono font-bold bg-neutral-200 text-neutral-700">
                 .xlsx
               </span>
-              <div className="mt-3 space-y-2">
+              <div className="mt-2.5 space-y-1.5">
                 <div className="h-2 w-3/4 bg-neutral-300/70 rounded-sm" />
                 <div className="h-2 w-1/2 bg-neutral-300/70 rounded-sm" />
                 <div className="h-2 w-5/6 bg-neutral-300/70 rounded-sm" />
@@ -306,36 +306,36 @@ export default function LoginPage() {
             </div>
 
             {/* Foreground Main Card (.docx) */}
-            <div className="relative z-10 w-[270px] h-[210px] rounded-md bg-white border border-neutral-200/90 p-5 shadow-md flex flex-col justify-between">
+            <div className="relative z-10 w-[240px] h-[185px] rounded-md bg-white border border-neutral-200/90 p-4 shadow-md flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between">
-                  <div className="h-2.5 w-24 bg-neutral-200 rounded-sm" />
+                  <div className="h-2.5 w-20 bg-neutral-200 rounded-sm" />
                   <span className="px-1.5 py-0.5 rounded-sm text-[9px] font-mono font-bold bg-blue-50 text-[#1F45EC] border border-blue-200/60">
                     .docx
                   </span>
                 </div>
-                <div className="mt-4 space-y-2.5">
+                <div className="mt-3.5 space-y-2">
                   <div className="h-2 w-full bg-neutral-100 rounded-sm" />
                   <div className="h-2 w-5/6 bg-neutral-100 rounded-sm" />
                   <div className="h-2 w-4/6 bg-neutral-100 rounded-sm" />
                   <div className="h-2 w-3/4 bg-neutral-100 rounded-sm" />
                 </div>
               </div>
-              <div className="w-8 h-8 rounded-sm bg-neutral-100 border border-neutral-200" />
+              <div className="w-7 h-7 rounded-sm bg-neutral-100 border border-neutral-200" />
             </div>
 
           </div>
         </div>
 
         {/* Bottom Note */}
-        <div className="text-xs text-neutral-400 text-center">
+        <div className="text-[11.5px] text-neutral-400 text-center">
           Axios Enterprise Intelligence · Interactive Evaluation Workspace
         </div>
 
       </div>
 
       {/* ── RIGHT COLUMN: ULTRA-CLEAN AUTHENTICATION FORM ── */}
-      <div className="flex flex-col justify-between p-6 sm:p-12 lg:p-16 xl:p-20 bg-white min-h-screen">
+      <div className="flex flex-col justify-between p-5 sm:p-8 lg:p-8 xl:p-10 bg-white h-full min-h-screen lg:min-h-0 overflow-y-auto">
         
         {/* Top Header Row */}
         <div>
@@ -349,19 +349,19 @@ export default function LoginPage() {
         </div>
 
         {/* Center Container */}
-        <div className="w-full max-w-[380px] mx-auto my-auto py-6">
+        <div className="w-full max-w-[360px] sm:max-w-[380px] mx-auto my-auto py-3 sm:py-5">
           
           {/* Brand Logo in signature Royal Blue */}
-          <div className="text-center mb-5">
+          <div className="text-center mb-4">
             <Link href="/" className="inline-block">
-              <span className="text-[36px] font-bold tracking-tight text-[#1F45EC] font-sans">
+              <span className="text-[34px] sm:text-[36px] font-bold tracking-tight text-[#1F45EC] font-sans">
                 axios
               </span>
             </Link>
           </div>
 
           {/* Subtitle link matching image */}
-          <div className="text-center mb-6">
+          <div className="text-center mb-5">
             <p className="text-xs text-neutral-600">
               Already an enterprise customer?{" "}
               <button
@@ -375,7 +375,7 @@ export default function LoginPage() {
           </div>
 
           {/* Three Clean Horizontal Tabs matching image */}
-          <div className="flex items-center justify-between border-b border-neutral-200 mb-6 text-xs">
+          <div className="flex items-center justify-between border-b border-neutral-200 mb-5 text-xs">
             <button
               type="button"
               onClick={() => {
@@ -430,7 +430,7 @@ export default function LoginPage() {
 
           {/* Plain Text Mobile Notice (NO EMOJIS, NO ICONS, JUST CLEAR INFORMATION) */}
           {mobileNotice && (
-            <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-600 text-xs font-medium text-center">
+            <div className="mb-4 p-2.5 bg-neutral-100 border border-neutral-300 text-neutral-800 text-xs font-normal text-center">
               {mobileNotice}
             </div>
           )}

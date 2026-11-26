@@ -18,9 +18,9 @@ export function TopAnnouncementBar() {
         backgroundSize: "16px 16px",
       }}
     >
-      <div className="max-w-[1280px] w-full mx-auto flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 pr-6 sm:pr-8 text-center text-xs sm:text-[13.5px] leading-normal">
+      <div className="max-w-[1120px] w-full mx-auto flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 pr-6 sm:pr-8 text-center text-xs sm:text-[13.5px] leading-normal">
         <span className="font-normal text-white/95">
-          Release 2026.3: Multi-format P&amp;ID schematic ingestion, vibration telemetry anomaly correlation, and ISO 45001 compliance auditing.
+          Release 2026.3: Multi-format P&amp;ID schematic ingestion, vibration telemetry anomaly correlation, and automated regulatory compliance auditing.
         </span>
         <Link
           href="/products/workforce-copilot"

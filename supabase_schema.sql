@@ -31,11 +31,14 @@ CREATE INDEX IF NOT EXISTS idx_org_users_email ON organizational_users (email);
 CREATE INDEX IF NOT EXISTS idx_org_users_role ON organizational_users (role);
 CREATE INDEX IF NOT EXISTS idx_org_users_status ON organizational_users (status);
 
--- 1.2 Evolution Accounts (Dedicated isolated demo sandbox sessions)
+-- 1.2 Evolution / Evaluation Accounts (Dedicated isolated demo sandbox sessions)
 CREATE TABLE IF NOT EXISTS evolution_accounts (
     session_id VARCHAR(64) PRIMARY KEY,
     demo_email VARCHAR(255) NOT NULL,
+    full_name VARCHAR(255),
+    phone_number VARCHAR(64),
     demo_organization VARCHAR(255) DEFAULT 'Evolution Demo Sandbox',
+    evaluation_purpose VARCHAR(255) DEFAULT 'Evaluation Sandbox',
     role VARCHAR(32) DEFAULT 'EVOLUTION_GUEST',
     queries_used INT DEFAULT 0,
     queries_limit INT DEFAULT 50,
@@ -57,6 +60,61 @@ CREATE TABLE IF NOT EXISTS verification_otps (
 );
 CREATE INDEX IF NOT EXISTS idx_otps_user ON verification_otps (user_id);
 CREATE INDEX IF NOT EXISTS idx_otps_email ON verification_otps (email);
+
+-- =============================================================================
+-- 1.4 ISOLATED PUBLIC FORM INTAKE TABLES (ZERO FOREIGN KEYS TO CORE AUTH/SERVICES)
+-- =============================================================================
+
+-- Demo Requests Form Table (Pure lead intake, unconnected to actual runtime services)
+CREATE TABLE IF NOT EXISTS demo_requests (
+    id VARCHAR(64) PRIMARY KEY,
+    first_name VARCHAR(128) NOT NULL,
+    last_name VARCHAR(128) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    company VARCHAR(255) NOT NULL,
+    company_size VARCHAR(64),
+    phone VARCHAR(64),
+    country VARCHAR(128) DEFAULT 'United States',
+    sparked_interest VARCHAR(255),
+    status VARCHAR(32) DEFAULT 'NEW',
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+CREATE INDEX IF NOT EXISTS idx_demo_req_email ON demo_requests (email);
+CREATE INDEX IF NOT EXISTS idx_demo_req_created ON demo_requests (created_at);
+
+-- Career Applications Form Table (Pure recruitment intake, unconnected to actual runtime services)
+CREATE TABLE IF NOT EXISTS career_applications (
+    id VARCHAR(64) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    phone VARCHAR(64),
+    linkedin VARCHAR(255),
+    department VARCHAR(128),
+    portfolio VARCHAR(255),
+    desired_role VARCHAR(128),
+    cv_file_name VARCHAR(255),
+    message TEXT,
+    status VARCHAR(32) DEFAULT 'PENDING_REVIEW',
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+CREATE INDEX IF NOT EXISTS idx_career_app_email ON career_applications (email);
+CREATE INDEX IF NOT EXISTS idx_career_app_created ON career_applications (created_at);
+
+-- Contact Inquiries Form Table (Pure support intake, unconnected to actual runtime services)
+CREATE TABLE IF NOT EXISTS contact_inquiries (
+    id VARCHAR(64) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    company VARCHAR(255),
+    phone VARCHAR(64),
+    industry VARCHAR(128),
+    company_size VARCHAR(64),
+    message TEXT NOT NULL,
+    status VARCHAR(32) DEFAULT 'NEW',
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+CREATE INDEX IF NOT EXISTS idx_contact_inq_email ON contact_inquiries (email);
+CREATE INDEX IF NOT EXISTS idx_contact_inq_created ON contact_inquiries (created_at);
 
 -- =============================================================================
 -- 2. DOCUMENT INGESTION INTELLIGENCE SERVICE (Port 8003)

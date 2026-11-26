@@ -16,7 +16,7 @@ import Link from "next/link";
 export function ProductBenefitsSection() {
   return (
     <section id="platform" className="bg-white border-t border-neutral-200 font-sans overflow-hidden scroll-mt-10">
-      <div className="max-w-[1280px] mx-auto border-x border-neutral-200">
+      <div className="max-w-[1120px] mx-auto border-x border-neutral-200">
         
         {/* Section Header */}
         <div className="px-6 sm:px-12 lg:px-16 xl:pl-20 pt-16 sm:pt-20 pb-12 border-b border-neutral-200">
@@ -78,7 +78,7 @@ export function ProductBenefitsSection() {
 
             {/* UI Mockup (7 cols) */}
             <div className="lg:col-span-7 p-6 sm:p-10 lg:p-12 bg-[#FAFBFD]/60 flex items-center justify-center">
-              <div className="w-full rounded-xl border border-neutral-200 bg-white p-5 sm:p-6 shadow-xs space-y-3">
+              <div className="w-full rounded-md border border-neutral-200 bg-white p-5 sm:p-6 shadow-xs space-y-3">
                 <div className="flex items-center gap-2 pb-3 border-b border-neutral-100 text-xs text-neutral-400 font-mono">
                   <Search size={14} className="text-[#1F45EC]" />
                   <span className="text-neutral-800 font-medium">
@@ -87,7 +87,7 @@ export function ProductBenefitsSection() {
                 </div>
 
                 <div className="space-y-2.5 pt-1">
-                  <div className="p-3.5 rounded-lg border border-neutral-200 bg-[#FAFAFA] flex items-start justify-between gap-3">
+                  <div className="p-3.5 rounded-md border border-neutral-200 bg-[#FAFAFA] flex items-start justify-between gap-3">
                     <div className="space-y-1">
                       <div className="text-xs font-bold text-neutral-900 flex items-center gap-1.5">
                         <FileText size={13} className="text-blue-600" />
@@ -102,7 +102,7 @@ export function ProductBenefitsSection() {
                     </span>
                   </div>
 
-                  <div className="p-3.5 rounded-lg border border-neutral-200 bg-[#FAFAFA] flex items-start justify-between gap-3">
+                  <div className="p-3.5 rounded-md border border-neutral-200 bg-[#FAFAFA] flex items-start justify-between gap-3">
                     <div className="space-y-1">
                       <div className="text-xs font-bold text-neutral-900 flex items-center gap-1.5">
                         <FileText size={13} className="text-emerald-600" />
@@ -127,7 +127,7 @@ export function ProductBenefitsSection() {
             
             {/* UI Mockup (7 cols) - Left on desktop */}
             <div className="lg:col-span-7 p-6 sm:p-10 lg:p-12 bg-[#FAFBFD]/60 flex items-center justify-center order-2 lg:order-1">
-              <div className="w-full rounded-xl border border-neutral-200 bg-white p-5 sm:p-6 shadow-xs space-y-4">
+              <div className="w-full rounded-md border border-neutral-200 bg-white p-5 sm:p-6 shadow-xs space-y-4">
                 <div className="flex items-center justify-between pb-3 border-b border-neutral-100">
                   <div className="flex items-center gap-2">
                     <div className="w-6 h-6 rounded bg-black text-white flex items-center justify-center">
@@ -143,15 +143,15 @@ export function ProductBenefitsSection() {
                 </div>
 
                 <div className="space-y-2 text-xs">
-                  <div className="p-3 rounded-lg bg-[#FAFAFA] border border-neutral-200 flex items-center justify-between">
+                  <div className="p-3 rounded-md bg-[#FAFAFA] border border-neutral-200 flex items-center justify-between">
                     <span className="text-neutral-700">1. Ingest Master Services Agreement (MSA)</span>
                     <span className="font-mono text-emerald-600 text-[11px] font-semibold">Completed (4.2s)</span>
                   </div>
-                  <div className="p-3 rounded-lg bg-[#FAFAFA] border border-neutral-200 flex items-center justify-between">
+                  <div className="p-3 rounded-md bg-[#FAFAFA] border border-neutral-200 flex items-center justify-between">
                     <span className="text-neutral-700">2. Cross-reference enterprise indemnity policy</span>
                     <span className="font-mono text-emerald-600 text-[11px] font-semibold">Flagged 2 Exceptions</span>
                   </div>
-                  <div className="p-3 rounded-lg bg-[#FAFAFA] border border-neutral-200 flex items-center justify-between">
+                  <div className="p-3 rounded-md bg-[#FAFAFA] border border-neutral-200 flex items-center justify-between">
                     <span className="text-neutral-700">3. Draft redline recommendations in Google Docs</span>
                     <span className="font-mono text-blue-600 text-[11px] font-semibold">Awaiting Signoff</span>
                   </div>
@@ -227,7 +227,7 @@ export function ProductBenefitsSection() {
                   </div>
                   <div className="flex items-center gap-2">
                     <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
-                    <span>SOC-2 Type II, ISO-27001, and HIPAA compliant.</span>
+                    <span>SOC-2 Type II, FedRAMP Aligned, and HIPAA compliant.</span>
                   </div>
                 </div>
               </div>
@@ -244,7 +244,7 @@ export function ProductBenefitsSection() {
 
             {/* UI Mockup (7 cols) */}
             <div className="lg:col-span-7 p-6 sm:p-10 lg:p-12 bg-[#FAFBFD]/60 flex items-center justify-center">
-              <div className="w-full rounded-xl border border-neutral-200 bg-white p-5 sm:p-6 shadow-xs space-y-3">
+              <div className="w-full rounded-md border border-neutral-200 bg-white p-5 sm:p-6 shadow-xs space-y-3">
                 <div className="flex items-center justify-between pb-3 border-b border-neutral-100">
                   <span className="text-xs font-bold text-neutral-900">
                     Audit Execution Pipeline
@@ -254,7 +254,7 @@ export function ProductBenefitsSection() {
                   </span>
                 </div>
 
-                <div className="p-3.5 rounded-lg bg-[#FAFAFA] border border-neutral-200 text-xs space-y-1.5">
+                <div className="p-3.5 rounded-md bg-[#FAFAFA] border border-neutral-200 text-xs space-y-1.5">
                   <div className="font-bold text-neutral-900">Action: Jira Ticket Automated Resolution</div>
                   <div className="text-neutral-500 text-[11px]">Triggered via verified Slack thread approval from @security-lead</div>
                   <div className="font-mono text-emerald-600 text-[10px]">SHA-256: 8f9b...a102 | State: Persisted to Audit Ledger</div>

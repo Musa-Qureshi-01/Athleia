@@ -25,7 +25,7 @@ class EvolutionAuthService:
         # In-memory tracking of active demo sessions and quota usage
         self._active_sessions: Dict[str, Dict[str, Any]] = {}
 
-    def issue_demo_token(self, req: EvolutionTokenRequest) -> EvolutionTokenResponse:
+    async def issue_demo_token(self, req: EvolutionTokenRequest) -> EvolutionTokenResponse:
         session_id = f"evo_{uuid.uuid4().hex[:12]}"
         now = datetime.now(timezone.utc)
         expires = now + timedelta(hours=settings.EVOLUTION_SESSION_EXPIRE_HOURS)
@@ -61,31 +61,26 @@ class EvolutionAuthService:
             "created_at": now.isoformat(),
         }
 
-        # Persist session to dedicated evolution_accounts table
+        # Directly persist session to dedicated evolution_accounts table
         try:
-            async def _persist_session():
-                async with async_session_factory() as db:
-                    account = DBEvolutionAccount(
-                        session_id=session_id,
-                        demo_email=demo_email,
-                        full_name=req.full_name or "Evaluation Guest",
-                        phone_number=req.phone_number or "",
-                        demo_organization=demo_org,
-                        role="EVOLUTION_GUEST",
-                        queries_used=0,
-                        queries_limit=EvolutionRestrictions.MAX_DEMO_QUERIES,
-                        is_active=True,
-                        created_at=now.isoformat(),
-                        expires_at=expires.isoformat(),
-                    )
-                    db.add(account)
-                    await db.commit()
-
-            try:
-                loop = asyncio.get_running_loop()
-                loop.create_task(_persist_session())
-            except RuntimeError:
-                pass
+            async with async_session_factory() as db:
+                account = DBEvolutionAccount(
+                    session_id=session_id,
+                    demo_email=demo_email,
+                    full_name=req.full_name or "Evaluation Guest",
+                    phone_number=req.phone_number or "",
+                    demo_organization=demo_org,
+                    evaluation_purpose=getattr(req, "purpose", "Evaluation"),
+                    role="EVOLUTION_GUEST",
+                    queries_used=0,
+                    queries_limit=EvolutionRestrictions.MAX_DEMO_QUERIES,
+                    is_active=True,
+                    created_at=now.isoformat(),
+                    expires_at=expires.isoformat(),
+                )
+                db.add(account)
+                await db.commit()
+                logger.info(f"Evaluation account persisted: session_id={session_id}, email={demo_email}")
         except Exception as e:
             logger.warning(f"Notice: evolution account db save deferred: {e}")
 

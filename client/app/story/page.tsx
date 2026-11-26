@@ -72,7 +72,7 @@ export default function StoryPage() {
                 {MILESTONES.map((m, i) => (
                   <div
                     key={i}
-                    className="p-6 rounded-xl border border-neutral-200/90 bg-[#FAFBFD] shadow-xs space-y-3 relative group hover:border-[#1F45EC]/40 transition-colors"
+                    className="p-6 rounded-md border border-neutral-200/90 bg-[#FAFBFD] shadow-xs space-y-3 relative group hover:border-[#1F45EC]/40 transition-colors"
                   >
                     <div className="flex items-center justify-between">
                       <span className="font-mono text-sm font-bold text-[#1F45EC]">{m.year}</span>

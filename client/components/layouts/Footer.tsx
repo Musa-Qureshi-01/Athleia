@@ -22,7 +22,7 @@ export function Footer() {
 
   return (
     <footer className="bg-white border-t border-neutral-200 text-neutral-900 font-sans">
-      <div className="max-w-[1280px] mx-auto border-x border-neutral-200">
+      <div className="max-w-[1120px] mx-auto border-x border-neutral-200">
         
         {/* Boxy 5-Column Grid with Clear Line Dividers */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 divide-y md:divide-y-0 md:divide-x divide-neutral-200 border-b border-neutral-200">
@@ -275,12 +275,12 @@ export function Footer() {
             </h3>
 
             <ul className="space-y-2.5 text-[15px] text-neutral-600 font-sans">
-              <li><Link href="/contact" className="hover:text-black transition-colors block">About</Link></li>
-              <li><Link href="/contact" className="hover:text-black transition-colors block">Careers</Link></li>
-              <li><Link href="/contact" className="hover:text-black transition-colors block">Newsroom</Link></li>
+              <li><Link href="/about" className="hover:text-black transition-colors block">About</Link></li>
+              <li><Link href="/careers" className="hover:text-black transition-colors block">Careers</Link></li>
+              <li><Link href="/resources" className="hover:text-black transition-colors block">Newsroom</Link></li>
               <li><Link href="/contact" className="hover:text-black transition-colors block">Referrals</Link></li>
               <li><Link href="/contact" className="hover:text-black transition-colors block">Partners</Link></li>
-              <li><Link href="/contact" className="hover:text-black transition-colors block">Trust Center</Link></li>
+              <li><Link href="/security" className="hover:text-black transition-colors block">Trust Center</Link></li>
               <li><Link href="/contact" className="hover:text-black transition-colors block">Contact Us</Link></li>
             </ul>
           </div>
@@ -291,9 +291,9 @@ export function Footer() {
         <div className="px-8 sm:px-10 lg:px-12 py-7 flex flex-col sm:flex-row items-center justify-between gap-4 text-[13.5px] sm:text-[14px] text-neutral-500 font-sans bg-white">
           <span>&copy; {new Date().getFullYear()} Axios Technologies, Inc. All rights reserved.</span>
           <div className="flex items-center gap-6 sm:gap-8">
-            <Link href="/contact" className="hover:text-neutral-900 transition-colors">Privacy Policy</Link>
-            <Link href="/contact" className="hover:text-neutral-900 transition-colors">Terms of Service</Link>
-            <Link href="/contact" className="hover:text-neutral-900 transition-colors">Security &amp; Compliance</Link>
+            <Link href="/privacy" className="hover:text-neutral-900 transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-neutral-900 transition-colors">Terms of Service</Link>
+            <Link href="/security" className="hover:text-neutral-900 transition-colors">Security &amp; Compliance</Link>
           </div>
         </div>
 

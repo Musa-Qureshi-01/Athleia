@@ -6,7 +6,7 @@ import { ArrowRight } from "lucide-react";
 export function PreFooterBanner() {
   return (
     <section className="bg-white border-t border-neutral-200 overflow-hidden relative font-sans">
-      <div className="max-w-[1280px] mx-auto border-x border-neutral-200 px-8 sm:px-12 lg:px-16 py-16 sm:py-20 lg:py-24 flex flex-col md:flex-row items-center justify-between gap-8 relative">
+      <div className="max-w-[1120px] mx-auto border-x border-neutral-200 px-8 sm:px-12 lg:px-16 py-16 sm:py-20 lg:py-24 flex flex-col md:flex-row items-center justify-between gap-8 relative">
         
         {/* Left Headline & Action matching Screenshot */}
         <div className="flex flex-col sm:flex-row sm:items-center gap-6 lg:gap-10 z-10">
@@ -16,7 +16,7 @@ export function PreFooterBanner() {
 
           <Link
             href="/get-a-demo"
-            className="h-12 px-8 rounded-full text-[15px] font-semibold bg-black text-white hover:bg-neutral-800 transition-all flex items-center justify-center shadow-xs w-fit cursor-pointer shrink-0"
+            className="h-12 px-8 rounded-md text-[15px] font-semibold bg-black text-white hover:bg-neutral-800 transition-all flex items-center justify-center shadow-xs w-fit cursor-pointer shrink-0"
           >
             Get a demo
           </Link>

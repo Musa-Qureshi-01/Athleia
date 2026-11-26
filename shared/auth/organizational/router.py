@@ -17,6 +17,7 @@ from shared.auth.models import (
     UserStatus,
 )
 from shared.auth.organizational.service import org_auth_service
+from shared.auth.organizational.organization_service import organization_service
 from shared.auth.organizational.client import get_organizational_workos_client
 from shared.auth.organizational.middleware import (
     get_current_org_user,
@@ -196,3 +197,27 @@ async def delete_user(
     admin_user: dict = Depends(require_admin_role),
 ):
     return await org_auth_service.delete_user(user_id)
+
+
+# ── Organization Tenant Management & RLS Endpoints ───────────────────────────
+
+@users_router.get("/organization/members", summary="List Members in Caller's Tenant (RLS Enforced)")
+async def list_tenant_members(user: dict = Depends(get_current_org_user)):
+    """Fetches members strictly scoped to caller's organization via Row-Level Security."""
+    members = await organization_service.list_organization_members(user_context=user)
+    return {
+        "organization": user.get("organization"),
+        "count": len(members),
+        "members": members,
+    }
+
+
+@users_router.get("/organization/permissions", summary="Get Effective Permissions for Active User")
+async def get_my_permissions(user: dict = Depends(get_current_org_user)):
+    role = user.get("role", "")
+    perms = organization_service.get_effective_permissions(role)
+    return {
+        "role": role,
+        "organization": user.get("organization"),
+        "permissions": perms,
+    }

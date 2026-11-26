@@ -36,7 +36,7 @@ export function ContextualPlaceholderPage({
       <main className="flex-1 flex flex-col justify-center items-center py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-4xl mx-auto">
           {/* Card Container with Home Page Fluid Ribbon Background */}
-          <div className="relative rounded-2xl overflow-hidden border border-neutral-200/90 shadow-lg bg-neutral-950 text-white min-h-[460px] sm:min-h-[520px] flex flex-col justify-between p-8 sm:p-14 lg:p-16">
+          <div className="relative rounded-md overflow-hidden border border-neutral-200/90 shadow-lg bg-neutral-950 text-white min-h-[460px] sm:min-h-[520px] flex flex-col justify-between p-8 sm:p-14 lg:p-16">
             
             {/* Background 3D Fluid Ribbon Image from Homepage */}
             <img

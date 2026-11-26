@@ -34,7 +34,7 @@ const APPS: AppConnector[] = [
 const SEARCH_QUERIES = [
   "Find isolation procedure and P&ID drawing for boiler feed pump P-101A",
   "Summarize high-pressure steam valve ECO-8842 and outline calibration steps",
-  "Audit cooling water maintenance SOPs against ISO 45001 & OSHA 1910 standards",
+  "Audit cooling water maintenance SOPs against OSHA 1910 & EPA compliance standards",
   "What caused vibration anomaly on Turbine Compressor C-302 during night shift?",
 ];
 
@@ -89,7 +89,7 @@ export function HeroSection() {
 
   return (
     <section id="hero" className="relative pb-10 sm:pb-14 lg:pb-16 overflow-hidden bg-white font-sans">
-      <div className="max-w-[1280px] mx-auto border-x border-neutral-200 px-4 sm:px-8 lg:px-12 pt-14 sm:pt-20 lg:pt-24 pb-0">
+      <div className="max-w-[1120px] mx-auto border-x border-neutral-200 px-4 sm:px-8 lg:px-12 pt-14 sm:pt-20 lg:pt-24 pb-0">
         
         {/* Top Centered Header Content */}
         <div className="text-center max-w-6xl mx-auto mb-10 sm:mb-14">

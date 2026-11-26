@@ -54,7 +54,7 @@ export function MetricsSection() {
 
   return (
     <section id="statistics" className="bg-white border-t border-neutral-200 font-sans overflow-hidden scroll-mt-10">
-      <div className="max-w-[1280px] mx-auto border-x border-neutral-200 px-6 sm:px-12 lg:px-16 xl:pl-20 py-12 sm:py-16 lg:py-20">
+      <div className="max-w-[1120px] mx-auto border-x border-neutral-200 px-6 sm:px-12 lg:px-16 xl:pl-20 py-12 sm:py-16 lg:py-20">
         
         {/* Section Headline with Calibrated Proportionate Size */}
         <div className="max-w-3xl mb-8 sm:mb-10">
@@ -66,56 +66,28 @@ export function MetricsSection() {
           </p>
         </div>
 
-        {/* 6 Boxed Cards with Calibrated Compact Ergonomics & Clean Boxy Corners */}
-        <div className="rounded-lg border border-neutral-200/90 bg-white overflow-hidden shadow-xs">
-          
-          {/* Top Row (3 boxes) */}
-          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-neutral-200">
-            {topRow.map((item) => (
+        {/* 6 Boxed Cards: Concise 2-col on Mobile, 3-col on Desktop, Sharp Clean Corners */}
+        <div className="rounded-md border border-neutral-200/90 bg-white overflow-hidden shadow-xs">
+          <div className="grid grid-cols-2 md:grid-cols-3 divide-x divide-y divide-neutral-200">
+            {STATS.map((item) => (
               <div
                 key={item.id}
-                className="p-5 sm:p-6 lg:p-7 flex flex-col justify-between min-h-[160px] bg-white hover:bg-[#FAFBFD] transition-colors"
+                className="p-3.5 sm:p-5 lg:p-7 flex flex-col justify-between min-h-[130px] sm:min-h-[160px] bg-white hover:bg-[#FAFBFD] transition-colors"
               >
                 <div>
-                  <div className="text-[34px] sm:text-[40px] lg:text-[44px] font-light tracking-[-0.035em] text-neutral-900 leading-none mb-2.5 font-sans">
+                  <div className="text-[26px] sm:text-[36px] lg:text-[44px] font-light tracking-[-0.035em] text-neutral-900 leading-none mb-1.5 sm:mb-2.5 font-sans">
                     {item.metric}
                   </div>
-                  <p className="text-[12px] sm:text-[13px] font-mono text-neutral-600 leading-snug uppercase tracking-tight">
+                  <p className="text-[11px] sm:text-[12.5px] font-mono text-neutral-600 leading-snug uppercase tracking-tight">
                     {item.label}
                   </p>
                 </div>
-                <div className="mt-4 pt-2.5 border-t border-neutral-100 text-[10.5px] font-mono text-neutral-400">
+                <div className="mt-3 pt-2 border-t border-neutral-100 text-[9.5px] sm:text-[10.5px] font-mono text-neutral-400 truncate">
                   {item.source}
                 </div>
               </div>
             ))}
           </div>
-
-          {/* Dividing Hairline */}
-          <div className="border-t border-neutral-200" />
-
-          {/* Bottom Row (3 boxes) */}
-          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-neutral-200">
-            {bottomRow.map((item) => (
-              <div
-                key={item.id}
-                className="p-5 sm:p-6 lg:p-7 flex flex-col justify-between min-h-[160px] bg-white hover:bg-[#FAFBFD] transition-colors"
-              >
-                <div>
-                  <div className="text-[34px] sm:text-[40px] lg:text-[44px] font-light tracking-[-0.035em] text-neutral-900 leading-none mb-2.5 font-sans">
-                    {item.metric}
-                  </div>
-                  <p className="text-[12px] sm:text-[13px] font-mono text-neutral-600 leading-snug uppercase tracking-tight">
-                    {item.label}
-                  </p>
-                </div>
-                <div className="mt-4 pt-2.5 border-t border-neutral-100 text-[10.5px] font-mono text-neutral-400">
-                  {item.source}
-                </div>
-              </div>
-            ))}
-          </div>
-
         </div>
 
       </div>

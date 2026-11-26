@@ -86,7 +86,7 @@ export function WorkAIInstituteSection() {
 
   return (
     <section id="institute" className="bg-[#090A0F] text-white font-sans overflow-hidden border-t border-neutral-800/80 relative select-none">
-      
+
       {/* Fine Perforated Grid Texture (Matches Reference Screenshot) */}
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.16]"
@@ -96,8 +96,8 @@ export function WorkAIInstituteSection() {
         }}
       />
 
-      <div className="max-w-[1280px] mx-auto border-x border-white/10 px-6 sm:px-10 lg:px-14 py-16 sm:py-20 lg:py-24 relative z-10">
-        
+      <div className="max-w-[1120px] mx-auto border-x border-white/10 px-6 sm:px-10 lg:px-14 py-16 sm:py-20 lg:py-24 relative z-10">
+
         {/* Top Eyebrow Header with Fine Hairline Divider */}
         <div className="pb-6 mb-12 border-b border-white/15 flex items-center justify-between">
           <span className="text-[12px] sm:text-[13px] font-mono tracking-wider text-white/70 uppercase">
@@ -116,7 +116,7 @@ export function WorkAIInstituteSection() {
 
         {/* Top Content Row: Left "Work Ai INSTITUTE" + Main Heading + Right "Discover" Button */}
         <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-8 pb-10 sm:pb-14">
-          
+
           {/* Left Brand Identity: High-contrast Serif "Work Ai" + Bold Tracking "INSTITUTE" */}
           <div className="shrink-0 max-w-[200px]">
             <div className="flex flex-col">
@@ -140,7 +140,7 @@ export function WorkAIInstituteSection() {
           <div className="shrink-0 self-start lg:self-center">
             <button
               onClick={() => setActiveModalItem(INSTITUTE_ITEMS[0])}
-              className="h-10 px-5 rounded-full bg-white hover:bg-neutral-200 text-neutral-950 font-semibold text-[13.5px] sm:text-[14px] transition-all shadow-sm cursor-pointer whitespace-nowrap flex items-center gap-1.5"
+              className="h-10 px-5 rounded-md bg-white hover:bg-neutral-200 text-neutral-950 font-semibold text-[13.5px] sm:text-[14px] transition-all shadow-sm cursor-pointer whitespace-nowrap flex items-center gap-1.5"
             >
               Discover Work AI Institute
             </button>
@@ -204,7 +204,7 @@ export function WorkAIInstituteSection() {
                   >
                     {item.cta}
                   </span>
-                  
+
                   {/* Sliding Arrow Icon */}
                   <span
                     className={cn(
@@ -225,7 +225,7 @@ export function WorkAIInstituteSection() {
           <div className="hidden lg:block pointer-events-none absolute right-16 top-0 bottom-0 z-20">
             <motion.div
               style={{ y: mouseY }}
-              className="-translate-y-1/2 w-[240px] h-[190px] rounded-xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.65)] border border-white/15 backdrop-blur-xl relative"
+              className="-translate-y-1/2 w-[240px] h-[190px] rounded-md overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.65)] border border-white/15 backdrop-blur-xl relative"
             >
               <AnimatePresence mode="wait">
                 {hoveredIndex !== null && (
@@ -289,7 +289,7 @@ export function WorkAIInstituteSection() {
               initial={{ opacity: 0, scale: 0.95, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 15 }}
-              className="bg-[#0E1017] border border-neutral-700/80 rounded-xl max-w-2xl w-full p-6 sm:p-8 text-white shadow-2xl relative max-h-[90vh] overflow-y-auto"
+              className="bg-[#0E1017] border border-neutral-700/80 rounded-md max-w-2xl w-full p-6 sm:p-8 text-white shadow-2xl relative max-h-[90vh] overflow-y-auto"
             >
               <button
                 onClick={() => setActiveModalItem(null)}

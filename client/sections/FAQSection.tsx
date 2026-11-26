@@ -67,7 +67,7 @@ export function FAQSection() {
 
   return (
     <section id="faqs" className="bg-[#FAFBFD] border-t border-neutral-200 font-sans overflow-hidden">
-      <div className="max-w-[1280px] mx-auto border-x border-neutral-200 px-6 sm:px-10 lg:px-14 py-16 sm:py-20 lg:py-24">
+      <div className="max-w-[1120px] mx-auto border-x border-neutral-200 px-6 sm:px-10 lg:px-14 py-16 sm:py-20 lg:py-24">
         
         {/* Section Header */}
         <div className="max-w-3xl mb-12 sm:mb-16">
@@ -82,8 +82,8 @@ export function FAQSection() {
           </p>
         </div>
 
-        {/* Boxed FAQ Accordion List */}
-        <div className="rounded-2xl border border-neutral-200/90 bg-white overflow-hidden shadow-xs divide-y divide-neutral-200">
+        {/* Boxed FAQ Accordion List with Sharp Boxy Corners */}
+        <div className="rounded-md border border-neutral-200/90 bg-white overflow-hidden shadow-xs divide-y divide-neutral-200">
           {FAQS.map((faq) => {
             const isOpen = openId === faq.id;
 
@@ -136,7 +136,7 @@ export function FAQSection() {
         </div>
 
         {/* Additional Questions Card */}
-        <div className="mt-8 p-6 rounded-2xl border border-neutral-200 bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="mt-8 p-6 rounded-md border border-neutral-200 bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <HelpCircle size={20} className="text-[#1F45EC] shrink-0" />
             <p className="text-sm font-medium text-neutral-800 font-sans">

@@ -100,7 +100,7 @@ export function ValuePropositionSection() {
 
   return (
     <section id="problem-statement" className="border-t border-neutral-200 bg-white font-sans overflow-hidden">
-      <div className="max-w-[1280px] mx-auto border-x border-neutral-200">
+      <div className="max-w-[1120px] mx-auto border-x border-neutral-200">
         
         {/* Top Row: Left 3-Line Heading + Right Token Savings Card (Matches Reference Exactly) */}
         <div className="px-6 sm:px-12 lg:px-16 xl:pl-20 py-12 sm:py-16 lg:py-20 flex flex-col lg:flex-row lg:items-center justify-between gap-10 lg:gap-14">

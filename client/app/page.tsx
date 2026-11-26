@@ -37,8 +37,10 @@ export default function Home() {
         {/* 3rd: Enterprise AI Value Proposition (Problem Statement & Solution: Context, Intelligence, Permissions, Efficiency) */}
         <ValuePropositionSection />
 
-        {/* 4th: Security & Governance Console (Permission-aware access, ACLs, VPC deployment, zero model retention) */}
-        <SecurityGovernanceSection />
+        {/* 4th: Security & Governance Console (Hidden on mobile per clean mobile layout rules) */}
+        <div className="hidden md:block">
+          <SecurityGovernanceSection />
+        </div>
 
         {/* 5th: Six Website-Ready Statistics (19%, 62%, 2.8 hrs, 40%, 8-10 hrs, 35%) */}
         <MetricsSection />

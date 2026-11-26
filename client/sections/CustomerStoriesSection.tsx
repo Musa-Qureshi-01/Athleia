@@ -248,7 +248,7 @@ export function CustomerStoriesSection() {
       id="customers"
       className="bg-white border-t border-neutral-200 font-sans overflow-hidden scroll-mt-10"
     >
-      <div className="max-w-[1280px] mx-auto border-x border-neutral-200 px-6 sm:px-12 lg:px-16 xl:pl-20 py-16 sm:py-20 lg:py-24">
+      <div className="max-w-[1120px] mx-auto border-x border-neutral-200 px-6 sm:px-12 lg:px-16 xl:pl-20 py-16 sm:py-20 lg:py-24">
         
         {/* ======================================================== */}
         {/* PART 1: "One platform. Every team." Accordion Section    */}
@@ -284,7 +284,7 @@ export function CustomerStoriesSection() {
         </div>
 
         {/* Boxed Customer Accordion with authentic Glean layout */}
-        <div className="rounded-2xl border border-neutral-200/90 bg-white overflow-hidden shadow-xs divide-y divide-neutral-200">
+        <div className="rounded-md border border-neutral-200/90 bg-white overflow-hidden shadow-xs divide-y divide-neutral-200">
           {STORIES.map((story) => {
             const isOpen = openId === story.id;
             const LogoComp = story.logo;
@@ -348,20 +348,20 @@ export function CustomerStoriesSection() {
                           {/* Left Column: 3 Metric Stats + Paragraph + Link */}
                           <div className="lg:col-span-7 flex flex-col justify-between space-y-6">
                             
-                            {/* 3 Metric Columns with vertical dividers */}
-                            <div className="flex items-start gap-4 sm:gap-8 pt-2">
+                            {/* 3 Metric Columns with responsive wrapping */}
+                            <div className="grid grid-cols-3 gap-3 sm:flex sm:items-start sm:gap-8 pt-2">
                               {story.metrics.map((m, idx) => (
-                                <div key={idx} className="flex items-start gap-4 sm:gap-8">
+                                <div key={idx} className="flex items-start gap-3 sm:gap-8">
                                   <div>
-                                    <div className="text-[30px] sm:text-[38px] font-bold text-neutral-900 tracking-tight leading-none font-sans">
+                                    <div className="text-[24px] sm:text-[38px] font-bold text-neutral-900 tracking-tight leading-none font-sans">
                                       {m.value}
                                     </div>
-                                    <div className="text-[12px] sm:text-[13px] text-neutral-500 font-sans mt-2 leading-tight">
+                                    <div className="text-[11px] sm:text-[13px] text-neutral-500 font-sans mt-1.5 sm:mt-2 leading-tight">
                                       {m.label}
                                     </div>
                                   </div>
                                   {idx < story.metrics.length - 1 && (
-                                    <div className="w-px h-12 bg-neutral-200 shrink-0 self-center" />
+                                    <div className="hidden sm:block w-px h-12 bg-neutral-200 shrink-0 self-center" />
                                   )}
                                 </div>
                               ))}
@@ -386,7 +386,7 @@ export function CustomerStoriesSection() {
 
                           {/* Right Column: High Quality Image */}
                           <div className="lg:col-span-5">
-                            <div className="rounded-xl overflow-hidden aspect-[4/3] relative border border-neutral-200/80 shadow-xs bg-neutral-100">
+                            <div className="rounded-md overflow-hidden aspect-[4/3] relative border border-neutral-200/80 shadow-xs bg-neutral-100">
                               <img
                                 src={story.image}
                                 alt={story.imageAlt}
@@ -469,7 +469,7 @@ export function CustomerStoriesSection() {
                   key={leader.id}
                   onClick={() => selectLeader(idx)}
                   className={cn(
-                    "snap-center shrink-0 rounded-2xl relative overflow-hidden transition-all duration-300 cursor-pointer flex flex-col justify-between p-6 sm:p-8 select-none",
+                    "snap-center shrink-0 rounded-md relative overflow-hidden transition-all duration-300 cursor-pointer flex flex-col justify-between p-5 sm:p-8 select-none",
                     isSelected
                       ? "w-[85vw] sm:w-[580px] md:w-[640px] h-[400px] sm:h-[450px] shadow-lg ring-1 ring-black/10"
                       : "w-[240px] sm:w-[280px] md:w-[300px] h-[400px] sm:h-[450px] opacity-80 hover:opacity-100"

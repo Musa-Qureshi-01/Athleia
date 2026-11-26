@@ -290,7 +290,7 @@ export function IndustrySolutionsSection() {
 
   return (
     <section id="industries" className="bg-white border-t border-neutral-200 font-sans overflow-hidden scroll-mt-10">
-      <div className="max-w-[1280px] mx-auto border-x border-neutral-200 px-6 sm:px-12 lg:px-16 xl:pl-20 py-16 sm:py-20 lg:py-24">
+      <div className="max-w-[1120px] mx-auto border-x border-neutral-200 px-6 sm:px-12 lg:px-16 xl:pl-20 py-16 sm:py-20 lg:py-24">
         
         {/* Section Headline matching Reference Screenshot */}
         <div className="mb-10 sm:mb-12">

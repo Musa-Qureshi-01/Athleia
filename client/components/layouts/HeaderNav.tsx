@@ -65,7 +65,7 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-neutral-200 transition-all font-sans select-none">
-      <div className="max-w-[1280px] mx-auto border-x border-neutral-200 px-6 lg:px-10 h-[74px] flex items-center justify-between">
+      <div className="max-w-[1120px] mx-auto border-x border-neutral-200 px-6 lg:px-10 h-[74px] flex items-center justify-between">
 
         {/* Left Side: Brand Logo + Desktop Nav Links */}
         <div className="flex items-center gap-8 xl:gap-10 h-full">
@@ -250,7 +250,7 @@ export function Navbar() {
                           <div className="space-y-1 text-[13px]">
                             <Link href="/products/compliance-intelligence" className="group/item flex items-center gap-2.5 py-1.5 px-2 -mx-2 rounded-lg hover:bg-neutral-50 transition-all duration-150">
                               <Layers size={14} className="text-neutral-400 group-hover/item:text-[#1F45EC]" />
-                              <span className="text-neutral-700 group-hover/item:text-black group-hover/item:translate-x-1 transition-all">ISO 45001 &amp; OSHA scanner</span>
+                              <span className="text-neutral-700 group-hover/item:text-black group-hover/item:translate-x-1 transition-all">Regulatory &amp; OSHA scanner</span>
                             </Link>
                             <Link href="/products/compliance-intelligence" className="group/item flex items-center gap-2.5 py-1.5 px-2 -mx-2 rounded-lg hover:bg-neutral-50 transition-all duration-150">
                               <GitBranch size={14} className="text-neutral-400 group-hover/item:text-[#1F45EC]" />
@@ -627,27 +627,20 @@ export function Navbar() {
           
           <div className="space-y-4">
             <span className="text-[11px] font-mono uppercase tracking-wider text-neutral-400 font-semibold block">
-              PLATFORM &amp; PRODUCTS
+              PRODUCTS
             </span>
             <div className="space-y-2.5 text-sm">
               <Link
-                href="/enterprise-context"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block font-semibold text-neutral-900 hover:text-[#1F45EC] transition-colors"
-              >
-                Enterprise Context
-              </Link>
-              <Link
                 href="/products/workforce-copilot"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block text-neutral-600 hover:text-black transition-colors"
+                className="block font-medium text-neutral-800 hover:text-[#1F45EC] transition-colors"
               >
                 Workforce Copilot
               </Link>
               <Link
                 href="/products/compliance-intelligence"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block text-neutral-600 hover:text-black transition-colors"
+                className="block font-medium text-neutral-800 hover:text-[#1F45EC] transition-colors"
               >
                 Compliance Core
               </Link>

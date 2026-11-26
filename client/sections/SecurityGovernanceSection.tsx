@@ -6,7 +6,7 @@ import { Lightbulb, Layers, Zap, Lock, Eye, ShieldCheck, Check } from "lucide-re
 export function SecurityGovernanceSection() {
   return (
     <section className="bg-white font-sans overflow-hidden">
-      <div className="max-w-[1280px] mx-auto border-x border-neutral-200">
+      <div className="max-w-[1120px] mx-auto border-x border-neutral-200">
         
         {/* ========================================================================= */}
         {/* 1. TOP 50/50 SECTION (#solution): Turn Knowledge into Action               */}
@@ -41,7 +41,7 @@ export function SecurityGovernanceSection() {
             <div className="relative z-10 space-y-3.5 max-w-md w-full mx-auto lg:ml-auto">
               
               {/* Card 01: Better answers */}
-              <div className="bg-white/90 backdrop-blur-md rounded-xl border border-white/80 shadow-[0_10px_30px_rgba(0,0,0,0.06)] p-4 sm:p-5 hover:bg-white transition-all group">
+              <div className="bg-white/90 backdrop-blur-md rounded-md border border-white/80 shadow-[0_10px_30px_rgba(0,0,0,0.06)] p-4 sm:p-5 hover:bg-white transition-all group">
                 <div className="flex items-center gap-2 text-neutral-700">
                   <Lightbulb size={16} className="text-neutral-700" />
                 </div>
@@ -60,7 +60,7 @@ export function SecurityGovernanceSection() {
               </div>
 
               {/* Card 02: Fewer tokens */}
-              <div className="bg-white/90 backdrop-blur-md rounded-xl border border-white/80 shadow-[0_10px_30px_rgba(0,0,0,0.06)] p-4 sm:p-5 hover:bg-white transition-all group">
+              <div className="bg-white/90 backdrop-blur-md rounded-md border border-white/80 shadow-[0_10px_30px_rgba(0,0,0,0.06)] p-4 sm:p-5 hover:bg-white transition-all group">
                 <div className="flex items-center gap-2 text-neutral-700">
                   <Layers size={16} className="text-neutral-700" />
                 </div>
@@ -79,7 +79,7 @@ export function SecurityGovernanceSection() {
               </div>
 
               {/* Card 03: Lower cost to serve */}
-              <div className="bg-white/90 backdrop-blur-md rounded-xl border border-white/80 shadow-[0_10px_30px_rgba(0,0,0,0.06)] p-4 sm:p-5 hover:bg-white transition-all group">
+              <div className="bg-white/90 backdrop-blur-md rounded-md border border-white/80 shadow-[0_10px_30px_rgba(0,0,0,0.06)] p-4 sm:p-5 hover:bg-white transition-all group">
                 <div className="flex items-center gap-2 text-neutral-700">
                   <Zap size={16} className="text-neutral-700" />
                 </div>
@@ -180,63 +180,75 @@ export function SecurityGovernanceSection() {
         </div>
 
         {/* ========================================================================= */}
-        {/* 3. COMPLIANCE BADGES STRIP (Full-Width Hairline Grid matching Snapshot)   */}
+        {/* 3. COMPLIANCE BADGES STRIP (Blurred certificates as requested)             */}
         {/* ========================================================================= */}
         <div className="border-t border-b border-neutral-200 bg-white">
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 divide-x divide-y sm:divide-y-0 divide-neutral-200 text-center">
             
-            {/* 1. ISO 27001 */}
-            <div className="p-6 flex flex-col items-center justify-center space-y-1.5 hover:bg-neutral-50/60 transition-colors">
-              <div className="w-10 h-10 rounded-full border-2 border-neutral-800 flex items-center justify-center font-bold text-[10px] text-neutral-800 font-mono tracking-tighter">
-                ISO
+            {/* 1. Badge 1 (Content & Logo Blurred) */}
+            <div className="p-6 flex flex-col items-center justify-center space-y-1.5 bg-neutral-50/40 relative overflow-hidden select-none">
+              <div className="filter blur-[5px] opacity-40 pointer-events-none flex flex-col items-center space-y-1.5 select-none">
+                <div className="w-10 h-10 rounded-full border-2 border-neutral-800 flex items-center justify-center font-bold text-[10px] text-neutral-800 font-mono tracking-tighter">
+                  NIST
+                </div>
+                <span className="text-[12px] font-bold text-neutral-900">NIST CSF</span>
+                <span className="text-[10px] text-neutral-400 font-mono">Security Framework</span>
               </div>
-              <span className="text-[12px] font-bold text-neutral-900">ISO 27001</span>
-              <span className="text-[10px] text-neutral-400 font-mono">InfoSec Certified</span>
             </div>
 
-            {/* 2. HIPAA */}
-            <div className="p-6 flex flex-col items-center justify-center space-y-1.5 hover:bg-neutral-50/60 transition-colors">
-              <div className="w-10 h-10 rounded-full border-2 border-neutral-800 flex items-center justify-center font-bold text-[10px] text-neutral-800 font-mono tracking-tighter">
-                HIPAA
+            {/* 2. Badge 2 (Content & Logo Blurred) */}
+            <div className="p-6 flex flex-col items-center justify-center space-y-1.5 bg-neutral-50/40 relative overflow-hidden select-none">
+              <div className="filter blur-[5px] opacity-40 pointer-events-none flex flex-col items-center space-y-1.5 select-none">
+                <div className="w-10 h-10 rounded-full border-2 border-neutral-800 flex items-center justify-center font-bold text-[10px] text-neutral-800 font-mono tracking-tighter">
+                  HIPAA
+                </div>
+                <span className="text-[12px] font-bold text-neutral-900">HIPAA Compliant</span>
+                <span className="text-[10px] text-neutral-400 font-mono">Healthcare Grade</span>
               </div>
-              <span className="text-[12px] font-bold text-neutral-900">HIPAA Compliant</span>
-              <span className="text-[10px] text-neutral-400 font-mono">Healthcare Grade</span>
             </div>
 
-            {/* 3. TX-RAMP */}
-            <div className="p-6 flex flex-col items-center justify-center space-y-1.5 hover:bg-neutral-50/60 transition-colors">
-              <div className="w-10 h-10 rounded-full border-2 border-neutral-800 flex items-center justify-center font-bold text-[10px] text-neutral-800 font-mono tracking-tighter">
-                RAMP
+            {/* 3. Badge 3 (Content & Logo Blurred) */}
+            <div className="p-6 flex flex-col items-center justify-center space-y-1.5 bg-neutral-50/40 relative overflow-hidden select-none">
+              <div className="filter blur-[5px] opacity-40 pointer-events-none flex flex-col items-center space-y-1.5 select-none">
+                <div className="w-10 h-10 rounded-full border-2 border-neutral-800 flex items-center justify-center font-bold text-[10px] text-neutral-800 font-mono tracking-tighter">
+                  RAMP
+                </div>
+                <span className="text-[12px] font-bold text-neutral-900">TX-RAMP</span>
+                <span className="text-[10px] text-neutral-400 font-mono">GovCloud Level 2</span>
               </div>
-              <span className="text-[12px] font-bold text-neutral-900">TX-RAMP</span>
-              <span className="text-[10px] text-neutral-400 font-mono">GovCloud Level 2</span>
             </div>
 
-            {/* 4. SOC 2 Type II */}
-            <div className="p-6 flex flex-col items-center justify-center space-y-1.5 hover:bg-neutral-50/60 transition-colors">
-              <div className="w-10 h-10 rounded-full border-2 border-neutral-800 flex items-center justify-center font-bold text-[10px] text-neutral-800 font-mono tracking-tighter">
-                SOC 2
+            {/* 4. Badge 4 (Content & Logo Blurred) */}
+            <div className="p-6 flex flex-col items-center justify-center space-y-1.5 bg-neutral-50/40 relative overflow-hidden select-none">
+              <div className="filter blur-[5px] opacity-40 pointer-events-none flex flex-col items-center space-y-1.5 select-none">
+                <div className="w-10 h-10 rounded-full border-2 border-neutral-800 flex items-center justify-center font-bold text-[10px] text-neutral-800 font-mono tracking-tighter">
+                  SOC 2
+                </div>
+                <span className="text-[12px] font-bold text-neutral-900">AICPA SOC 2</span>
+                <span className="text-[10px] text-neutral-400 font-mono">Type II Certified</span>
               </div>
-              <span className="text-[12px] font-bold text-neutral-900">AICPA SOC 2</span>
-              <span className="text-[10px] text-neutral-400 font-mono">Type II Certified</span>
             </div>
 
-            {/* 5. ISO 42001 */}
-            <div className="p-6 flex flex-col items-center justify-center space-y-1.5 hover:bg-neutral-50/60 transition-colors">
-              <div className="w-10 h-10 rounded-full border-2 border-neutral-800 flex items-center justify-center font-bold text-[10px] text-neutral-800 font-mono tracking-tighter">
-                42001
+            {/* 5. Badge 5 (Content & Logo Blurred) */}
+            <div className="p-6 flex flex-col items-center justify-center space-y-1.5 bg-neutral-50/40 relative overflow-hidden select-none">
+              <div className="filter blur-[5px] opacity-40 pointer-events-none flex flex-col items-center space-y-1.5 select-none">
+                <div className="w-10 h-10 rounded-full border-2 border-neutral-800 flex items-center justify-center font-bold text-[10px] text-neutral-800 font-mono tracking-tighter">
+                  RAMP
+                </div>
+                <span className="text-[12px] font-bold text-neutral-900">FedRAMP</span>
+                <span className="text-[10px] text-neutral-400 font-mono">High Equivalent</span>
               </div>
-              <span className="text-[12px] font-bold text-neutral-900">ISO 42001</span>
-              <span className="text-[10px] text-neutral-400 font-mono">AI Governance</span>
             </div>
 
-            {/* 6. GDPR */}
-            <div className="p-6 flex flex-col items-center justify-center space-y-1.5 hover:bg-neutral-50/60 transition-colors">
-              <div className="w-10 h-10 rounded-full border-2 border-neutral-800 flex items-center justify-center font-bold text-[10px] text-neutral-800 font-mono tracking-tighter">
-                GDPR
+            {/* 6. Badge 6 (Content & Logo Blurred) */}
+            <div className="p-6 flex flex-col items-center justify-center space-y-1.5 bg-neutral-50/40 relative overflow-hidden select-none">
+              <div className="filter blur-[5px] opacity-40 pointer-events-none flex flex-col items-center space-y-1.5 select-none">
+                <div className="w-10 h-10 rounded-full border-2 border-neutral-800 flex items-center justify-center font-bold text-[10px] text-neutral-800 font-mono tracking-tighter">
+                  GDPR
+                </div>
+                <span className="text-[12px] font-bold text-neutral-900">GDPR / EU</span>
+                <span className="text-[10px] text-neutral-400 font-mono">Data Sovereignty</span>
               </div>
-              <span className="text-[12px] font-bold text-neutral-900">GDPR / EU</span>
-              <span className="text-[10px] text-neutral-400 font-mono">Data Sovereignty</span>
             </div>
 
           </div>

@@ -70,8 +70,8 @@ export function VerticalScrollNavigator() {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className={cn(
-        // Anchored lower down near the bottom (below headlines) along the website border line
-        "fixed left-[max(10px,calc((100vw-1280px)/2-48px))] bottom-8 sm:bottom-12 z-40 hidden xl:flex flex-col select-none",
+        // Anchored lower down near the bottom along the spacious outer margin
+        "fixed left-[max(12px,calc((100vw-1120px)/2-56px))] bottom-8 sm:bottom-12 z-40 hidden xl:flex flex-col select-none",
         "bg-white/95 backdrop-blur-xl border border-neutral-300/90 rounded-lg shadow-[0_10px_32px_rgba(0,0,0,0.12)] p-1 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden",
         isHovered ? "w-[215px]" : "w-[44px]"
       )}

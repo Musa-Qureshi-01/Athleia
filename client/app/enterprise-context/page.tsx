@@ -121,7 +121,7 @@ export default function EnterpriseContextPage() {
               {/* Right Column: Hero Visual — 3D Iridescent Wave + Interactive Enterprise Graph Card (7 cols) */}
               <div className="lg:col-span-7 relative">
                 {/* 3D Iridescent Fluid Backdrop matching Glean Image 1 */}
-                <div className="relative rounded-2xl overflow-hidden border border-neutral-200/80 shadow-xl bg-[#0F1117] p-2 sm:p-4">
+                <div className="relative rounded-md overflow-hidden border border-neutral-200/80 shadow-xl bg-[#0F1117] p-2 sm:p-4">
                   
                   {/* Fluid Wave Texture in background */}
                   <div className="absolute inset-0 opacity-40 pointer-events-none overflow-hidden">
@@ -130,7 +130,7 @@ export default function EnterpriseContextPage() {
                   </div>
 
                   {/* Dark Charcoal Graph Card matching Screenshot */}
-                  <div className="relative rounded-xl bg-[#141620]/95 border border-white/10 p-4 sm:p-6 min-h-[380px] sm:min-h-[440px] flex flex-col justify-between overflow-hidden">
+                  <div className="relative rounded-md bg-[#141620]/95 border border-white/10 p-4 sm:p-6 min-h-[380px] sm:min-h-[440px] flex flex-col justify-between overflow-hidden">
                     
                     {/* Top Status Bar */}
                     <div className="flex items-center justify-between text-xs text-white/50 font-mono pb-3 border-b border-white/10 z-10">
@@ -301,7 +301,7 @@ export default function EnterpriseContextPage() {
 
               {/* Right Column: High-Fidelity Interactive Graph + Conversational UI Mockup (7 cols) */}
               <div className="lg:col-span-7">
-                <div className="rounded-xl border border-neutral-300/80 bg-white shadow-xl overflow-hidden">
+                <div className="rounded-md border border-neutral-300/80 bg-white shadow-xl overflow-hidden">
                   
                   {/* Top Mockup Header Bar */}
                   <div className="px-5 py-3.5 bg-neutral-50 border-b border-neutral-200 flex items-center justify-between text-xs text-neutral-500 font-mono">
@@ -319,7 +319,7 @@ export default function EnterpriseContextPage() {
                     
                     {/* User Message Bubble */}
                     <div className="flex justify-end">
-                      <div className="max-w-xl bg-neutral-100/90 rounded-2xl rounded-tr-sm px-5 py-3.5 text-[14px] sm:text-[15px] text-neutral-900 font-sans leading-relaxed">
+                      <div className="max-w-xl bg-neutral-100/90 rounded-md rounded-tr-sm px-5 py-3.5 text-[14px] sm:text-[15px] text-neutral-900 font-sans leading-relaxed">
                         Is anyone already building a way to predict which parts each dealership will run out of? Who should I talk to first?
                       </div>
                     </div>
@@ -617,7 +617,7 @@ export default function EnterpriseContextPage() {
         <section className="py-20 sm:py-24 bg-white font-sans overflow-hidden">
           <div className="max-w-[1280px] mx-auto px-6 sm:px-10 lg:px-14">
             
-            <div className="rounded-2xl bg-neutral-900 text-white p-8 sm:p-14 lg:p-16 relative overflow-hidden shadow-2xl flex flex-col lg:flex-row lg:items-center justify-between gap-10">
+            <div className="rounded-md bg-neutral-900 text-white p-8 sm:p-14 lg:p-16 relative overflow-hidden shadow-2xl flex flex-col lg:flex-row lg:items-center justify-between gap-10">
               
               {/* Subtle ambient lighting */}
               <div className="absolute top-0 right-0 w-[450px] h-[450px] bg-gradient-to-br from-[#1F45EC]/30 to-purple-600/20 rounded-full blur-3xl pointer-events-none" />

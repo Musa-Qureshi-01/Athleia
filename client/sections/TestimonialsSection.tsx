@@ -78,7 +78,7 @@ export function TestimonialsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.45, delay: idx * 0.1 }}
-              className="group relative bg-bg-secondary/40 border border-border-subtle hover:border-accent/40 rounded-2xl p-8 flex flex-col justify-between transition-all duration-300 hover:shadow-lg"
+              className="group relative bg-bg-secondary/40 border border-border-subtle hover:border-accent/40 rounded-md p-8 flex flex-col justify-between transition-all duration-300 hover:shadow-lg"
             >
               <div>
                 {/* Header Quote Icon & Badge */}

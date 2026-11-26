@@ -64,7 +64,7 @@ export default function AxiosOnAxiosPage() {
             </div>
 
             {/* Interactive Live Query Simulator / Transformation */}
-            <div className="mt-10 rounded-xl border border-neutral-300/80 bg-[#0F1424] text-white p-6 sm:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.15)] relative overflow-hidden">
+            <div className="mt-10 rounded-md border border-neutral-300/80 bg-[#0F1424] text-white p-6 sm:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.15)] relative overflow-hidden">
               
               {/* Top Bar */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/10">
